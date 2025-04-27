@@ -1,0 +1,236 @@
+﻿<Window x:Class="Layer_UI.Planlama_Ortak.Frm_IeKalanIhtiyac"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        xmlns:uc="clr-namespace:Layer_UI.UserControls"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        WindowState="Normal" MinWidth="800" MinHeight="500"   
+        WindowStartupLocation="CenterScreen"
+        MouseDown="mousedown_Window"
+        Background="Transparent"
+        AllowsTransparency="True"
+        x:Name="window_siparis">
+    <Window.Resources>
+        <vm:Cls_Planlama x:Key="cls_planlama"/>
+    </Window.Resources>
+
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+            BorderThickness="2"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="30,5" DataContext="vm">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="360"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1" 
+                                     x:Name="menu_top_bar"
+                                     Title="İŞEMRİ KALAN İHTİYAÇ" />
+                <StackPanel Grid.Row="1" Grid.Column="1"
+                            Orientation="Vertical" Margin="0 25 0 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Sipariş No" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Padding="5 0 0 0"
+                                   Width="150"/>
+                        <TextBlock Text="Sipariş Sıra" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="60"/>
+                        <TextBlock Text="Ürün Kodu" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="160"/>
+                        <TextBlock Text="Ürün Adı" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="150"
+                                 FontSize="16"
+                                 x:Name="txt_siparis_no"/>
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 Width="60"
+                                 x:Name="txt_siparis_sira"/>
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 Width="160"
+                                 x:Name="txt_urun_kodu"/>
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 Width="200"
+                                 x:Name="txt_urun_adi"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                Margin="0 20 0 0">
+                        <TextBlock Text="Referans İşemri" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Padding="5 0 0 0"
+                                   Width="150"/>
+                        <TextBlock Text="İşemri" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="150"/>
+                        <TextBlock Text="Mamul Kodu" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="160"/>
+                        <TextBlock Text="Mamul Adı" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="150"
+                                 FontSize="16"
+                                 x:Name="txt_refisemri_no"/>
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 Width="150"
+                                 x:Name="txt_isemrino"/>
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 Width="160"
+                                 x:Name="txt_mamul_kodu"/>
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 Width="200"
+                                 x:Name="txt_mamul_adi" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                Margin="0 20 0 0">
+                        <TextBlock Text="Ham Kodu" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Padding="5 0 0 0"
+                                   Width="150"/>
+                        <TextBlock Text="Ham Adı" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="150"/>
+                        <TextBlock Text="Kod1" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="100"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="150"
+                                 FontSize="16"
+                                 x:Name="txt_ham_kodu"/>
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 Width="150"
+                                 x:Name="txt_ham_adi"/>
+                        <ComboBox Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                  x:Name="cbx_kod_1"
+                                  Margin="30 0 0 0"
+                                  Width="100"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                Margin="0 10 0 0">
+
+                        <CheckBox Style="{StaticResource CheckBoxStyle1}"
+                                  IsChecked="True"
+                                    x:Name="cb_kapali_siparis"
+                                  />
+                        <TextBlock Text="Kapalı Siparişleri Gösterme"
+                                    Style="{StaticResource TextBlockStyle_16_Bold_3_light}"
+                                    Padding="5"
+                                   />
+
+
+                        <CheckBox Style="{StaticResource CheckBoxStyle1}" 
+                                  IsChecked="True"
+                                x:Name="cb_teslim_edilen_siparis"/>
+                        <TextBlock Text="Teslim Edilenleri Listeleme"
+                                Style="{StaticResource TextBlockStyle_16_Bold_3_light}"
+                                Padding="5"/>
+
+                        <CheckBox Style="{StaticResource CheckBoxStyle1}" 
+                                  IsChecked="True"
+                                x:Name="cb_isemri_olmayan_siparis"/>
+                        <TextBlock Text="İşemri Olmayanları Listeleme"
+                                Style="{StaticResource TextBlockStyle_16_Bold_3_light}"
+                                Padding="5"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                Margin="0 15 0 0">
+                        <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}" Content="Listele" Width="80"
+                                Click="btn_listele_clicked"
+                                />
+                        <TextBlock Text="Listeleniyor Lütfen Bekleyiniz..."
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_3_light}"
+                                   Foreground="{StaticResource b_r_three}"
+                                   x:Name="txt_please_wait"
+                                   Visibility="Collapsed"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Border>
+
+</Window>
+

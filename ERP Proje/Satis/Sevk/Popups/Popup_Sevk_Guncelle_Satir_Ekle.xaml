@@ -1,0 +1,290 @@
+﻿<Window x:Class="Layer_UI.Satis.Sevk.Popups.Popup_Sevk_Guncelle_Satir_Ekle"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Layer_UI.Satis.Sevk.Popups"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Satır Ekle" Width="1100" Height="720">
+    <Window.Resources>
+        <vm:Cls_Sevk x:Key="cls_sevk"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource cls_sevk}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1"
+            Orientation="Vertical" Margin="0 0 0 0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Sipariş No" HorizontalAlignment="Left" VerticalAlignment="Center"
+                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                   Padding="5 0 0 0"
+                   Width="150"/>
+                <TextBlock Text="Stok Kodu" HorizontalAlignment="Left" VerticalAlignment="Center"
+                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                   Margin="30 0 0 0"
+                   Padding="5 0 0 0"
+                   Width="150"/>
+                <TextBlock Text="Stoka Adı" HorizontalAlignment="Left" VerticalAlignment="Center"
+                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                   Margin="30 0 0 0"
+                   Padding="5 0 0 0"
+                   Width="200"/>
+                <TextBlock Text="Cari Adı" HorizontalAlignment="Left" VerticalAlignment="Center"
+                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                   Margin="30 0 0 0"
+                   Padding="5 0 0 0"
+                   Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                 Style="{StaticResource TextBoxStyle431_12}"
+                 Width="150"
+                 FontSize="16"
+                 x:Name="txt_siparis_no"/>
+                <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                 Style="{StaticResource TextBoxStyle431_12}"
+                 Margin="30 0 0 0"
+                 FontSize="16"
+                 Width="150"
+                 x:Name="txt_stok_kodu"/>
+                <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                 Style="{StaticResource TextBoxStyle431_12}"
+                 Margin="30 0 0 0"
+                 FontSize="16"
+                 Width="200"
+                 x:Name="txt_stok_adi"/>
+                <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                 Style="{StaticResource TextBoxStyle431_12}"
+                 Margin="30 0 0 0"
+                 FontSize="16"
+                 Width="200"
+                 x:Name="txt_cari_adi"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}" Content="Listele" Width="80"
+                Click="btn_listele_clicked"/>
+            </StackPanel>
+
+        </StackPanel>
+        <DataGrid x:Name="dg_SiparisSecim" 
+                  Grid.Row="2" Grid.Column="1"
+                      ItemsSource="{Binding OrdersCollection}"
+                      Style="{StaticResource DataGridStyle1}"
+                      CellStyle="{StaticResource DataGridCellStyle1}"
+                      RowStyle="{StaticResource DataGridRowStyle1}"
+                      Margin="0 10 0 5"
+                      PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Width="110" Header="Sipariş No" Binding="{Binding SiparisKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="60" Header="Sip Sira" Binding="{Binding SiparisSira, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="60" Visibility="Collapsed" Header="Cari Kodu" Binding="{Binding CariKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="110" Header="Cari Adı" Binding="{Binding CariAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="110" Header="Stok Kodu" Binding="{Binding UrunKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="170" Header="Stok Adı" Binding="{Binding UrunAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="90" Header="Tarih" Binding="{Binding SiparisTarih, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="90" Header="Teslim Tarih" Binding="{Binding TerminTarih, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="70" Header="Sipariş Miktar" Binding="{Binding SiparisMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="70" Header="Teslim Miktar" Binding="{Binding TeslimMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="70" Header="Açık Sevk Miktar" Binding="{Binding AcikSevkMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="70" Header="Depo Miktar" Binding="{Binding DepoMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="70" Header="Üretim Durum" Binding="{Binding UretimDurum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="False" Width="60" Header="Sevk Miktar" Binding="{Binding SevkMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTemplateColumn Width="60" Header="Ekle">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="+" Click="add_product_clicked"
+                            Width="24"
+Height="24"
+    Padding="0 0 0 5"
+Background="{StaticResource b_r_five}"
+Foreground="{StaticResource b_r_three_lighter}"
+BorderBrush="{StaticResource b_r_three}"
+                            BorderThickness="2"
+                            FontWeight="Bold"
+                            Cursor="Hand">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#25274d"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Margin" Value="0 5 0 5"/>
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                   />
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+        </DataGrid>
+        <DataGrid x:Name="dg_SevkEkle" 
+                  Grid.Row="3" Grid.Column="1"
+                          Style="{StaticResource DataGridStyle1}"
+                          CellStyle="{StaticResource DataGridCellStyle1}"
+                          ItemsSource="{Binding ShipmentsCollection}"
+                          RowStyle="{StaticResource DataGridRowStyle1}"
+                          Margin="0 5 0 0"
+                          Visibility="Visible"
+                          PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Width="60" Header="Sıra" Binding="{Binding SevkSira, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="70" Header="Sevk No" Binding="{Binding SevkEmriNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="70" Header="Cari Kodu" Visibility="Collapsed" Binding="{Binding CariKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="170" Header="Cari Adı" Binding="{Binding CariAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="110" Header="Sipariş No" Binding="{Binding SiparisKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True" Width="60" Header="Sip Sira" Binding="{Binding SiparisSira, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True"  Width="70" Header="Ürün Kodu" Visibility="Collapsed" Binding="{Binding UrunAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn IsReadOnly="True"  Width="170" Header="Ürün Adı" Binding="{Binding UrunAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="70" IsReadOnly="False" Header="Sevk Miktar" Binding="{Binding SevkMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTemplateColumn Width="90" IsReadOnly="False" Header="Hacim" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding UrunHacim, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" LostFocus="Volume_column_lost_focus"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="90" IsReadOnly="False" Header="Ağırlık">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding UrunAgirlik, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" LostFocus="Weight_column_lost_focus"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="60" Header="Sil">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="x" Click="btn_siparis_sil"
+                    Style="{StaticResource ButtonStyleDataGridSil}">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#25274d"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Margin" Value="0 5 0 5"/>
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                   />
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Left"
+                x:Name="stack_panel_sevk_ilave_bilgiler"
+                Grid.Row="4" Grid.Column="1">
+
+            <TextBlock Text="Sevk Tarihi:" HorizontalAlignment="Left" 
+                   VerticalAlignment="Center"
+                   Margin="0 0 0 0"
+                   Style="{StaticResource TextBlockStyle_16_Bold_3}"/>
+            <DatePicker   Text="{Binding SevkEmriTarihi,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       Style="{StaticResource DatePickerStyle555_14_montserrat_semibold}"
+                       Width="100"
+                       Height="30"
+                       Margin="20 0"
+                       x:Name="txt_sevk_tarihi">
+            </DatePicker>
+            <TextBlock Text="Toplam Hacim:" HorizontalAlignment="Left" 
+                   VerticalAlignment="Center"
+                   Margin="0 0 0 0"
+                   Style="{StaticResource TextBlockStyle_16_Bold_3}"/>
+            <TextBox Text="{Binding SevkHacim,Mode=TwoWay, UpdateSourceTrigger=LostFocus,
+                     StringFormat=N2}"
+                   Style="{StaticResource TextBoxStyle431_12}"
+                   Width="90"
+                   Height="30"
+                   Margin="20 0"
+                   x:Name="txt_toplam_hacim"/>
+            <TextBlock Text="Toplam Ağırlık:" HorizontalAlignment="Left" 
+                   VerticalAlignment="Center"
+                   Margin="0 0 0 0"
+                   Style="{StaticResource TextBlockStyle_16_Bold_3}"/>
+            <TextBox Text="{Binding SevkAgirlik,Mode=TwoWay, UpdateSourceTrigger=LostFocus,
+                     StringFormat=N2}"
+                   Style="{StaticResource TextBoxStyle431_12}"
+                   Width="90"
+                   Height="30"
+                   Margin="20 0"
+                   x:Name="txt_toplam_agirlik"/>
+            <TextBlock Text="Açıklama:" HorizontalAlignment="Left" 
+                   VerticalAlignment="Center"
+                   Margin="0 0 0 0"
+                   Style="{StaticResource TextBlockStyle_16_Bold_3}"/>
+            <TextBox Text="{Binding SiparisAciklama,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                   Style="{StaticResource TextBoxStyle431_12}"
+                   Width="250"
+                   Height="30"
+                   Margin="20 0"
+                   x:Name="txt_siparis_aciklama"/>
+
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1"
+            HorizontalAlignment="Right"
+            x:Name="stack_panel_sevk_kaydet"
+                    >
+        <TextBlock Text="Plaka:" HorizontalAlignment="Left" 
+                        VerticalAlignment="Center"
+                        Margin="0 0 0 0"
+                        Style="{StaticResource TextBlockStyle_16_Bold_3}"/>
+        <TextBox Text="{Binding PlakaNo,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource TextBoxStyle431_12}"
+                        Width="130"
+                        Height="30"
+                        Margin="20 0"
+                        x:Name="txt_plaka"/>
+        <TextBlock Text="Şoför İsim:" HorizontalAlignment="Left" 
+                        VerticalAlignment="Center"
+                        Margin="0 0 0 0"
+                        Style="{StaticResource TextBlockStyle_16_Bold_3}"/>
+        <TextBox Text="{Binding SoforIsim,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource TextBoxStyle431_12}"
+                        Width="250"
+                        Height="30"
+                        Margin="20 0"
+                        x:Name="txt_sofor_isim"/>
+        <Button Content="Kaydet" Click="btn_siparis_kaydet_clicked"
+                        Width="80" Height="35"
+                        Style="{StaticResource CustomButtonStyle}"/>
+
+    </StackPanel>
+    </Grid>
+</Window>

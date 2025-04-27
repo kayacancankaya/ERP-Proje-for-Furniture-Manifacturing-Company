@@ -1,0 +1,409 @@
+﻿<Window x:Class="Layer_UI.Satis.Evrak.Frm_Packing_List"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        xmlns:uc="clr-namespace:Layer_UI.UserControls"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        WindowState="Normal" MinWidth="930"   
+        WindowStartupLocation="CenterScreen"
+        MouseDown="mousedown_Window"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Window.Resources>
+        <vm:Cls_Fatura x:Key="vm_Fatura"/>
+    </Window.Resources>
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+            BorderThickness="2"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="30,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                                     x:Name="menu_top_bar"
+                                     Title="FATURA GİRİŞ-EN" />
+
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Margin="0 0 0 0">
+                    <TextBlock Text="İrsaliye No:"
+                               Style="{StaticResource TextBlockStyleMid}"
+                               TextAlignment="Center" Padding="0 15"/>
+                    <TextBox Style="{StaticResource PillSearchBoxStyle}"
+                                 Margin="20 0 30 0"
+                                 x:Name="txt_irsaliye_no"/>
+                    <Button Click="btn_listele" Style="{StaticResource CustomButtonStyle}"
+                            Content="Listele"
+                            Width="100"/>
+                    <Button Click="btn_excel_kaydet" Style="{StaticResource CustomButtonStyle}"
+                            Content="Excel Kaydet"
+                            Width="100"/>
+                </StackPanel>
+                <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width="794"/>
+                        <ColumnDefinition Width=".5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1" 
+                          Background="White"
+                          Height="auto"
+                          x:Name="grd_pdf"
+                          DataContext="{StaticResource vm_Fatura}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="90"/>
+                            <RowDefinition Height="3"/>
+                            <RowDefinition Height="140"/>
+                            <RowDefinition Height="3"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="3"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="230"/>
+                            <RowDefinition Height="3"/>
+                        </Grid.RowDefinitions>
+
+                        <Image  Source="\\192.168.1.11\\Vitabianca\17-Güncel_Planlar\Images\vb.png" Grid.Column="3" HorizontalAlignment="Right"/>
+                        <StackPanel Orientation="Vertical"
+                                        Grid.Column="0" Grid.ColumnSpan="3"
+                                        >
+                            <TextBlock  Text="VİTA BİANCA Mobilya Teks. İnş. İth. İhr. Paz. San. Ve Tic. Ltd Şti"
+                                       Style="{StaticResource TextBlockStylePdf}"
+                                       HorizontalAlignment="Center"
+                                       FontSize="14"
+                                        FontWeight="Bold"
+                                       Padding="3 10 3 3"/>
+                            <TextBlock  Text="Pancar OSB Mahallesi 5. Cadde No:2"
+                                       Style="{StaticResource TextBlockStylePdf}"
+                                       HorizontalAlignment="Center"
+                                       Padding="3"/>
+                            <TextBlock  Text="Torbalı/İzmir/Türkiye"
+                                       Style="{StaticResource TextBlockStylePdf}"
+                                       HorizontalAlignment="Center"
+                                       Padding="3"/>
+                        </StackPanel>
+                        <!--üst başlık-->
+                        <Border Background="{StaticResource b_r_four}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <StackPanel Orientation="Vertical" Grid.Row="2"  
+                                            Grid.Column="0" Grid.ColumnSpan="2"
+                                            VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Company Name:"
+                                                   Style="{StaticResource TextBlockStylePdf}"
+                                                   TextAlignment="Right"
+                                                   Padding="3"
+                                                   Width="120"/>
+                                <TextBox DataContext="{StaticResource vm_Fatura}" Text="{Binding SirketAdi, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                  Style="{StaticResource TextBoxStyle1}"
+                                                  Width="250"
+                                                  Height="16"
+                                                  Padding="2 0 0 0"
+                                                  HorizontalAlignment="Left"
+                                                  VerticalAlignment="Center"
+                                                  Margin="4 0 0 0"
+                                                  x:Name="txt_sirket_adi"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Adress:"
+                                                   Style="{StaticResource TextBlockStylePdf}"
+                                                   TextAlignment="Right"
+                                                   Padding="3"
+                                                   Width="120"/>
+                                <TextBox DataContext="{StaticResource vm_Fatura}" Text="{Binding Adres, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                          Style="{StaticResource TextBoxStyle1}"
+                                                          Width="250"
+                                                          Height="16"
+                                                          Padding="2 0 0 0"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Center"
+                                                          Margin="4 0 0 0"
+                                                          x:Name="txt_adres"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Line 2:"
+                                                   Style="{StaticResource TextBlockStylePdf}"
+                                                   TextAlignment="Right"
+                                                   Padding="3"
+                                                   Width="120"/>
+                                <TextBox DataContext="{StaticResource vm_Fatura}" Text="{Binding Adres2, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                  Style="{StaticResource TextBoxStyle1}"
+                                                  Width="250"
+                                                  Height="16"
+                                                  Padding="2 0 0 0"
+                                                  HorizontalAlignment="Left"
+                                                  VerticalAlignment="Center"
+                                                  Margin="4 0 0 0"
+                                                  x:Name="txt_adres2"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Email:"
+                                                           Style="{StaticResource TextBlockStylePdf}"
+                                                           TextAlignment="Right"
+                                                           Padding="3"
+                                                           Width="120"/>
+                                <TextBox DataContext="{StaticResource vm_Fatura}" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                          Style="{StaticResource TextBoxStyle1}"
+                                                          Width="250"
+                                                          Height="16"
+                                                          Padding="2 0 0 0"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Center"
+                                                          Margin="4 0 0 0"
+                                                          x:Name="txt_email"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Phone:"
+                                                           Style="{StaticResource TextBlockStylePdf}"
+                                                           TextAlignment="Right"
+                                                           Padding="3"
+                                                           Width="120"/>
+                                <TextBox DataContext="{StaticResource vm_Fatura}" Text="{Binding Tel, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                          Style="{StaticResource TextBoxStyle1}"
+                                                          Width="250"
+                                                          Height="16"
+                                                          Padding="2 0 0 0"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Center"
+                                                          Margin="4 0 0 0"
+                                                          x:Name="txt_tel"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Trade License No:"
+                                                           Style="{StaticResource TextBlockStylePdf}"
+                                                           TextAlignment="Right"
+                                                           Padding="3"
+                                                           Width="120"/>
+                                <TextBox DataContext="{StaticResource vm_Fatura}" Text="{Binding VergiNo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                          Style="{StaticResource TextBoxStyle1}"
+                                                          Width="250"
+                                                          Height="16"
+                                                          Padding="2 0 0 0"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Center"
+                                                          Margin="4 0 0 0"
+                                                          x:Name="txt_vergi_no"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Container No:"
+                                                           Style="{StaticResource TextBlockStylePdf}"
+                                                           TextAlignment="Right"
+                                                           Padding="3"
+                                                           Width="120"/>
+                                <TextBox DataContext="{StaticResource vm_Fatura}" Text="{Binding VergiNo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                          Style="{StaticResource TextBoxStyle1}"
+                                                          Width="250"
+                                                          Height="16"
+                                                          Padding="2 0 0 0"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Center"
+                                                          Margin="4 0 0 0"
+                                                          x:Name="txt_container_no"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Row="2"
+                                                    Grid.Column="1"
+                                                    Grid.ColumnSpan="2"
+                                                    HorizontalAlignment="Right"
+                                                    Margin="0 0 20 0"
+                                                    VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Serial No:"
+                                                           Style="{StaticResource TextBlockStylePdf}"
+                                                           TextAlignment="Right"
+                                                           Padding="3"
+                                                           Width="100"/>
+                                <TextBox DataContext="{StaticResource vm_Fatura}" Text="{Binding FaturaNo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                                  Style="{StaticResource TextBoxStyle1}"
+                                                                  Width="250"
+                                                                  Height="16"
+                                                                  Padding="2 0 0 0"
+                                                                  HorizontalAlignment="Left"
+                                                                  VerticalAlignment="Center"
+                                                                  Margin="4 0 0 0"
+                                                                  x:Name="txt_fatura_no"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Date:"
+                                                           Style="{StaticResource TextBlockStylePdf}"
+                                                           TextAlignment="Right"
+                                                           Padding="3"
+                                                           Width="100"/>
+                                <TextBox DataContext="{StaticResource vm_Fatura}" Text="{Binding TarihFatura, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                          Style="{StaticResource TextBoxStyle1}"
+                                                          Width="250"
+                                                          Height="16"
+                                                          Padding="2 0 0 0"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Center"
+                                                          Margin="4 0 0 0"
+                                                          x:Name="txt_tarih_fatura"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <Border Background="{StaticResource b_r_four}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <DataGrid x:Name="dg_Fatura" DataContext="{StaticResource vm_Fatura}"
+                                                  Grid.Row="4" Grid.ColumnSpan="3"
+                                                  Style="{StaticResource DataGridStylewithBorder}"
+                                                  CellStyle="{StaticResource DataGridCellStyle1}"
+                                                  RowStyle="{StaticResource DataGridRowStyle1}"
+                                                  ContextMenuOpening="DataGrid_ContextMenuOpening"
+                                                  ItemsSource="{Binding IrsaliyeCollection}"
+                                                  Padding="0"
+                                                  Margin="0 0 0 0"
+                                  
+                                                  HorizontalContentAlignment="Center">
+                            <DataGrid.Resources>
+                                <ContextMenu x:Key="DataGridContextMenu">
+                                    <MenuItem Header="Excel Kaydet" Click="btn_excel_kaydet" />
+                                </ContextMenu>
+                            </DataGrid.Resources>
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="30" Header="No" Binding="{Binding SiraNo}" />
+                                <DataGridTextColumn Width="60" Header="Quan." Binding="{Binding AdetTakim}" />
+                                <DataGridTextColumn Width="70" Header="Model Code" Binding="{Binding UrunKodu}" />
+                                <DataGridTextColumn Width="100" Header="Model Name" Binding="{Binding UrunAdi}" />
+                                <DataGridTextColumn Width="110" Header="Desc. of Goods" Binding="{Binding DescriptionOfGoods}" />
+                                <DataGridTextColumn Width="90" Header="Color" Binding="{Binding Color}" />
+                                <DataGridTextColumn Width="43"  Header="Shp. Type" Binding="{Binding GonderimSekil}">
+                                    <DataGridTextColumn.CellStyle>
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGridTextColumn.CellStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Width="53"  Header="Unit Price" Binding="{Binding ToplamTutar}"/>
+                                <DataGridTextColumn Width="70" Header="Unit" Binding="{Binding Birim}" />
+                                <DataGridTextColumn Width="43"  Header="Tot. Cost" Binding="{Binding ToplamTutar}"/>
+                                <DataGridTextColumn Width="43"  Header="Weight" Binding="{Binding Brut}"/>
+                                <DataGridCheckBoxColumn  Width="20" Header="" Binding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataGrid.Columns>
+
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="#25274d"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="Margin" Value="0 5 0 5"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="10"/>
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                        </DataGrid>
+                        <Border Margin="0 20 0 20" Background="{StaticResource b_r_four}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <StackPanel  Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"
+                                     Orientation="Vertical"
+                                        HorizontalAlignment="Right" VerticalAlignment="Top"
+                                        Margin="0 10 10 10">
+                   
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="TOTAL PACKAGES:"
+                                                               Style="{StaticResource TextBlockStylePdf}"
+                                                               TextAlignment="Right"
+                                                               Padding="3"
+                                                               Width="180"/>
+                                    <TextBox DataContext="{StaticResource vm_Fatura}" Text="{Binding KumulatifToplamTutar, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                              Style="{StaticResource TextBoxStyle1}"
+                                                              Width="120"
+                                                              Height="16"
+                                                              Padding="2 0 0 0"
+                                                              HorizontalAlignment="Left"
+                                                              VerticalAlignment="Center"
+                                                              Margin="4 0 0 0"
+                                                              x:Name="txt_toplam_paket"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="TOTAL SETS:"
+                                                               Style="{StaticResource TextBlockStylePdf}"
+                                                               TextAlignment="Right"
+                                                               Padding="3"
+                                                               Width="180"/>
+                                    <TextBox                  DataContext="{StaticResource vm_Fatura}"
+                                                              Text="{Binding Navlun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                              Style="{StaticResource TextBoxStyle1}"
+                                                              Width="120"
+                                                              Height="16"
+                                                              Padding="2 0 0 0"
+                                                              HorizontalAlignment="Left"
+                                                              VerticalAlignment="Center"
+                                                              Margin="4 0 0 0"
+                                                              x:Name="txt_toplam_set"/>
+
+                                </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="TOTAL GROSS WEIGHT:"
+                                                               Style="{StaticResource TextBlockStylePdf}"
+                                                               TextAlignment="Right"
+                                                               Padding="3"
+                                                               Width="180"/>
+                                <TextBox                  DataContext="{StaticResource vm_Fatura}"
+                                                              Text="{Binding GrandTotal}"
+                                                              Style="{StaticResource TextBoxStyle1}"
+                                                              Width="120"
+                                                              Height="16"
+                                                              Padding="2 0 0 0"
+                                                              HorizontalAlignment="Left"
+                                                              VerticalAlignment="Center"
+                                                              Margin="4 0 0 0"
+                                                              x:Name="txt_toplam_agirlik"/>
+
+                            </StackPanel>
+
+                            <Border Margin="0 20 0 20" Background="{StaticResource b_r_four}" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+    </Border>
+
+</Window>

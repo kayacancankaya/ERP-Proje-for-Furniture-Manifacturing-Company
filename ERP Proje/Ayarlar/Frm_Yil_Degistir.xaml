@@ -1,0 +1,77 @@
+﻿<Window x:Class="Layer_UI.Ayarlar.Frm_Yil_Degistir"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         mc:Ignorable="d"
+         xmlns:ui="clr-namespace:Layer_UI.Methods"
+         xmlns:uc="clr-namespace:Layer_UI.UserControls"
+         WindowStyle="None"
+         ResizeMode="CanResize"
+         WindowState="Normal" MinWidth="800" MinHeight="500"   
+         WindowStartupLocation="CenterScreen"
+         MouseDown="mousedown_Window"
+         Background="Transparent"
+         AllowsTransparency="True"
+         x:Name="window_siparis">
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+         BorderThickness="2"
+         Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1" 
+                     x:Name="menu_top_bar"
+                     Title="YIL DEĞİŞTİR" />
+        <StackPanel Margin="30 30 30 5" Grid.Row="1">
+        <TextBlock Text="Yıl"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Style="{StaticResource TextBlockStyle1}"
+                   Margin="0"/>
+        </StackPanel>
+        <StackPanel Margin="30 0 30 30 " Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <TextBox x:Name="txt_yil"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Grid.Row="1"
+                 Width="100"
+                 Style="{StaticResource TextBoxStyle431_12}"
+                 ui:UIinteractions.AllowNumberInput ="True"
+                 />
+            <Button x:Name="btn_kaydet"
+                    Margin="30 0 0 0"
+                    Width="60"
+                    Click="btn_kaydet_clicked"
+                    Style="{StaticResource ButtonSyle43l1_12_Montserrat}"
+                    Content="Kaydet"
+                    Background="LimeGreen"/>
+        </StackPanel>
+            </Grid>
+        </Border>
+    </Border>
+
+</Window>

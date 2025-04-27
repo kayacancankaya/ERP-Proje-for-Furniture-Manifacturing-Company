@@ -1,0 +1,359 @@
+﻿<Window x:Class="Layer_UI.Depo.DAT.Frm_DAT_Rapor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+    xmlns:uc="clr-namespace:Layer_UI.UserControls"
+    WindowStyle="None"
+    ResizeMode="CanResize"
+    WindowState="Normal" MinWidth="530"   
+    WindowStartupLocation="CenterScreen"
+    MouseDown="mousedown_Window"
+    Background="Transparent"
+    AllowsTransparency="True"
+    x:Name="window_dat">
+    <Window.Resources>
+        <vm:Cls_Depo x:Key="cls_depo"/>
+    </Window.Resources>
+
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+        BorderThickness="2"
+        Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="30,5" DataContext="vm">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1" 
+                                 x:Name="menu_top_bar"
+                                 Title="DAT RAPOR" />
+
+                <StackPanel Grid.Row="1" Grid.Column="1"
+                        Orientation="Vertical" Margin="0 10 0 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Takip No" HorizontalAlignment="Left" VerticalAlignment="Center"
+                               Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                               Padding="5 0 0 0"
+                               Width="160"/>
+                        <TextBlock Text="Ham Kodu" HorizontalAlignment="Left" VerticalAlignment="Center"
+                               Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                               Margin="30 0 0 0"
+                               Padding="5 0 0 0"
+                               Width="120"/>
+                        <TextBlock Text="Ham Adı" HorizontalAlignment="Left" VerticalAlignment="Center"
+                               Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                               Margin="30 0 0 0"
+                               Padding="5 0 0 0"
+                               Width="170"/>
+                        <TextBlock Text="Kod5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                               Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                               Margin="30 0 0 0"
+                               Padding="5 0 0 0"
+                               Width="120"/>
+                        <TextBlock Text="Kod1" HorizontalAlignment="Left" VerticalAlignment="Center"
+                               Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                               Margin="30 0 0 0"
+                               Padding="5 0 0 0"
+                               Width="120"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Style="{StaticResource TextBoxStyle431_12}"
+                             Width="120"
+                             FontSize="16"
+                             x:Name="txt_takip_no"/>
+                        <Button Click="btn_takip_no_getir_clicked"
+                                    Margin="10 0 10 0"
+                                    Style="{StaticResource ButtonStyleDataGridListImage24_24}"/>
+                  
+                    <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Style="{StaticResource TextBoxStyle431_12}"
+                             Width="120"
+                             Margin="30 0 0 0"
+                             FontSize="16"
+                             x:Name="txt_ham_kodu"/>
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Style="{StaticResource TextBoxStyle431_12}"
+                             Width="170"
+                             Margin="30 0 0 0"
+                             FontSize="16"
+                             x:Name="txt_ham_adi"/>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                             Margin="30 0 0 0"
+                             FontSize="16"
+                             Height="23"
+                             Width="120"
+                             x:Name="cbx_kod5"/>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                             Margin="30 0 0 0"
+                             FontSize="16"
+                             Height="23"
+                             Width="120"
+                             x:Name="cbx_kod1"/>
+
+                        <Button Click="btn_sifirla_clicked"
+                                Margin="10 0 0 0"
+                                Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0 0 0 0"
+                        >
+                    <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}"
+                        Content="Listele"
+                        Click="btn_dat_listele_clicked"
+                        Width="80"/>
+                    <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}"
+                        Content="Excel"
+                        Background="LightGreen"
+                        Click="btn_excele_aktar_clicked"
+                        Width="80"/>
+                    <TextBlock Text="Aktarılıyor Lütfen Bekleyiniz..."
+                               x:Name="txt_please_wait"
+                               Style="{StaticResource TextBlockStyleMid}"
+                               VerticalAlignment="Center"
+                               Visibility="Collapsed"/>
+                    <TextBlock 
+                               x:Name="txt_result"
+                               Style="{StaticResource TextBlockStyleMid}"
+                               VerticalAlignment="Center"
+                               Visibility="Collapsed"/>
+                </StackPanel>
+
+                <DataGrid x:Name="dg_dat_liste" DataContext="{StaticResource cls_depo}"
+                      Style="{StaticResource DataGridStyle1}"
+                      CellStyle="{StaticResource DataGridCellStyle1}"
+                      RowStyle="{StaticResource DataGridRowStyle1}"
+                      ItemsSource="{Binding SipariseCariBaglaCollection}"
+                      Grid.Column="1" Grid.Row="3"
+                      ScrollBar.Scroll="dg_scroll_down1"
+                      PreviewMouseWheel="mouse_wheel_pushed1">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="100" Header="Takip No" Binding="{Binding TakipNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Width="100" Header="Stok Kodu" Binding="{Binding StokKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Width="220" Header="Stok Adı" Binding="{Binding StokAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Width="70" Header="Kod 5" Binding="{Binding Kod5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Width="70" Header="Kod 1" Binding="{Binding Kod1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Width="70" Header="Çıkış Depo" Binding="{Binding CikisDepoKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Width="70" Header="Giriş Depo" Binding="{Binding GirisDepoKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Width="70" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Çıkış Depo Bakiye" Binding="{Binding CikisDepoBakiye, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=F4}" />
+                        <DataGridTextColumn Width="70" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Giriş Depo Bakiye" Binding="{Binding GirisDepoBakiye, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=F4}" />
+                        <DataGridTextColumn Width="70" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Top İht Mik" Binding="{Binding ToplamDATIhtiyacMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=F4}" />
+                        <DataGridTextColumn Width="70" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Gönderilen Mik" Binding="{Binding GonderilenDATMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=F4}" />
+                        <DataGridTextColumn Width="70" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Kalan Mik" Binding="{Binding KalanDATMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=F4}" />
+                        <DataGridTemplateColumn Width="70" Header="Detay">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="+" Click="dat_detay_clicked"
+                           Width="20"
+                           Height="20"
+                           Background="{StaticResource b_r_five}"
+                           Foreground="{StaticResource b_r_three}"
+                           BorderBrush="{StaticResource b_r_three}"
+                           BorderThickness="2"
+                           FontWeight="Bold"
+                           Cursor="Hand">
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#25274d"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="0 5 0 5"/>
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                               />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+
+                <!--Takip No Seç-->
+                <Popup x:Name="PopupTakipNo" Placement="Mouse" StaysOpen="False">
+                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                        <Grid Margin="10" Background="LightGray"
+                              HorizontalAlignment="Center">
+                            <Grid.RowDefinitions >
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Button Click="btn_exit_clicked"
+                                    Content="x"
+                                    HorizontalAlignment="Right"
+                                    Margin="0 0 0 10"
+                                    Style="{StaticResource ButtonStyleDataGridSil}"/>
+                            <StackPanel Orientation="Horizontal" Margin="10"
+                                        HorizontalAlignment="Center"
+                                        Grid.Row="1">
+                                <TextBlock Text="Sadece Moduler:"/>
+                                <CheckBox Style="{StaticResource CheckBoxStyle1}"
+                                          Margin="5 0 0 0"
+                                          x:Name="cx_sadece_moduler"
+                                          Checked="cx_moduler_checked"/>
+                                <TextBlock Text="Sadece Dosemeli:"
+                                           Margin="30 0 0 0"/>
+                                <CheckBox Style="{StaticResource CheckBoxStyle1}"
+                                          Margin="5 0 0 0"
+                                          x:Name="cx_sadece_dosemeli"
+                                          Checked="cx_dosemeli_checked"/>
+                            
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10"
+                                        HorizontalAlignment="Center">
+                                <TextBox x:Name="txt_search"
+                                             Width="130"
+                                             Style="{StaticResource TextBoxStyle1}"/>
+                                    <Button x:Name="btn_filtrele"
+                                             Click="btn_filtrele_clicked"
+                                            Width="80"
+                                            Height="36"
+                                            Content="Filtrele"
+                                            Margin="10 0 0 0"
+                                            Style="{StaticResource CustomButtonStyle}"
+                                            Background="Yellow"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Row="3">
+                                <ScrollViewer>      
+                                <ListBox x:Name="lst_takip_no" 
+                                                  Width="230"
+                                                Height="200"
+                                         ScrollBar.Scroll="dg_scroll_down"
+                                         PreviewMouseWheel="mouse_wheel_pushed">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding TakipNo}" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                </ScrollViewer>
+                                <Button Content="Ekle"
+                                            Style="{StaticResource CustomButtonStyle}"
+                                        Background="Green"
+                                        Foreground="Black"
+                                        Width="80"
+                                        Height="36"
+                                        Click="btn_takip_no_ekle_clicked"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Left"
+                                        Grid.Row="4"
+                                        Margin="10">
+                                <Button Content="Takip No Listesini Temizle"
+                                        Background="Red"
+                                            Style="{StaticResource CustomButtonStyle}"
+                                        Click="btn_takip_no_clear"/>
+                                <Button Content="Takip No Listesini Göster"
+                                        Click="btn_show_takip_no"
+                                        Height="36"
+                                            Style="{StaticResource CustomButtonStyle}"
+                                        Margin="30 0 0 0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Popup>
+                <!--Seçilen Takip Liste-->
+                <Popup x:Name="PopupTakipNoSecilen" Placement="Mouse" StaysOpen="False">
+                    <Border Background="White" BorderBrush="Black" BorderThickness="1"
+                            Height="auto" Width="auto">
+
+
+                        <DataGrid x:Name="dg_takip_liste" DataContext="{StaticResource cls_depo}"
+                                Style="{StaticResource DataGridStyle1}"
+                                CellStyle="{StaticResource DataGridCellStyle1}"
+                                RowStyle="{StaticResource DataGridRowStyle1}"
+                                ItemsSource="{Binding SipariseCariBaglaCollection}"
+                                Grid.Column="1" Grid.Row="3">
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="100" Header="Takip No" Binding="{Binding TakipNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                 <DataGridTemplateColumn Width="70" Header="Sil">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Click="btn_secilen_takip_sil_clicked"
+                                             Style="{StaticResource ButtonStyleDataGridSil}">
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="#25274d"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="Margin" Value="0 5 0 5"/>
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                 />
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                        </DataGrid>
+
+                    </Border>
+                </Popup>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

@@ -1,0 +1,250 @@
+﻿<Window x:Class="Layer_UI.Arge.Recete.Frm_Recete_Degisiklik_Mail_Gonder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        xmlns:uc="clr-namespace:Layer_UI.UserControls"
+        xmlns:ui="clr-namespace:Layer_UI.Methods"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        WindowState="Normal" MinWidth="830"   
+        WindowStartupLocation="CenterScreen"
+        MouseDown="mousedown_Window"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Window.Resources>
+        <vm:Cls_Arge x:Key="cls_arge"/>
+        <ui:UIinteractions x:Key="ui_interactions"/>
+    </Window.Resources>
+
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+            BorderThickness="2"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="30,5" DataContext="vm">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1" 
+                                     x:Name="menu_top_bar"
+                                     Title="ÜRÜN AĞACI GÜNCELLE MAİL GÖNDER" />
+
+                <StackPanel Grid.Row="1" Grid.Column="1"
+                            Orientation="Vertical" Margin="0 10 0 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}" 
+                                Content="Mail Gönder" Width="100"
+                                Background="LightCoral"
+                                Click="btn_mail_gonder"/>
+                        <TextBlock Text="İşlem Devam Ediyor..." 
+                                   Style="{StaticResource TextBlockStyleMid}"
+                                   VerticalAlignment="Center"
+                                   Margin="10 0 0 0"
+                                   x:Name="txt_please_wait"
+                                   Visibility="Collapsed"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <DataGrid x:Name="dg_GuncellenenReceteler" 
+                          Style="{StaticResource DataGridStyle1}"
+                          CellStyle="{StaticResource DataGridCellStyle1}"
+                          RowStyle="{StaticResource DataGridRowStyle1}"
+                          Grid.Column="1" Grid.Row="2"
+                          Margin="0 20 0 0"
+                         AutoGenerateColumns="False">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True" Width="0" Header="Kayıt Tarihi" Visibility="Collapsed" Binding="{Binding KayitTarihi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                       <DataGridTextColumn IsReadOnly="True" Width="70" Header="ID" Binding="{Binding ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="170" Header="Mamul Kodu" Binding="{Binding MamulKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="170" Header="Eski Ham Kodu" Binding="{Binding EskiHamKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="hamkodu">
+                                            <Setter Property="Background" Value="Yellow"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="hammiktar">
+                                            <Setter Property="Background" Value="Yellow"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="sil">
+                                            <Setter Property="Background" Value="Red"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True" Width="70" Header="Eski Miktar" Binding="{Binding EskiMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ui:UIinteractions.AllowFloatInput="True" >
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="miktar">
+                                            <Setter Property="Background" Value="Yellow"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="hammiktar">
+                                            <Setter Property="Background" Value="Yellow"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="sil">
+                                            <Setter Property="Background" Value="Red"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True" Width="170" Header="Yeni Ham Kodu" Binding="{Binding HamKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="hamkodu">
+                                            <Setter Property="Background" Value="Yellow"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="hammiktar">
+                                            <Setter Property="Background" Value="Yellow"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="ekle">
+                                            <Setter Property="Background" Value="Green"/>
+                                            <Setter Property="Foreground" Value="Wheat"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True" Width="70" Header="Miktar" Binding="{Binding ReceteTuketimMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ui:UIinteractions.AllowFloatInput="True" >
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="miktar">
+                                            <Setter Property="Background" Value="Yellow"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="hammiktar">
+                                            <Setter Property="Background" Value="Yellow"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="ekle">
+                                            <Setter Property="Background" Value="Green"/>
+                                            <Setter Property="Foreground" Value="Wheat"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True" Width="60" Header="Opno" Binding="{Binding Opno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn IsReadOnly="True" Width="110" Header="Güncelleme Tipi" Binding="{Binding GuncellemeTipi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Background" Value="Yellow"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="sil">
+                                            <Setter Property="Background" Value="Red"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding GuncellemeTipi}" Value="ekle">
+                                            <Setter Property="Background" Value="Green"/>
+                                            <Setter Property="Foreground" Value="Wheat"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                       
+                        <DataGridTemplateColumn Width="60" Header="Listeden Çıkar" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="x" Click="btn_recete_sil"
+                                            HorizontalAlignment="Center"
+                                        Style="{StaticResource ButtonStyleDataGridSil}">
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="60" Header="Gönderilmiş Yap" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="btn_gonderilmis_yap_clicked"
+                                            HorizontalAlignment="Center"
+                                        Style="{StaticResource ButtonStyleDataGridUpdateImage}">
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#25274d"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="0 5 0 5"/>
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                                   />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Border>
+
+</Window>

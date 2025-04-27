@@ -1,0 +1,384 @@
+﻿<Window x:Class="Layer_UI.Satın_Alma.Frm_Talep_Siparislestir"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        xmlns:uc="clr-namespace:Layer_UI.UserControls"
+        xmlns:ui="clr-namespace:Layer_UI.Methods"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        WindowState="Normal" MinWidth="930"   
+        WindowStartupLocation="CenterScreen"
+        MouseDown="mousedown_Window"
+        Background="Transparent"
+        AllowsTransparency="True"
+        x:Name="window_siparis">
+    <Window.Resources>
+        <vm:Cls_SatinAlma x:Key="cls_satin_alma"/>
+    </Window.Resources>
+    <ScrollViewer>
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+            BorderThickness="2"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="30,5" DataContext="vm">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="190"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1" 
+                                     x:Name="menu_top_bar"
+                                     Title="TALEP SİPARİŞLEŞTİRME" />
+                <StackPanel Grid.Row="1" Grid.Column="1"
+                            Orientation="Vertical" Margin="0 25 0 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Plan Adı" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                    Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                    Margin="30 0 0 0"
+                                    Padding="5 0 0 0"
+                                    Width="230"/>
+                        <TextBlock Text="Plan No" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                    Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                    Margin="30 0 0 0"
+                                    Padding="5 0 0 0"
+                                    Width="150"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <ComboBox Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                    Margin="30 0 0 0"
+                                    Width =" 200"
+                                      SelectionChanged="cbx_plan_adi_selected_item_changed"
+                                    x:Name="cbx_plan_adi"/>
+                            <Button Click="btn_sifirla_clicked"
+                                    Margin="10 0 0 0"
+                                    Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <ComboBox Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                    Margin="30 0 0 0"
+                                    Width =" 110"
+                                    x:Name="cbx_plan_no"
+                                      SelectionChanged="cbx_plan_no_selected_item_changed"/>
+                            <Button Click="btn_sifirla_clicked"
+                                    Margin="10 0 0 0"
+                                    Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                        </StackPanel>
+
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+                        <TextBlock Text="Talep Numarası" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   
+                                   Width="140"/>
+                        <TextBlock Text="Stok Kodu" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   
+                                   Width="140"/>
+                        <TextBlock Text="Stok Adı" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   
+                                   Width="170"/>
+                        <TextBlock Text="Kod1" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   
+                                   Width="115"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox 
+                                 HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="140"
+                                 FontSize="16"
+                                 x:Name="txt_talep_numarasi"/>
+                        <TextBox 
+                                 HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="140"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 x:Name="txt_stok_kodu"/>
+                        <TextBox 
+                                 HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="170"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 x:Name="txt_stok_adi"/>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="30 2 0 2">
+                            <ComboBox Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                    x:Name="cbx_kod_1"
+                                    Height="24"
+                                    Width="85"
+                                    HorizontalAlignment="Left"
+                                    />
+                            <Button Click="btn_sifirla_clicked"
+                                    Margin="10 0 10 0"
+                                    Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}" Content="Listele" Width="80"
+                                Click="btn_talep_listele_clicked"/>
+                        <TextBlock x:Name="txt_result"
+                                   Visibility="Collapsed"
+                                   Style="{StaticResource TextBlockStyleMid}"
+                                   Margin="10 0 0 0"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <DataGrid x:Name="dg_TalepSecim" DataContext="{StaticResource cls_satin_alma}"
+                          Style="{StaticResource DataGridStyle1}"
+                          CellStyle="{StaticResource DataGridCellStyle1}"
+                          RowStyle="{StaticResource DataGridRowStyle1}"
+                          ItemsSource="{Binding SipariseCariBaglaCollection}"
+                          Grid.Column="1" Grid.Row="2"
+                          MouseEnter="DataGrid_MouseEnter"
+                          MaxHeight="500"
+                              ScrollBar.Scroll="dg_scroll_down"
+                              PreviewMouseWheel="mouse_wheel_pushed">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True" Width="130" Header="Plan Adı" Binding="{Binding PlanAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Visibility="Collapsed" Width="90" Header="Plan No" Binding="{Binding PlanNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="130" Header="Müş Sip No" Binding="{Binding MusteriSiparisNumarasi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="60" Header="Müş Sip Sıra" Binding="{Binding MusteriSiparisSira, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Visibility="Collapsed" Width="90" Header="Refisemri" Binding="{Binding ReferansIsemrino, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="130" Header="Talep Numarası" Binding="{Binding TalepNumarasi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="70" Header="Talep Sira" Binding="{Binding TalepSira, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="130" Header="Stok Kodu" Binding="{Binding StokKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="170" Header="Stok Adı" Binding="{Binding StokAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="110" Header="Son Cari" Binding="{Binding SonCari, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="170" Header="Son Cari İsim" Binding="{Binding SonCariIsim, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="80" Header="Kod1" Binding="{Binding Kod1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="80" Header="Birim" CellStyle="{StaticResource DataGridCellStyle1_Center}" Binding="{Binding StokBirim, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn  Width="70" Header="Depo Kodu" CellStyle="{StaticResource DataGridCellStyle1_Center}" Binding="{Binding DepoKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="80" Header="Talep Miktar" CellStyle="{StaticResource DataGridCellStyle1_Center}" Binding="{Binding TalepMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="80" Header="Karşılanan Miktar" CellStyle="{StaticResource DataGridCellStyle1_Center}"  Binding="{Binding SiparislestirilmisTalepMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="False" Width="80" ui:UIinteractions.AllowFloatInput="True" Header="Kalan Miktar" CellStyle="{StaticResource DataGridCellStyle1_Center}" Binding="{Binding KalanTalepMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=F4}" />
+                        <DataGridTemplateColumn Width="60" Header="Ekle">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="+" Click="add_product_clicked"
+                                            Width="24"
+                                                Height="24"
+                                                    Padding="0 0 0 5"
+                                                Background="{StaticResource b_r_five}"
+                                                Foreground="{StaticResource b_r_three_lighter}"
+                                                BorderBrush="{StaticResource b_r_three}"
+                                            BorderThickness="2"
+                                            FontWeight="Bold"
+                                            Cursor="Hand">
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn IsReadOnly="False" ui:UIinteractions.AllowFloatInput="True" Width="60" Header="Stok Fiyat" Binding="{Binding StokFiyat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=F4}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="60" Header="Döviz Tipi" CellStyle="{StaticResource DataGridCellStyle1_Center}" Binding="{Binding DovizTipi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTemplateColumn IsReadOnly="True" Width="120" Header="Termin Tarih">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TeslimTarih, StringFormat=dd.MM.yyyy}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding TeslimTarih, UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#25274d"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="0 5 0 5"/>
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                                   />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+                <DataGrid x:Name="dg_SiparisEkle" DataContext="{StaticResource cls_satin_alma}"
+                          Style="{StaticResource DataGridStyle1}"
+                          CellStyle="{StaticResource DataGridCellStyle1}"
+                          RowStyle="{StaticResource DataGridRowStyle1}"
+                          ItemsSource="{Binding SiparisEkleCollection}"
+                          Grid.Column="1" Grid.Row="3"
+                          MouseEnter="DataGrid_MouseEnter"
+                          Margin="0 20 0 0"
+                          Visibility="Collapsed">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True" Width="130" Header="Talep Numarası" Binding="{Binding TalepNumarasi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="130" Header="Stok Kodu" Binding="{Binding StokKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True"  Width="350" Header="Stok Adı" Binding="{Binding StokAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn Width="70" Header="Miktar" CellStyle="{StaticResource DataGridCellStyle1_Center}" Binding="{Binding KalanTalepMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=F4}" />
+                        <DataGridTextColumn Width="120" Header="Fiyat" ui:UIinteractions.AllowFloatInput="True" CellStyle="{StaticResource DataGridCellStyle1_Center}" Binding="{Binding StokFiyat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=F4}" />
+                        <DataGridTemplateColumn Width="60" Header="Sil">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="x" Click="btn_siparis_sil"
+                                    Style="{StaticResource ButtonStyleDataGridSil}">
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#25274d"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="0 5 0 5"/>
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                                   />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+                <WrapPanel Grid.Row="4" Grid.Column="1" Margin="0 10 0 0" 
+                           Orientation="Horizontal"
+                           Visibility="Collapsed"
+                           x:Name="wrap_panel_cari">
+                    <TextBlock Text="Tedarikçi Seçim:" HorizontalAlignment="Left" VerticalAlignment="Center"
+
+                               Style="{StaticResource TextBlockStyle_16_Bold_4}"/>
+                    <Button Click="Show_Cari_Rehberi_Clicked" Width="30" Height="15"
+                            Content="..." Style="{StaticResource ButtonItemPopUpStyle}"
+                            Margin="5 0 0 0" 
+                            HorizontalContentAlignment="Center"
+                            Padding="0"
+                            FontSize="9"/>
+                    <TextBlock Text="Cari Kod:" HorizontalAlignment="Left" 
+                               VerticalAlignment="Center"
+                               Margin="15 0 0 0"
+                               Style="{StaticResource TextBlockStyle_16_Bold_3}"/>
+                    <TextBlock Text="{Binding SatisCariKodu,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               Style="{StaticResource TextBlockStyle_16_Bold_3_light}"
+                               Width="100"
+                               x:Name="txt_cari_kodu"/>
+                    <TextBlock Text="Cari Ad:" HorizontalAlignment="Left" 
+                               VerticalAlignment="Center"
+                               Margin="15 0 0 0"
+                               Width="55"
+                               Style="{StaticResource TextBlockStyle_16_Bold_3}"/>
+                    <TextBlock Text="{Binding SatisCariAdi,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               Style="{StaticResource TextBlockStyle_16_Bold_3_light}"
+                               x:Name="txt_cari_adi"/>
+                    <TextBlock Text="Döviz Tipi:" HorizontalAlignment="Left" 
+                               VerticalAlignment="Center"
+                               Margin="15 0 0 0"
+                               Style="{StaticResource TextBlockStyle_16_Bold_3}"/>
+                    <TextBlock Text="{Binding DovizTipi,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               Style="{StaticResource TextBlockStyle_16_Bold_3_light}"
+                               x:Name="txt_doviz_tipi"/>
+                </WrapPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1"
+                            HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Collapsed"
+                            x:Name="stack_panel_talep_siparislestir">
+                    <TextBlock Text="Açıklama:"
+                                 Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                 Width="80"
+                                 Height="24"
+                                 TextAlignment="Center"
+                                 />
+                    <TextBox Text="{Binding SiparisAciklama,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               Style="{StaticResource TextBoxStyle431_12}"
+                               Width="250"
+                               Height="24"
+                              Margin="0 0 20 0"
+                               x:Name="txt_siparis_aciklama"/>
+                    <TextBlock Text="Vade:"
+                               Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                               Width="70"
+                               Height="24"
+                               TextAlignment="Center"
+                               />
+                    <TextBox Text="{Binding Vade,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               Style="{StaticResource TextBoxStyle431_12}"
+                               Width="70"
+                               Height="30"
+                               ui:UIinteractions.AllowNumberInput="True"
+                             Margin="0 0 20 0"
+                               x:Name="txt_vade"/>
+                    <TextBlock Text="Teslim Tarih:"
+                               Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                               Width="100"
+                               Height="24"
+                               TextAlignment="Center"
+                               />
+                    <DatePicker Style="{StaticResource DatePickerStyle555_14_montserrat_semibold}"
+                                x:Name="dp_teslim_tarih"
+                                Margin="0 0 20 0">
+                    </DatePicker>
+
+                    <Button Content="Kaydet" Click="btn_talep_siparislestir_clicked"
+                            Width="80" Height="35"
+                            Style="{StaticResource CustomButtonStyle}"/>
+
+                </StackPanel>
+
+
+            </Grid>
+        </Border>
+    </Border>
+    </ScrollViewer>
+</Window>

@@ -1,0 +1,206 @@
+﻿<Window x:Class="Layer_UI.Arge.Yardimci.Frm_Varyant_Ad_Guncelle"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        xmlns:uc="clr-namespace:Layer_UI.UserControls"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        WindowState="Normal" MinWidth="930"   
+        WindowStartupLocation="CenterScreen"
+        MouseDown="mousedown_Window"
+        Background="Transparent"
+        AllowsTransparency="True"
+        x:Name="window_siparis">
+    <Window.Resources>
+        <vm:Cls_Urun x:Key="cls_urun"/>
+    </Window.Resources>
+
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+            BorderThickness="2"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="30,5" DataContext="vm">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1" 
+                                     x:Name="menu_top_bar"
+                                     Title="VARYANT TANIM GÜNCELLE" />
+                <StackPanel Grid.Row="1" Grid.Column="1"
+                            Orientation="Vertical" Margin="0 25 0 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Ürün Kodu" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="170"/>
+                        <TextBlock Text="Ürün Adı" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="170"/>
+                        <TextBlock Text="Ürün Tipi" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="170"/>
+                        <TextBlock Text="Model" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="170"/>
+                        <TextBlock Text="Satış Şekil" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="120"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox DataContext="{StaticResource cls_urun}"
+                                 Text="{Binding UrunKodu}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="170"
+                                 FontSize="16"
+                                 Margin="30 0 0 0"
+                                 x:Name="txt_urun_kodu"/>
+                        <TextBox DataContext="{StaticResource cls_urun}"
+                                 Text="{Binding UrunAdi}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="170"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 x:Name="txt_urun_adi"/>
+                        <TextBox DataContext="{StaticResource cls_urun}"
+                                 Text="{Binding UrunTipi}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="170"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 x:Name="txt_urun_tipi"/>
+                        <TextBox DataContext="{StaticResource cls_urun}"
+                                 Text="{Binding Model}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 Width="170"
+                                 x:Name="txt_model"/>
+                        <TextBox DataContext="{StaticResource cls_urun}"
+                                 Text="{Binding SatisSekil}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 Width="120"
+                                 x:Name="txt_satis_sekil"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}" Content="Listele" Width="80"
+                                Click="btn_urun_listele_clicked"/>
+                        <TextBlock x:Name="txt_urun_listele" 
+                                   Visibility="Collapsed"
+                                 Style="{StaticResource TextBlockStyleMid}"
+                                   VerticalAlignment="Center"
+                                 Text="Güncelleme İşlemi Devam Ediyor..."
+                                 />
+                    </StackPanel>
+
+                </StackPanel>
+                <DataGrid x:Name="dg_UrunSecim" DataContext="{StaticResource cls_urun}"
+                          Style="{StaticResource DataGridStyle1}"
+                          CellStyle="{StaticResource DataGridCellStyle1}"
+                          RowStyle="{StaticResource DataGridRowStyle1}"
+                          ItemsSource="{Binding SipariseCariBaglaCollection}"
+                          Grid.Column="1" Grid.Row="2"
+                          Margin="0 30 0 0"
+                          Visibility="Collapsed">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True" Width="130" Header="Stok Kodu" Binding="{Binding UrunKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="350" Header="Stok Adı" Binding="{Binding UrunAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="100" Header="Urun Grubu" Binding="{Binding UrunTipi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="100" Header="Model" Binding="{Binding Model, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="100" Header="Satış Şekli" Binding="{Binding SatisSekil, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridCheckBoxColumn Width="60" Binding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            CanUserResize="False">
+                            <DataGridCheckBoxColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <CheckBox x:Name="IsChecked" IsChecked="{Binding IsChecked, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="ToggleHeaderCheckBox" />
+                                </DataTemplate>
+                            </DataGridCheckBoxColumn.HeaderTemplate>
+                        </DataGridCheckBoxColumn>
+                    </DataGrid.Columns>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#25274d"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="0 5 0 5"/>
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                                   />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+           
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1"
+                            HorizontalAlignment="Right" Visibility="Collapsed"
+                            x:Name="stack_panel_urun_guncelle">
+
+                    <CheckBox Style="{StaticResource CheckBoxStyle1}" IsChecked="True"
+                            x:Name="cb_tum_turemisleri_guncelle"/>
+                    <TextBlock Text="Şablon Koda Ait Tüm Varyant İsimlerini de Güncelle"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource TextBlockStyle_16_Bold_3_light}"
+                            Padding="5"/>
+
+                    <Button Content="Güncelle" Click="btn_urun_guncelle_clicked"
+                            Width="80" Height="35"
+                            Background="LimeGreen"
+                            Foreground="Black"
+                            Style="{StaticResource CustomButtonStyle}"/>
+
+                </StackPanel>
+
+
+            </Grid>
+        </Border>
+    </Border>
+
+</Window>

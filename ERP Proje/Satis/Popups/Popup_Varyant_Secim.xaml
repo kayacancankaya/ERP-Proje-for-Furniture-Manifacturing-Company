@@ -1,0 +1,72 @@
+﻿<Window x:Class="Layer_UI.Satis.Siparis.Popups.Popup_Varyant_Secim"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Layer_UI.Satis.Siparis.Popups"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        mc:Ignorable="d"
+        Title="Varyant Seç">
+    <Window.Resources>
+        <vm:Cls_Urun x:Key="cls_urun"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource cls_urun}" x:Name="grd_Varyant_Secim">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="250"/>
+        </Grid.ColumnDefinitions>
+
+
+        <TextBlock Grid.Column="0" HorizontalAlignment="Right" Style="{StaticResource TextBlockStyle_18_Bold4}" 
+                       Text="Ürün Grubu:"
+                       Margin="0 10 0 0"/>
+        <TextBlock Grid.Column="1" Style="{StaticResource TextBlockStyle_18_Bold2}" Text="{Binding UrunTipi}"
+                       Margin="10 10 0 0"
+                       Width="200"
+                       HorizontalAlignment="Left"
+                       x:Name="txt_Urun_Tipi"/>
+
+
+        <TextBlock Grid.Row="1" HorizontalAlignment="Right" Style="{StaticResource TextBlockStyle_18_Bold4}" 
+                       Text="Model:"
+                       Margin="0 10 0 0"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlockStyle_18_Bold2}" Text="{Binding Model}"
+                       Margin="10 10 0 0"
+                       Width="200"
+                       HorizontalAlignment="Left"
+                       x:Name="txt_model"/>
+
+        <TextBlock Grid.Row="2" HorizontalAlignment="Right" Style="{StaticResource TextBlockStyle_18_Bold4}" 
+                       Text="Satış Şekil:"
+                       Margin="0 10 0 0"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBlockStyle_18_Bold2}" Text="{Binding SatisSekil}"
+                       Margin="10 10 0 0"
+                       Width="200"
+                       HorizontalAlignment="Left"
+                        x:Name="txt_satis_sekil"/>
+        <StackPanel x:Name="stc_dynamic_texts" Orientation="Vertical"
+                    HorizontalAlignment="Right"
+                    Grid.Row="3" VerticalAlignment="Top"
+                    />
+        <StackPanel x:Name="stc_dynamic_combo_boxes" Orientation="Vertical"
+                    HorizontalAlignment="Left"
+                    Grid.Row="3" VerticalAlignment="Top"
+                    Grid.Column="1"/>
+
+        <StackPanel x:Name="stc_button_panel" Grid.Row="4" Grid.Column="0" 
+                    HorizontalAlignment="Center" Grid.ColumnSpan="2"
+                    Margin="0 20 0 0">
+            <Button Style="{StaticResource ButtonItemPopUpStyle}"
+                    Click="btn_kaydet_clicked"
+                    Content="Kaydet"
+                    Width="70"/>
+        </StackPanel>
+    </Grid>
+</Window>

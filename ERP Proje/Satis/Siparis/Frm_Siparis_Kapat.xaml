@@ -1,0 +1,146 @@
+﻿<Window x:Class="Layer_UI.Satis.Siparis.Frm_Siparis_Kapat"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        xmlns:uc="clr-namespace:Layer_UI.UserControls"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        WindowState="Normal" MinWidth="930"   
+        WindowStartupLocation="CenterScreen"
+        MouseDown="mousedown_Window"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Window.Resources >
+        <vm:Cls_Siparis x:Key="cls_siparis"/>
+    </Window.Resources>
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+            BorderThickness="2"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid  VerticalAlignment="Top" DataContext="cls_siparis"  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1"  Margin="30 10 30 0" 
+                                     x:Name="menu_top_bar" Title="SİPARİŞ KAPAT" />
+                <StackPanel Grid.Row="1" Grid.Column="1"
+                            Orientation="Horizontal" Margin="35 5 0 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Sipariş No:" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Padding="5 0 0 0"
+                                   Width="75"/>
+                      
+                        <TextBox DataContext="{StaticResource cls_siparis}"
+                                 Text="" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Margin="5 0 0 0"
+                                 FontSize="16"
+                                 Width="250"
+                                 x:Name="txt_siparis_no"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 0 0 0">
+                        <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}" Content="Listele" Width="70"
+                                 Height="30"  Click="btn_listele_clicked"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <DataGrid Grid.Row="2" Grid.Column="1" PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown"
+                      x:Name="dg_siparis_onay_durum" DataContext="{StaticResource cls_siparis}" Style="{StaticResource DataGridStyle1}"
+                      CellStyle="{StaticResource DataGridCellStyle1}" 
+                      RowStyle="{StaticResource DataGridRowStyle1}"
+                      Margin="35 5">
+
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="60" Header="Detay">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="+" Click="btn_detay_goster" HorizontalAlignment="Center"
+                                            Style="{StaticResource ButtonStyleDataGridAdd}">
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="60" Header="Kapat">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Cursor="Hand" MouseLeftButtonUp="siparis_kapat_ac">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding SiparisDurum,UpdateSourceTrigger=PropertyChanged}" Value="K">
+                                                        <Setter Property="Source" Value="\\192.168.1.11\\Vitabianca\17-Güncel_Planlar\Images\open.png" />
+                                                        <Setter Property="Height" Value="32"/>
+                                                        <Setter Property="Width" Value="32"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding SiparisDurum,UpdateSourceTrigger=PropertyChanged}" Value="H">
+                                                        <Setter Property="Source" Value="\\192.168.1.11\\Vitabianca\17-Güncel_Planlar\Images\shutDown.png" />
+                                                        <Setter Property="Height" Value="24"/>
+                                                        <Setter Property="Width" Value="24"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn IsReadOnly="True" Width="140" Header="Fiş No" Binding="{Binding Fisno}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="100" Header="Sipariş Tarih" Binding="{Binding SiparisTarih}"/>
+                        <DataGridTextColumn IsReadOnly="True" Width="100" Header="Kayıt Yapan" Binding="{Binding UserName}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="*" Header="Satış Cari Adı" Binding="{Binding AssociatedCari.SatisCariAdi}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="*" Header="Teslim Cari Adı" Binding="{Binding AssociatedCari.TeslimCariAdi}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="70" Header="Sipariş Durum" Binding="{Binding SiparisDurum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    </DataGrid.Columns>
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#25274d"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="0 5 0 5"/>
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"/>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+
+            </Grid>
+        </Border>
+    </Border>
+</Window>

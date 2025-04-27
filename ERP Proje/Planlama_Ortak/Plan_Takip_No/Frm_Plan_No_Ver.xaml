@@ -1,0 +1,204 @@
+﻿<Window x:Class="Layer_UI.Planlama_Ortak.Plan_Takip_No.Frm_Plan_No_Ver"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        xmlns:uc="clr-namespace:Layer_UI.UserControls"
+        xmlns:ui="clr-namespace:Layer_UI.Methods"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        WindowState="Normal" MinWidth="800" MinHeight="500"
+        WindowStartupLocation="CenterScreen"
+        MouseDown="mousedown_Window"
+        Background="Transparent"
+        AllowsTransparency="True"
+        x:Name="window_siparis">
+    <Window.Resources>
+        <vm:Cls_Planlama x:Key="cls_planlama"/>
+        <ui:UIinteractions x:Key="uiInteractions"/>
+    </Window.Resources>
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+            BorderThickness="2"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="30,5" DataContext="vm">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="130"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1" 
+                                     x:Name="menu_top_bar"
+                                     Title="İŞEMRİ AÇ" />
+                <StackPanel Grid.Row="1" Grid.Column="1"
+                            Orientation="Vertical" Margin="0 25 0 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Sipariş No" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Padding="5 0 0 0"
+                                   Width="150"/>
+                        <TextBlock Text="Plan Adı" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="520"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="150"
+                                 FontSize="16"
+                                 x:Name="txt_siparis_no"
+                                 />
+                        <ComboBox Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                  Margin="30 0 0 0"
+                                  Width =" 200"
+                                  x:Name="cbx_plan_adi"/>
+                        <Button Click="btn_sifirla_clicked"
+                                     Margin="10 0 0 0"
+                                     Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                        <CheckBox x:Name="cb_plan_no_verilenleri_gosterme"
+                                  Style="{StaticResource CheckBoxStyle1}"
+                                  Margin="30 0 0 0"
+                                  IsChecked="True"
+                                  />
+                        <TextBlock Text="Plan No Verilenleri Gösterme"
+                                   Style="{StaticResource TextBlockStyleMid}"
+                                   Padding="10 0 0 0"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                Margin="0 10 0 0">
+                        <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}" Content="Listele" Width="80"
+                                Click="btn_listele_clicked"/>
+                        <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}" Content="Toplu Sil" Width="80"
+                                Click="btn_toplu_sil_clicked" Background="Red"/>
+                        <TextBlock Text="Silme İşlemi Gerçekleşiyor..."
+                                   Style="{StaticResource TextBlockStyleMid}"
+                                   Visibility="Collapsed"
+                                   VerticalAlignment="Center"
+                                   Padding="10 0 0 0"
+                                   x:Name="txt_please_wait"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+                <Grid Grid.Row="2" Grid.Column="1" DataContext="{StaticResource cls_planlama}"
+                      Margin="0 10 0 0">
+                    <DataGrid x:Name="dg_SiparisSecim" 
+                              ItemsSource="{Binding OrdersCollection}"
+                              Style="{StaticResource DataGridStyle1}"
+                              CellStyle="{StaticResource DataGridCellStyle1}"
+                              RowStyle="{StaticResource DataGridRowStyle1}"
+                              Visibility="Collapsed">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn IsReadOnly="True" Width="130"  Header="Sipariş No" Binding="{Binding SiparisNumarasi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn IsReadOnly="True" Width="60" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Sip Sira" Binding="{Binding SiparisSira, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn IsReadOnly="True" Width="60" CellStyle="{StaticResource DataGridCellStyle1_Center}"  Header="Sip Mik" Binding="{Binding SiparisMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn IsReadOnly="True" Width="130"  Header="Ref Ie" Binding="{Binding ReferansIsemrino, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn IsReadOnly="True" Width="130"  Header="Plan Adı" Binding="{Binding PlanAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn IsReadOnly="True" Width="160"  Header="Ürün Kodu" Binding="{Binding UrunKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn IsReadOnly="True" Width="210"  Header="Ürün Adı" Binding="{Binding UrunAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn IsReadOnly="True" Width="90" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Plan No" Binding="{Binding PlanNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn IsReadOnly="True" Width="90" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Açık Talep" Binding="{Binding MevcutTalepAdedi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn IsReadOnly="True" Width="90" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Açık Sipariş" Binding="{Binding MevcutSiparisAdedi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridCheckBoxColumn Width="60" Binding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    CanUserResize="False">
+                                <DataGridCheckBoxColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="IsChecked" IsChecked="{Binding IsChecked, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="ToggleHeaderCheckBox" />
+                                    </DataTemplate>
+                                </DataGridCheckBoxColumn.HeaderTemplate>
+                            </DataGridCheckBoxColumn>
+                            <DataGridTemplateColumn Width="60" Header="Plan Sil">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="x" Click="btn_plan_sil"
+                                                Style="{StaticResource ButtonStyleDataGridSil}">
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="#25274d"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Margin" Value="0 5 0 5"/>
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                                   />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                    </DataGrid>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" 
+                                HorizontalAlignment="Right" Visibility="Collapsed"
+                            x:Name="stc_kaydet">
+
+                    <TextBlock Text="Mevcut Plana Ekle:" VerticalAlignment="Center"
+                               Style="{StaticResource TextBlockStyle_18_Bold3}"/>
+                    <CheckBox x:Name="cb_mevcut_plana_ekle"
+                              Style="{StaticResource CheckBoxStyle1}"
+                              Checked="check_box_mevcut_plana_ekle_checked"
+                              Unchecked="check_box_mevcut_plana_ekle_unchecked"
+                              Margin="10 0 0 0"/>
+                    <ComboBox x:Name="cbx_mevcut_planlar"
+                              Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                              Margin="30 0 0 0"
+                              Height="30"
+                              Width="100"
+                              Visibility="Collapsed"/>
+                    <Button Click="btn_sifirla_clicked"
+                             Margin="10 0 0 0"
+                            Visibility="Collapsed"
+                            x:Name="btn_sifirla_mevcut_planlar"
+                             Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                    <Button Content="Kaydet" Click="btn_kaydet_clicked"
+                                 Width="100" Height="35"
+                                 Style="{StaticResource CustomButtonStyle}"
+                              Margin="30 0 0 0"   />
+                </StackPanel>
+
+    </Grid>
+    </Border>
+    </Border>
+</Window>

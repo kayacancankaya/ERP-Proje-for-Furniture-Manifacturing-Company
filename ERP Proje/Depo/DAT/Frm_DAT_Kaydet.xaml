@@ -1,0 +1,265 @@
+﻿<Window x:Class="Layer_UI.Depo.DAT.Frm_DAT_Kaydet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Layer_Business.ViewModels;assembly=Layer_Business"
+        xmlns:uc="clr-namespace:Layer_UI.UserControls"
+        xmlns:um="clr-namespace:Layer_UI.Methods"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        WindowState="Normal" MinWidth="530"   
+        WindowStartupLocation="CenterScreen"
+        MouseDown="mousedown_Window"
+        Background="Transparent"
+        AllowsTransparency="True"
+        x:Name="window_dat">
+    <Window.DataContext>
+        <vm:DATKaydetViewModel />
+    </Window.DataContext>
+
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+            BorderThickness="2"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="30,5" DataContext="vm">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1" 
+                                     x:Name="menu_top_bar"
+                                     Title="DAT KAYIT" />
+               
+                <StackPanel Grid.Row="1" Grid.Column="1"
+                            Orientation="Vertical" Margin="0 10 0 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Takip No" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Padding="5 0 0 0"
+                                   Width="120"/>
+                        <TextBlock Text="Ham Kodu" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="120"/>
+                        <TextBlock Text="Ham Adı" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="170"/>
+                        <TextBlock Text="Kod5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="120"/>
+                        <TextBlock Text="Kod1" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="5 0 0 0"
+                                   Width="120"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="120"
+                                 FontSize="16"
+                                 x:Name="txt_takip_no"/>
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="120"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 x:Name="txt_ham_kodu"/>
+                        <TextBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource TextBoxStyle431_12}"
+                                 Width="170"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 x:Name="txt_ham_adi"/>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 Height="23"
+                                 Width="120"
+                                 x:Name="cbx_kod5"/>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                 Margin="30 0 0 0"
+                                 FontSize="16"
+                                 Height="23"
+                                 Width="120"
+                                 x:Name="cbx_kod1"/>
+
+                        <Button Click="btn_sifirla_clicked"
+                                    Margin="10 0 0 0"
+                                    Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}" Content="Listele" Width="80"
+                                Click="btn_dat_listele_clicked"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="1"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0 0 0 0"
+                            >
+                    <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}"
+                            Content="Listele"
+                            Click="btn_dat_listele_clicked"
+                            Width="80"/>
+                </StackPanel>
+
+                <DataGrid x:Name="dg_dat_liste" 
+                          Style="{StaticResource DataGridStyle1}"
+                          CellStyle="{StaticResource DataGridCellStyle1}"
+                          RowStyle="{StaticResource DataGridRowStyle1}"
+                          Grid.Column="1" Grid.Row="3"
+                          MouseEnter="DataGrid_MouseEnter"
+                          AutoGenerateColumns="False">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True" Width="0" Visibility="Collapsed" Header="Id" Binding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="0" Visibility="Collapsed" Header="EskiStokKodu" Binding="{Binding EskiStokKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="100" Header="Takip No" Binding="{Binding TakipNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTemplateColumn Header="Stok Kodu" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock 
+                                    Text="{Binding StokKodu,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                    MouseLeftButtonDown="datagrid_stok_kodu_clicked" 
+                                    Cursor="Hand" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn IsReadOnly="True" Width="220" Header="Stok Adı" Binding="{Binding StokAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="70" Header="Kod 5" Binding="{Binding Kod5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="70" Header="Kod 1" Binding="{Binding Kod1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridComboBoxColumn Header="Çıkış Depo Kodu"   SelectedValueBinding="{Binding CikisDepoKodu}" CellStyle="{StaticResource DataGridCellStyle1_Center}"
+                                                Width="70"
+                                                >
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                     <Setter Property="ItemsSource" Value="{Binding DataContext.CikisDepoKodus, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding DataContext.CikisDepoKodus, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <EventSetter Event="SelectionChanged" Handler="CikisDepo_SelectionChanged" />
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                            
+                        </DataGridComboBoxColumn>
+
+                        <DataGridComboBoxColumn Header="Giriş Depo Kodu" SelectedValueBinding="{Binding GirisDepoKodu}" CellStyle="{StaticResource DataGridCellStyle1_Center}"
+                                                Width="70">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding DataContext.GirisDepoKodus, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding DataContext.GirisDepoKodus, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                     <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                                    <EventSetter Event="SelectionChanged" Handler="GirisDepo_SelectionChanged" />
+
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+
+                        <DataGridTextColumn um:UIinteractions.AllowFloatInput="True" Width="70" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Çıkış Depo Bakiye" Binding="{Binding CikisDepoBakiye, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=F2}" />
+                        <DataGridTextColumn um:UIinteractions.AllowFloatInput="True" Width="70" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Giriş Depo Bakiye" Binding="{Binding GirisDepoBakiye, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=F2}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="70" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Top İht Mik" Binding="{Binding ToplamDATIhtiyacMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=F4}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="70" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Gönderilen Mik" Binding="{Binding GonderilenDATMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=F4}" />
+                        <DataGridTextColumn IsReadOnly="False" Width="70" CellStyle="{StaticResource DataGridCellStyle1_Center}" Header="Kalan Mik" Binding="{Binding KalanDATMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat=F4}" />
+                        <DataGridTextColumn IsReadOnly="False" Width="70" um:UIinteractions.AllowFloatInput="True" CellStyle="{StaticResource DataGridCellStyle1_Center}"  Header="Gönderilecek Mik" Binding="{Binding GonderilecekDATMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=F4}" />
+                        <DataGridCheckBoxColumn Width="60" Binding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserResize="False">
+                            <DataGridCheckBoxColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <CheckBox x:Name="IsChecked" IsChecked="{Binding IsChecked, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Click="ToggleHeaderCheckBox" />
+                                </DataTemplate>
+                            </DataGridCheckBoxColumn.HeaderTemplate>
+                        </DataGridCheckBoxColumn>
+                        <DataGridTemplateColumn Header="Detay" Width="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="+" Click="btn_detailed_clicked"
+                                            Style="{StaticResource ButtonStyleDataGridAdd}">
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#25274d"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="0 5 0 5"/>
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                                   />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+               
+                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1"
+                            HorizontalAlignment="Right">
+
+                    <Button Content="Kaydet" Click="btn_dat_kaydet_clicked"
+                            Width="80" Height="35"
+                            Style="{StaticResource CustomButtonStyle}"/>
+
+                </StackPanel>
+
+
+            </Grid>
+        </Border>
+    </Border>
+
+</Window>

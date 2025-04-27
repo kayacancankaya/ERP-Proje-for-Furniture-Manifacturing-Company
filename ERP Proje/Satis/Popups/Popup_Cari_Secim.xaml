@@ -1,0 +1,198 @@
+﻿<Window x:Class="Layer_UI.Satis.Siparis.Popups.Popup_Cari_Secim"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Layer_UI.Satis.Siparis.Popups"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        mc:Ignorable="d"
+        Title="Cari Seçim" Width="900" Height="700"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <vm:Cls_Cari x:Key="cls_cari"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource cls_cari}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1"
+                    Margin="10" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="Satış Cari Kodu" Foreground="{StaticResource b_r_one}"
+                           FontWeight="Bold" Padding="0 3 0 0" 
+                           Width="130"
+                           Height="20"/>
+                <TextBlock Text="Satış Cari İsim" Foreground="{StaticResource b_r_one}"
+                           FontWeight="Bold" Padding="0 3 0 0" 
+                           Width="440"
+                           Height="20"
+                           Margin="30 0 0 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <TextBox Text="{Binding SatisCariKodu, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" 
+                         Width="130"
+                         TextAlignment="Center"
+                         x:Name="txt_satis_cari_kodu"/>
+                <TextBox Text="{Binding SatisCariAdi, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" 
+                         Width="350"
+                         TextAlignment="Center"
+                         Margin="30 0 0 0"
+                         x:Name="txt_satis_cari_adi"/>
+                <Button Content="Listele" Click="btn_satis_cari_listele_clicked"
+                        Width="60"
+                        Margin="30 0 0 0"/>
+            </StackPanel>
+        </StackPanel>
+        <DataGrid x:Name="dg_SipariseCariBaglaSatisCari" DataContext="{StaticResource cls_cari}"
+                          Style="{StaticResource DataGridStyle1}"
+                          CellStyle="{StaticResource DataGridCellStyle1}"
+                          RowStyle="{StaticResource DataGridRowStyle1}"
+                          ItemsSource="{Binding SipariseCariBaglaCollection}"
+                          Grid.Column="1" Grid.Row="1">
+
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn  Width="20" Header="" Binding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="130" Header="Cari Kodu" Binding="{Binding SatisCariKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="350" Header="Cari Adı" Binding="{Binding SatisCariAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="60" Header="Ülke Kodu" Binding="{Binding UlkeKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </DataGrid.Columns>
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#25274d"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Margin" Value="0 5 0 5"/>
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"/>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+        </DataGrid>
+
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1"
+                    Margin="10"
+                    HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1"
+                        >
+                <TextBlock Text="Teslim Cari Kodu" Foreground="{StaticResource b_r_one}"
+                           FontWeight="Bold" Padding="0 3 0 0" 
+                           Width="130"
+                           Height="20"/>
+                <TextBlock Text="Teslim Cari İsim" Foreground="{StaticResource b_r_one}"
+                           FontWeight="Bold" Padding="0 3 0 0" 
+                           Width="350"
+                           Height="20"
+                           Margin="30 0 0 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding TeslimCariKodu, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" 
+                         Width="130"
+                         TextAlignment="Center"
+                         x:Name="txt_teslim_cari_kodu"/>
+                <TextBox Text="{Binding TeslimCariAdi, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" 
+                         Width="350"
+                         TextAlignment="Center"
+                         Margin="30 0 0 0"
+                         x:Name="txt_teslim_cari_adi"/>
+                <Button Content="Listele" Click="btn_teslim_cari_listele_clicked"
+                        Width="60"
+                        Margin="30 0 0 0"/>
+            </StackPanel>
+        </StackPanel>
+
+        <DataGrid x:Name="dg_SipariseCariBaglaTeslimCari" DataContext="{StaticResource cls_cari}"
+                          Style="{StaticResource DataGridStyle1}"
+                          CellStyle="{StaticResource DataGridCellStyle1}"
+                          RowStyle="{StaticResource DataGridRowStyle1}"
+                          ItemsSource="{Binding SipariseCariBaglaCollection}"
+                          Grid.Column="1" Grid.Row="3"
+                  >
+
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn  Width="20" Header="" Binding="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="130" Header="Cari Kodu" Binding="{Binding TeslimCariKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="350" Header="Cari Adı" Binding="{Binding TeslimCariAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="60" Header="Ülke Kodu" Binding="{Binding UlkeKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </DataGrid.Columns>
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#25274d"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Margin" Value="0 5 0 5"/>
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"/>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+        </DataGrid>
+
+        <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1"
+                    HorizontalAlignment="Right" Margin="0 10 30 10">
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                <TextBlock Text="Döviz Tipi" Foreground="{StaticResource b_r_one}"
+                           FontWeight="Bold" Padding="0 3 0 0" 
+                           TextAlignment="Center"
+                           Width="100"
+                           Height="20"/>
+                <TextBlock Text="Sipariş Tipi" Foreground="{StaticResource b_r_one}"
+                           FontWeight="Bold" Padding="0 3 0 0" 
+                           TextAlignment="Center"
+                           Width="150"
+                           Height="20"
+                           Margin="30 0 0 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Text="{Binding DovizTipi, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" 
+                         Width="100"
+                         x:Name="cmb_doviz_tipi"
+                          SelectedItem="USD">
+
+                    <ComboBoxItem Content="USD" />
+                    <ComboBoxItem Content="EUR"/>
+                    <ComboBoxItem Content="TRY"/>
+                    <ComboBoxItem Content="GBP"/>
+
+                </ComboBox>
+                <ComboBox Text="{Binding SiparisTipi, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" 
+                         Width="150"
+                         Margin="30 0 0 0"
+                         x:Name="cmb_siparis_tipi"
+                          SelectedItem="Yurt Dışı">
+
+                    <ComboBoxItem Content="Yurt Dışı"/>
+                    <ComboBoxItem Content="Yurt İçi"/>
+
+                </ComboBox>
+                <Button Content="Kaydet" Click="btn_musteri_kaydet_clicked"
+                        Width="60"
+                        Margin="30 0 0 0"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

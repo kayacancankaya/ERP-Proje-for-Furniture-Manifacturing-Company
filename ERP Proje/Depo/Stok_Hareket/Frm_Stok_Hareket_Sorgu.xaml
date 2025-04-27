@@ -1,0 +1,835 @@
+﻿<Window x:Class="Layer_UI.Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        xmlns:uc="clr-namespace:Layer_UI.UserControls"
+        xmlns:ui="clr-namespace:Layer_UI.Methods"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        WindowState="Normal" MinWidth="530"   
+        WindowStartupLocation="CenterScreen"
+        MouseDown="mousedown_Window"
+        Background="Transparent"
+        AllowsTransparency="True"
+        x:Name="window_siparis">
+    <Window.Resources>
+        <vm:Cls_Depo x:Key="cls_depo"/>
+    </Window.Resources>
+
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+            BorderThickness="2"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="30,5" DataContext="vm">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1" 
+                                     Grid.ColumnSpan="2"
+                                     x:Name="menu_top_bar"
+                                     Title="STOK HAREKET SORGU" />
+                <!--Clear Filter , show result ,Excel , PDF -->
+                <Border BorderBrush="{StaticResource b_r_four_darker}" BorderThickness="1"
+                         CornerRadius="3"
+                        HorizontalAlignment="Stretch"
+                        Background="{StaticResource b_r_two}"
+                         Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                        Margin="0 10 0 0">
+                    <Grid Margin="0 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <!-- filter panel -->
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom">
+                            <Button Style="{StaticResource ButtonStyleDataGridUpdateImage}"
+                                     
+                                   Margin="10 0 0 0"
+                                    Padding="0"
+                                    x:Name="btn_clear_filter"
+                                    VerticalAlignment="Bottom"
+                                    Foreground="{DynamicResource semantic_alert}"
+                                    Click="btn_clear_filter_clicked">
+                            </Button>
+                            <TextBlock  VerticalAlignment="Bottom"
+                                        Margin="10 0 0 0"
+                                        Text="Filtreleri Temizle"
+                                        Style="{StaticResource TextBlockStyle_16_Bold_3}"/>
+                        </StackPanel>
+                        <!-- result panel -->
+                        <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                                     Orientation="Horizontal"
+                                     MinWidth="300">
+
+                            <TextBlock x:Name="txt_result"
+                                        FontStyle="Italic"
+                                        VerticalAlignment="Bottom"
+                                        Width="auto"
+                                        TextTrimming="CharacterEllipsis"
+                                        Style="{StaticResource TextBlockStyleMid}"/>
+           
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                     Grid.Column="2"
+                                     HorizontalAlignment="Right">
+                            <TextBlock Text="Fabrika"
+                                       VerticalAlignment="Bottom"
+                                       x:Name="txt_fabrika"
+                                       Visibility="Collapsed"
+                                        Style="{StaticResource TextBlockStyle_16_Bold_3}"/>
+                            <ComboBox x:Name="cbx_fabrika"
+                                      Width="auto"
+                                      Height="auto"
+                                       Visibility="Collapsed"
+                                      FontWeight="Bold"
+                                      VerticalAlignment="Bottom"
+                                      Cursor="Hand"
+                                      Margin="10 0 0 0">
+                                <ComboBoxItem Cursor="Hand" FontWeight="Bold" Content="Vita"/>
+                                <ComboBoxItem Cursor="Hand" FontWeight="Bold" Content="Ahşap"/>
+                            </ComboBox>
+                            <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}"
+                                     Height="auto"
+                                     Width="80"
+                                    Content="Excel"
+                                    Background="LimeGreen"
+                                     Margin="30 0 0 0"
+                                     VerticalAlignment="Bottom"
+                                     x:Name="btn_export_to_excel"
+                                     Click="btn_excele_aktar_clicked"/>
+
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <DataGrid x:Name="dg_stok_hareket" DataContext="{StaticResource cls_depo}"
+                          Style="{StaticResource DataGridStyle1}"
+                          CellStyle="{StaticResource DataGridCellStyle1}"
+                          RowStyle="{StaticResource DataGridRowStyle1}"
+                          ItemsSource="{Binding SiparisEkleCollection}"
+                          Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
+                          Margin="0 0 0 0"
+                      ScrollBar.Scroll="dg_scroll_down"
+                      PreviewMouseWheel="mouse_wheel_pushed">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn  Width="70" Header="ID" Binding="{Binding HareketID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <!--stok kodu-->
+                        <DataGridTemplateColumn Width="150">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Stok Kodu"  />
+                                        <Button Tag="Stok Kodu"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding StokKodu}" x:Name="txt_stok_kodu" BorderBrush="Transparent" Background="Transparent" >
+                                        <TextBox.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Stok Göster" Click="btn_open_Frm_Stok_Durum" />
+                                                <MenuItem Header="Kes" Command="ApplicationCommands.Cut"/>
+                                                <MenuItem Header="Kopyala" Command="ApplicationCommands.Copy"/>
+                                                <MenuItem Header="Yapıştır" Command="ApplicationCommands.Paste"/>
+                                            </ContextMenu>
+                                        </TextBox.ContextMenu>
+                                    </TextBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--stok adı-->
+                        <DataGridTemplateColumn Width="200">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Stok Adı"  />
+                                        <Button Tag="Stok Adı"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding StokAdi}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--fiş no-->
+                        <DataGridTemplateColumn Width="150">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Fiş No"  />
+                                        <Button Tag="Fiş No"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding FisNo}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--Miktar-->
+                        <DataGridTextColumn  Width="70" Header="Miktar" CellStyle="{StaticResource DataGridCellStyle1_Center}" Binding="{Binding HareketMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <!--G-C-->
+                        <DataGridTemplateColumn Width="30">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="G-C" TextWrapping="Wrap" />
+                                        <Button Tag="G-C"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding GirisCikisKod}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--Depo Kodu-->
+                        <DataGridTemplateColumn Width="40">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Depo Kodu"   TextWrapping="Wrap"/>
+                                        <Button Tag="Depo Kodu"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding DepoKodu}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--Tarih-->
+                        <DataGridTemplateColumn Width="100">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Tarih"  />
+                                        <Button Tag="Tarih"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox HorizontalAlignment="Center" Text="{Binding HareketTarih, StringFormat={}{0:dd/MM/yyyy}}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--Açıklama-->
+                        <DataGridTemplateColumn Width="150">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Açıklama"  />
+                                        <Button Tag="Açıklama"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding HareketAciklama}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--Ekalan-->
+                        <DataGridTemplateColumn Width="150">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Ekalan"  />
+                                        <Button Tag="Ekalan"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Ekalan}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--Takip No-->
+                        <DataGridTemplateColumn Width="100">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Takip No"  />
+                                        <Button Tag="Takip No"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding TakipNo}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--Sipariş Numarası-->
+                        <DataGridTemplateColumn Width="150">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Sipariş Numarası"  />
+                                        <Button Tag="Sipariş Numarası"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding SiparisNumarasi}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--Sipariş Sıra-->
+                        <DataGridTemplateColumn Width="60">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Sipariş Sıra"  TextWrapping="Wrap"/>
+                                        <Button Tag="Sipariş Sıra"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding SiparisSira}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--Kod 1-->
+                        <DataGridTemplateColumn Width="90">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="Kod 1"  TextWrapping="Wrap" />
+                                        <Button Tag="Kod 1"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Kod1}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--Hareket Tipi-->
+                        <DataGridTemplateColumn Width="150">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Hareket Tipi"  />
+                                        <Button Tag="Hareket Tipi"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding HareketTipi}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--Belge Tipi-->
+                        <DataGridTemplateColumn Width="150">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Belge Tipi"  />
+                                        <Button Tag="Belge Tipi"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding BelgeTipi}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--Fatura Tipi-->
+                        <DataGridTemplateColumn Width="150">
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Fatura Tipi"  />
+                                        <Button Tag="Fatura Tipi"  Content="🔍" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding FaturaTipi}" BorderBrush="Transparent" Background="Transparent" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#25274d"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="0 5 0 5"/>
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                                   />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+                <DataGrid x:Name="dg_depo_stok_durum" DataContext="{StaticResource cls_depo}"
+                          Style="{StaticResource DataGridStyle1}"
+                          CellStyle="{StaticResource DataGridCellStyle1}"
+                          RowStyle="{StaticResource DataGridRowStyle1}"
+                          ItemsSource="{Binding SipariseCariBaglaCollection}"
+                          Grid.Column="2" Grid.Row="1"
+                          Margin="0 10"
+                          Visibility="Collapsed">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn  Width="150" Header="Stok Kodu" Binding="{Binding StokKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn  Width="200" Header="Stok Adı" Binding="{Binding StokAdi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn  Width="70" Header="Depo Kodu" Binding="{Binding DepoKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn  Width="70" Header="Bakiye" Binding="{Binding StokMiktar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataGrid.Columns>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#25274d"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="0 5 0 5"/>
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                                   />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+
+                <!--stok kodu-->
+                <Popup x:Name="FilterPopupStokKodu" Placement="Mouse" StaysOpen="False">
+                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                        <StackPanel>
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_stok_kodu"></TextBox>
+                            <TextBox x:Name="FilterTextBox_stok_kodu" Width="100" KeyDown="FilterTextBox_KeyDown"
+                                 LostFocus="FilterTextBox_LostFocus"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+                <!--stok adı-->
+                <Popup x:Name="FilterPopupStokAdi" Placement="Mouse" StaysOpen="False">
+                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                        <StackPanel>
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_stok_adi"></TextBox>
+                            <TextBox x:Name="FilterTextBox_stok_adi" Width="100" KeyDown="FilterTextBox_KeyDown"
+                                 LostFocus="FilterTextBox_LostFocus"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+                <!--fiş no-->
+                <Popup x:Name="FilterPopupFisno" Placement="Mouse" StaysOpen="False">
+                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                        <StackPanel>
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_fisno"></TextBox>
+                            <TextBox x:Name="FilterTextBox_fisno" Width="100" KeyDown="FilterTextBox_KeyDown"
+                                 LostFocus="FilterTextBox_LostFocus"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+                <!--G-C-->
+                <Popup x:Name="FilterPopupGC" Placement="Mouse" StaysOpen="False">
+                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                        <StackPanel Margin="30">
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_gc"></TextBox>
+                            <StackPanel Orientation="Horizontal">
+                            <ComboBox x:Name="FilterComboBox_gc" Width="auto"
+                                      FontWeight="Bold"
+                                      Cursor="Hand">
+                                <ComboBoxItem FontWeight="Bold" Cursor="Hand" Content="G"/>
+                                <ComboBoxItem FontWeight="Bold" Cursor="Hand" Content="C"/>
+                            </ComboBox>
+                                <Button Click="btn_sifirla_clicked"
+                                        Style="{StaticResource ButtonStyleDataGridUpdateImage}"
+                                        Margin="10 0 0 0"/>
+                            </StackPanel>
+                            <Button x:Name="btn_gc" Tag="FilterPopupGC" 
+                                    Click="btn_popup_filter_button_clicked"
+                                    Margin="0 30 0 0"
+                                    Style="{StaticResource CustomButtonStyle}"
+                                    Content="Filtrele"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+                <!--Depo Kodu-->
+                <Popup x:Name="FilterPopupDepoKodu" Placement="Mouse" StaysOpen="False">
+                    <Grid Background="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_depo_kodu"></TextBox>
+                            <Border>
+                                <ScrollViewer VerticalScrollBarVisibility="Visible" Height="auto"
+                                              MaxHeight="300">
+                                    <ListBox x:Name="FilterPopupLstDepo"
+                                            Width="130">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox x:Name="cx_depo_kodu" Content="{Binding DepoKodu}" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                           Tag="{Binding DepoKodu}"
+                                                                      FontSize="16"
+                                                                  Checked="CheckBox_Checked"
+                                                                  Unchecked="CheckBox_Checked"/>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </ScrollViewer>
+                            </Border>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 10 0 0">
+                                        <Button Click="btn_depo_kodu_sifirla_clicked"
+                                                Style="{StaticResource ButtonStyleDataGridUpdateImage}"
+                                                />
+                                        <Button x:Name="btn_depo_kodu" Tag="FilterPopupDepoKodu" Click="btn_popup_filter_button_clicked"
+                                                Content="Filtrele"
+                                                Margin="30 0 0 0"
+                                                FontWeight="Bold"/>
+
+                                        
+                            </StackPanel>
+                        </Grid>
+                </Popup>
+                <!--Tarih-->
+                <Popup x:Name="FilterPopupTarih" Placement="Mouse" StaysOpen="False">
+                    <Border Background="White">
+                        <Grid Margin="30">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_tarih"></TextBox>
+                            <!--Başlangıç Tarih-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Başlangıç Tarih"
+                                           FontWeight="Bold"/>
+                                <ComboBox x:Name="FilterComboBox_baslangic_tarih" HorizontalContentAlignment="Center"
+                                            Margin="15 0 0 0">
+                                    <ComboBoxItem HorizontalContentAlignment="Center" IsSelected="True" Content="&lt;"/>
+                                    <ComboBoxItem HorizontalContentAlignment="Center" Content="&lt;="/>
+                                    <ComboBoxItem HorizontalContentAlignment="Center" Content="="/>
+                                    <ComboBoxItem HorizontalContentAlignment="Center" Content="&gt;="/>
+                                    <ComboBoxItem HorizontalContentAlignment="Center" Content="&gt;"/>
+                                </ComboBox>
+                            </StackPanel>
+                            <DatePicker x:Name="dp_baslangic_tarih"
+                                         Height="26" 
+                                            Grid.Column="1"
+                                                Margin="15 0 0 0"/>
+                            <!--Bitiş Tarih-->
+                            <StackPanel Orientation="Horizontal"
+                                        Grid.Row="1"
+                                        Margin="0 30 0 0"
+                                        HorizontalAlignment="Right">
+                                <TextBlock Text="Bitiş Tarih"
+                                           FontWeight="Bold"/>
+                                <ComboBox x:Name="FilterComboBox_bitis_tarih" HorizontalContentAlignment="Center"
+                                            Margin="15 0 0 0">
+                                    <ComboBoxItem HorizontalContentAlignment="Center" IsSelected="True" Content="&lt;"/>
+                                    <ComboBoxItem HorizontalContentAlignment="Center" Content="&lt;="/>
+                                    <ComboBoxItem HorizontalContentAlignment="Center" Content="="/>
+                                    <ComboBoxItem HorizontalContentAlignment="Center" Content="&gt;="/>
+                                    <ComboBoxItem HorizontalContentAlignment="Center" Content="&gt;"/>
+                                </ComboBox>
+                            </StackPanel>
+                            <DatePicker x:Name="dp_bitis_tarih"
+                                         Height="26" 
+                                            Grid.Column="1"
+                                            Grid.Row="1"
+                                                Margin="15 30 0 0"/>
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
+                                        Grid.Row="2"
+                                        VerticalAlignment="Center"
+                                        Margin="0 30 0 0"
+                                        Grid.ColumnSpan="2">
+
+                                <Button Click="btn_tarih_sifirla_clicked"
+                                        Style="{StaticResource ButtonStyleDataGridUpdateImage}"
+                                        />
+                                
+                                <Button Content="Filtrele"
+                                    Width="80"
+                                    Height="30"
+                                        Margin="30 0 0 0"
+                                    Tag="FilterPopupTarih"
+                                    x:Name="btn_tarih"
+                                         Click="btn_popup_filter_tarih_button_clicked"/>
+
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Popup>
+                <!--Açıklama-->
+                <Popup x:Name="FilterPopupAciklama" Placement="Mouse" StaysOpen="False">
+                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                        <StackPanel>
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_aciklama"></TextBox>
+                            <TextBox x:Name="FilterTextBox_aciklama" Width="100" KeyDown="FilterTextBox_KeyDown"
+                                 LostFocus="FilterTextBox_LostFocus"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+                <!--Ekalan-->
+                <Popup x:Name="FilterPopupEkalan" Placement="Mouse" StaysOpen="False">
+                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                        <StackPanel>
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_ekalan"></TextBox>
+                            <TextBox x:Name="FilterTextBox_ekalan" Width="100" KeyDown="FilterTextBox_KeyDown"
+                                 LostFocus="FilterTextBox_LostFocus"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+                <!--Takip No-->
+                <Popup x:Name="FilterPopupTakipNo" Placement="Mouse" StaysOpen="False">
+                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                        <StackPanel>
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_takip_no"></TextBox>
+                            <TextBox x:Name="FilterTextBox_takip_no" Width="100" KeyDown="FilterTextBox_KeyDown"
+                                 LostFocus="FilterTextBox_LostFocus"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+                <!--Sipariş No-->
+                <Popup x:Name="FilterPopupSiparisNumarasi" Placement="Mouse" StaysOpen="False">
+                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                        <StackPanel>
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_siparis_numarasi"></TextBox>
+                            <TextBox x:Name="FilterTextBox_siparis_numarasi" Width="100" KeyDown="FilterTextBox_KeyDown"
+                                 LostFocus="FilterTextBox_LostFocus"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+                <!--Sipariş Sıra-->
+                <Popup x:Name="FilterPopupSiparisSira" Placement="Mouse" StaysOpen="False">
+                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                        <StackPanel>
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_siparis_sira"></TextBox>
+                            <TextBox x:Name="FilterTextBox_siparis_sira" ui:UIinteractions.AllowNumberInput="True" Width="100" KeyDown="FilterTextBox_KeyDown"
+                                 LostFocus="FilterTextBox_LostFocus"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+                <!--Kod 1-->
+                <Popup x:Name="FilterPopupKod1" Placement="Mouse" StaysOpen="False" 
+                       >
+                    <Grid 
+                          Background="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_kod1"></TextBox>
+                            <ScrollViewer Height="auto"
+                                          MaxHeight="300"
+                                          VerticalScrollBarVisibility="Visible"
+                                          Margin="30 10 30 10"
+                                          >
+                            <ListBox x:Name="FilterPopupLstKod1"
+                                    Width="230">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cx_kod1" Content="{Binding Kod1}" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Tag="{Binding Kod1}"
+                                                      FontSize="16"
+                                                  Checked="CheckBox_Checked"
+                                                  Unchecked="CheckBox_Checked"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            </ScrollViewer>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 0 0 10">
+                                <Button Click="btn_kod1_sifirla_clicked"
+                                        Style="{StaticResource ButtonStyleDataGridUpdateImage}"
+                                        />
+
+                            <Button x:Name="btn_kod1" Tag="FilterPopupkod1" Click="btn_popup_filter_button_clicked"
+                                    Content="Filtrele" Margin="30 0 0 0"
+                                    FontWeight="Bold"/>
+                            
+
+
+                            </StackPanel>
+                        
+                    </Grid>
+                </Popup>
+                <!--Hareket Tipi-->
+                <Popup x:Name="FilterPopupHareketTipi" Placement="Mouse" StaysOpen="False">
+                    <Grid Margin="30"
+                         Background="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                            <TextBox Visibility="Collapsed" x:Name="txt_header_hareket_tipi"></TextBox>
+                            <ListBox x:Name="FilterPopupLstHareketTipi"
+                                    Width="230">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cx_hareket_tipi" Content="{Binding HareketTipi}" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Tag="{Binding HareketTipiKodu}"
+                                                      FontSize="16"
+                                                  Checked="CheckBox_Checked"
+                                                  Unchecked="CheckBox_Checked"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 10 0 0">
+                            <Button Click="btn_hartip_sifirla_clicked"
+                                    Style="{StaticResource ButtonStyleDataGridUpdateImage}"
+                                    Cursor="Hand"/>
+                            <Button x:Name="btn_hareket_tipi" Tag="FilterPopupHareketTipi" Click="btn_popup_filter_collection_button_clicked"
+                                    Margin="30 0 0 0" Content="Filtrele"
+                                    Cursor="Hand"/>
+                        </StackPanel>
+                    </Grid>
+                </Popup>
+                <!--Belge Tipi-->
+                <Popup x:Name="FilterPopupBelgeTipi" Placement="Mouse" StaysOpen="False">
+                    <Grid Margin="30"
+                          Background="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Visibility="Collapsed" x:Name="txt_header_belge_tipi"></TextBox>
+                            <ListBox x:Name="FilterPopupLstBelgeTipi"
+                                     Width="230">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cx_belge_tipi" Content="{Binding BelgeTipi}" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Tag="{Binding BelgeTipiKodu}"
+                                                      FontSize="16"
+                                                  Checked="CheckBox_Checked"
+                                                  Unchecked="CheckBox_Checked"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 10 0 0">
+                            <Button Click="btn_beltip_sifirla_clicked"
+                                    Style="{StaticResource ButtonStyleDataGridUpdateImage}"
+                                    />
+                            <Button x:Name="btn_belge_tipi" Tag="FilterPopupBelgeTipi" Click="btn_popup_filter_collection_button_clicked"
+                                    Margin="30 0 0 0"
+                                    Cursor="Hand"
+                                    Content="Filtrele"/>
+                        </StackPanel>
+                    </Grid>
+                </Popup>
+                <!--Fatura Tipi-->
+                <Popup x:Name="FilterPopupFaturaTipi" Placement="Mouse" StaysOpen="False">
+                    <Grid Margin="30"
+                            Background="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Visibility="Collapsed" x:Name="txt_header_fatura_tipi"></TextBox>
+                            <ListBox x:Name="FilterPopupLstFaturaTipi"
+                                     ItemsSource="{Binding FatTipCollection}"
+                                    Width="230">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="cx_fatura_tipi" Content="{Binding FaturaTipi}" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                   Tag="{Binding FaturaTipiKodu}"
+                                                     FontSize="16"
+                                                 Checked="CheckBox_Checked"
+                                                 Unchecked="CheckBox_Checked"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 10 0 0">
+                            <Button Click="btn_fattip_sifirla_clicked"
+                                    Style="{StaticResource ButtonStyleDataGridUpdateImage}"
+                                    />
+
+                            <Button x:Name="btn_fatura_tipi" Tag="FilterPopupFaturaTipi" Click="btn_popup_filter_collection_button_clicked"
+                                    Margin="30 0 0 0"
+                                    Cursor="Hand"
+                                    Content="Filtrele"/>
+                        </StackPanel>
+                    </Grid>
+                </Popup>
+            </Grid>
+
+        </Border>
+    </Border>
+
+</Window>

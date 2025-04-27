@@ -1,0 +1,1009 @@
+﻿<UserControl x:Class="Layer_UI.UserControls.UserControl_Menu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Layer_UI.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ContextMenu x:Key="MenuItemContextMenu">
+            <MenuItem Header="Yeni Form Olarak Aç" Click="context_menu_item_clicked_show_second_form"
+                      Background="{StaticResource b_r_three}"
+                      Foreground="{StaticResource b_r_one}"
+                      BorderBrush="{StaticResource b_r_four}"
+                      FontWeight="Bold"
+                      BorderThickness="4"
+                      Cursor="Hand"/>
+        </ContextMenu>
+    </UserControl.Resources>
+
+
+    <Grid Height="30" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="120"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="0">
+
+            <TextBlock x:Name="txt_title"
+                    Text=""
+                       Foreground="{StaticResource isMouseOverColor}"
+                       FontWeight="ExtraBold"
+                    Style="{StaticResource TextBlockStyle1}"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                        Margin="10,0,0,0"/>
+            
+            <!--satis menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                  Visibility="{Binding IsSatisMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Giriş" Click="menu_item_clicked" Tag="Satis.Siparis.frm_musteri_secim"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Onay Bekleyenler" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Onay_Durum"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Rapor" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Rapor"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş PO-Dest-Tarih Güncelle" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Cari Güncelle" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Cari_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Invoice" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Takip"/>
+                </MenuItem>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan" Tag="Satis.frm_main_window"/>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Evrak">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="İrsaliye" Click="menu_item_clicked" Tag="Satis.Evrak.frm_irsaliye"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" IsEnabled="False" Header="Fatura TR" Click="menu_item_clicked" Tag="Satis.Evrak.frm_fatura"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" IsEnabled="False" Header="Fatura en" Click="menu_item_clicked"  Tag="Satis.Evrak.frm_fatura_en"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" IsEnabled="False" Header="Packing List" Click="menu_item_clicked" Tag="Satis.Evrak.frm_packing_list"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Sevk">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sevk Emri Giriş" Click="menu_item_clicked" Tag="Satis.Sevk.Frm_Sevk"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sevk Emri Güncelle" Click="menu_item_clicked" Tag="Satis.Sevk.Frm_Sevk_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sevk Emri Rapor" Click="menu_item_clicked"  Tag="Satis.Sevk.Frm_Sevk_Takip"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="SSH Sevk Et" Click="menu_item_clicked"  Tag="Satis.Sevk.Frm_SSH_MT_Sevk_Et"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Yükleme Kaydet" Click="menu_item_clicked"  Tag="Satis.Sevk.Frm_Yukleme_Kaydet"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Arge">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+                </MenuItem>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+            </Menu>
+            <!--planlama moduler menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                                Visibility="{Binding IsPlanlamaModulerMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan No Ver-Sil" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Plan_No_Ver"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked_show_second_form" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Hesaplat" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Talep_Hesaplat"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plana Bağlı Talep Aç" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Plan_Ihtiyac"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Takip No Ver" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Takip_No_Ver"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Genel Plan" Tag="Satis.frm_main_window"/>
+                </MenuItem>
+                <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="İşemri">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Toplu İşemri Aç" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Toplu_Isemri_Ac"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="İşemri Kalan İhtiyaç" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_IeKalanIhtiyac"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Referans İşemri Sil Toplu" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Referans_Isemri_Sil_Toplu"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Referans İşemri Sil Tekil" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Isemri_Sil_Ref"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="İşemri Sil" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Isemri_Sil"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Tekil İşemri Aç" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Isemri_Ac_Tekil"/>
+                </MenuItem>
+                <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Durumu Raporu" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Durum"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Paket Bildir" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Uretim.Frm_Paket_Bildir"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Bildir" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Isemri_Bildir"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Referans İşemri Üretim Bildirimi Geri Al" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Kaydi_Geri_Al_Referans"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Bildirimi Geri Al" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Kaydi_Geri_Al"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Takip Kartı"  Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Uretim.Frm_Uretim_Takip_Karti"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Header="Kumaş Durum Toplu" Style="{StaticResource MenuItemStyleMain1}" Tag="Konfeksiyon.Frm_Kumas_Durum_Toplu"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Simülasyon">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Simülasyon" Click="menu_item_clicked" Tag="Planlama_Moduler.Simulasyon.Frm_Simulasyon_Moduler"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Simülasyon Sunta" Click="menu_item_clicked" Tag="Planlama_Moduler.Simulasyon.Frm_Simulasyon_Sunta"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Talep-Sipariş">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Aç" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Planlama_Ortak.Talep_Siparis.Frm_Talep_Ac"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Siparişleştirme"  Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Siparislestir"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Siparis_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Rapor"  Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Rapor"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Rapor"  Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Siparis_Rapor"/>
+                </MenuItem>
+                <!--depo menu-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Depo">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Kayıt">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="İrsaliye Kaydet" Click="menu_item_clicked" Tag="Depo.Irsaliye.Frm_Irsaliye_Kaydet"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Virman Kaydet" Click="menu_item_clicked" Tag="Ahsap.Depo.Frm_Virman"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Rapor">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Eksi Bakiye" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Eksi_Bakiye"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Durumu" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Durum"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Hareket Görmeyen Stoklar" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Hareket_Gormeyen_Stok"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="DAT">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="DAT Kaydet" Click="menu_item_clicked" Tag="Depo.DAT.Frm_DAT_Kaydet"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Serbest DAT Kaydet" Click="menu_item_clicked" Tag="Depo.DAT.Frm_Serbest_DAT"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="DAT Rapor" Click="menu_item_clicked" Tag="Depo.DAT.Frm_DAT_Rapor"/>
+                    </MenuItem>
+                    
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Arge">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="İşemri Reçetesi Güncelle" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Recete_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="İşemri Reçetesi Güncelle Mail" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Recete_Guncelle_Mail"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Reçete Sadeleştirme" Click="menu_item_clicked" Tag="Arge.Recete.Frm_Recete_Sadelestirme"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Türemiş Kod Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Turemis_Kod_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Ürün Ağacına Bağlı Olmayan Hammadde" Click="menu_item_clicked" Tag="Planlama_Moduler.Yardimci.Frm_Urun_Agacina_Bagli_Olmayan"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Ürün Ağacına Bağlı Olmayan Sipariş" Click="menu_item_clicked" Tag="Ahsap.Planlama.Frm_Urun_Agacina_Bagli_Olmayan_Siparisler"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Header="Ürün HM İhtiyaç" Tag="Kalite_Doseme.Frm_Kod1_Kullanim"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Müşteri Sipariş">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Müşteri Sipariş Onayla" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Musteri_Siparis.Frm_Musteri_Siparis_Onayla"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Kapat-Aç" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Kapat"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Fiyat">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Fiyat İşlemleri" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Maliyet.Frm_Stok_Fiat"/>
+                </MenuItem>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+
+            </Menu>
+            <!--planlama dosemeli menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                                Visibility="{Binding IsPlanlamaDosemeMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan No Ver" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Plan_No_Ver"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plana Bağlı Talep Aç" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Plan_Ihtiyac"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked_show_second_form" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Hesaplat" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Talep_Hesaplat"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Takip No Ver" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Takip_No_Ver"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Genel Plan" Tag="Satis.frm_main_window"/>
+                </MenuItem>
+                <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="İşemri">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Toplu İşemri Aç" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Toplu_Isemri_Ac"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="İşemri Kalan İhtiyaç" Click="menu_item_clicked"  Tag="Planlama_Ortak.Frm_IeKalanIhtiyac"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Referans İşemri Sil Toplu" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Referans_Isemri_Sil_Toplu"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Referans İşemri Sil Tekil" Click="menu_item_clicked"  Tag="Planlama_Ortak.Frm_Isemri_Sil_Ref"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="İşemri Sil" Click="menu_item_clicked"  Tag="Planlama_Ortak.Frm_Isemri_Sil"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Tekil İşemri Aç" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Isemri_Ac_Tekil"/>
+                </MenuItem>
+                <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Durumu Raporu"  Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Durum"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Paket Bildir" Click="menu_item_clicked"  Tag="Uretim.Frm_Paket_Bildir"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Bildir" Click="menu_item_clicked"  Tag="Planlama_Ortak.Frm_Isemri_Bildir"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Referans İşemri Üretim Bildirimi Geri Al"  Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Kaydi_Geri_Al_Referans"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Bildirimi Geri Al"  Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Kaydi_Geri_Al"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Takip Kartı"  Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Takip_Karti"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Header="Kumaş Durum Toplu" Tag="Konfeksiyon.Frm_Kumas_Durum_Toplu"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Simülasyon">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Simülasyon" Click="menu_item_clicked" Tag="Planlama_Dosemeli.Simulasyon.Frm_Simulasyon_Dosemeli"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Talep-Sipariş">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Aç" Click="menu_item_clicked"  Tag="Planlama_Ortak.Talep_Siparis.Frm_Talep_Ac"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Siparişleştirme"  Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Siparislestir"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Siparis_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Rapor"  Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Rapor"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Rapor"  Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Siparis_Rapor"/>
+                </MenuItem>
+
+                <!--depo menu-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Depo">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Kayıt">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="İrsaliye Kaydet" Click="menu_item_clicked" Tag="Depo.Irsaliye.Frm_Irsaliye_Kaydet"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Virman Kaydet" Click="menu_item_clicked" Tag="Ahsap.Depo.Frm_Virman"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Rapor">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Eksi Bakiye" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Eksi_Bakiye"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Durumu" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Durum"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Hareket Görmeyen Stoklar" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Hareket_Gormeyen_Stok"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="DAT">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="DAT Kaydet" Click="menu_item_clicked" Tag="Depo.DAT.Frm_DAT_Kaydet"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Serbest DAT Kaydet" Click="menu_item_clicked" Tag="Depo.DAT.Frm_Serbest_DAT"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="DAT Rapor" Click="menu_item_clicked" Tag="Depo.DAT.Frm_DAT_Rapor"/>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Arge">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="İşemri Reçetesi Güncelle" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Recete_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="İşemri Reçetesi Güncelle Mail" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Recete_Guncelle_Mail"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Reçete Sadeleştirme" Click="menu_item_clicked" Tag="Arge.Recete.Frm_Recete_Sadelestirme"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Türemiş Kod Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Turemis_Kod_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Ürün Ağacına Bağlı Olmayan Hammadde" Click="menu_item_clicked" Tag="Planlama_Moduler.Yardimci.Frm_Urun_Agacina_Bagli_Olmayan"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Ürün Ağacına Bağlı Olmayan Sipariş" Click="menu_item_clicked" Tag="Ahsap.Planlama.Frm_Urun_Agacina_Bagli_Olmayan_Siparisler"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Header="Ürün HM İhtiyaç" Tag="Kalite_Doseme.Frm_Kod1_Kullanim"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Müşteri Sipariş">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Müşteri Sipariş Onayla"  Click="menu_item_clicked" Tag="Planlama_Ortak.Musteri_Siparis.Frm_Musteri_Siparis_Onayla"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Kapat-Aç" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Kapat"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Fiyat">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Fiyat İşlemleri" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Maliyet.Frm_Stok_Fiat"/>
+                </MenuItem>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+
+            </Menu>
+            <!--konfeksiyon menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                  Visibility="{Binding IsKonfeksiyonMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan" Tag="Konfeksiyon.Frm_Siparis_Durumu"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Bildirim" Tag="Konfeksiyon.Frm_Kumas_Bildirim"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Güncelle" Tag="Konfeksiyon.Frm_Bildirim_Guncelle"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Durum" Tag="Konfeksiyon.Frm_Uretim_Durumu"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Kumaş Durum Toplu" Tag="Konfeksiyon.Frm_Kumas_Durum_Toplu"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Hatalı Bildirim" Tag="Konfeksiyon.Frm_Hatali_Bildirim"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+            </Menu>
+            <!--lojistik menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}" 
+                                Visibility="{Binding IsLojistikMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Giriş" Click="menu_item_clicked" Tag="Satis.Siparis.frm_musteri_secim"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Onay Bekleyenler" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Onay_Durum"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Rapor" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Rapor"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş PO-Dest-Tarih Güncelle" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Cari Güncelle" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Cari_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Kapat-Aç" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Kapat"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Invoice" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Takip"/>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+
+                </MenuItem>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan" Tag="Satis.frm_main_window"/>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Sevk">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sevk Emri Giriş" Click="menu_item_clicked" Tag="Satis.Sevk.Frm_Sevk"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sevk Emri Güncelle" Click="menu_item_clicked" Tag="Satis.Sevk.Frm_Sevk_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sevk Emri Rapor" Click="menu_item_clicked"  Tag="Satis.Sevk.Frm_Sevk_Takip"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="SSH Sevk Et" Click="menu_item_clicked"  Tag="Satis.Sevk.Frm_SSH_MT_Sevk_Et"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Yükleme Kaydet" Click="menu_item_clicked"  Tag="Satis.Sevk.Frm_Yukleme_Kaydet"/>
+                </MenuItem>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+            </Menu>
+            <!--doseme kalite menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                  Visibility="{Binding IsKaliteDosemeMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan" Tag="Satis.frm_main_window"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Durum" Tag="Konfeksiyon.Frm_Uretim_Durumu"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Hatalı Bildirim" Tag="Kalite_Doseme.Frm_Ahsaptan_Gelen"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Ürün HM İhtiyaç" Tag="Kalite_Doseme.Frm_Kod1_Kullanim"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+            </Menu>
+            <!--depo menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                    Visibility="{Binding IsDepoMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Kayıt">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="İrsaliye Kaydet" Click="menu_item_clicked" Tag="Depo.Irsaliye.Frm_Irsaliye_Kaydet"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Virman Kaydet" Click="menu_item_clicked" Tag="Ahsap.Depo.Frm_Virman"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Rapor">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Eksi Bakiye" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Eksi_Bakiye"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Durumu" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Durum"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Hareket Görmeyen Stoklar" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Hareket_Gormeyen_Stok"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="DAT">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="DAT Kaydet" Click="menu_item_clicked" Tag="Depo.DAT.Frm_DAT_Kaydet"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Serbest DAT Kaydet" Click="menu_item_clicked" Tag="Depo.DAT.Frm_Serbest_DAT"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="DAT Rapor" Click="menu_item_clicked" Tag="Depo.DAT.Frm_DAT_Rapor"/>
+                </MenuItem>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+            </Menu>
+            <!--arge menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                    Visibility="{Binding IsArgeMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Reçete">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Toplu Reçete Kaydet" Click="menu_item_clicked"  Tag="Arge.Recete.ReceteKaydet"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Reçete Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agaci_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Reçete Mail Gönder" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Recete_Degisiklik_Mail_Gonder"/>
+                 </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Mamul Türetme">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Çaprazla" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Caprazla"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Özellik Liste" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Ozellik_Ekle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Varyant Oluştur" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Varyant_Olustur"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Özellik Başlık" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Ozellik_Baslik"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Özellik Başlık Detay" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Ozellik_Baslik_Detay"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Reçete Sadeleştirme" Click="menu_item_clicked" Tag="Arge.Recete.Frm_Recete_Sadelestirme"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Türemiş Kod Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Turemis_Kod_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Varyant İsmi Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Yardimci.Frm_Varyant_Ad_Guncelle"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Stok Kartı">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Ek Bilgi Ekle Excel" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.StokKarti.Frm_Stok_Ek_Bilgi_Ekle_Excel"/>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Koli Uyarla" Click="menu_item_clicked"  Tag="Arge.Yardimci.Frm_Koli_Uyarla"></MenuItem>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Takip Kartı"  Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Takip_Karti"></MenuItem>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+            </Menu>
+            <!--ahsap menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                    Visibility="{Binding IsAhsapMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Kaydet" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Ahsap.Siparis.Frm_Siparis_Kaydet"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Takip" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Ahsap.Siparis.Frm_Siparis_Takip"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Vita Sipariş Kaydet" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satis.Siparis.frm_musteri_secim"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Planlama">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Plan">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Genel Plan" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Ahsap.Planlama.Frm_Genel_Plan"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Plan Hazırla" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Ahsap.Planlama.Frm_Plan_Numarasi_Ver"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Süre Ekle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Ahsap.Planlama.Yardimci.Frm_Mamul_Sure_Ekle"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="İşemri">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Toplu İşemri Aç" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Ahsap.Planlama.Isemri.Frm_Toplu_Isemri_Ac"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}"  Header="İşemri Kalan İhtiyaç" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_IeKalanIhtiyac"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}"  Header="Referans İşemri Sil" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Isemri_Sil_Ref"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}"  Header="İşemri Sil" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Isemri_Sil"/>
+                    </MenuItem>
+                    <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Durumu Raporu" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Durum"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Bildir" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Ahsap.Planlama.Isemri.Frm_Isemri_Bildir"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Referans İşemri Üretim Bildirimi Geri Al" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Kaydi_Geri_Al_Referans"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Bildirimi Geri Al" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Kaydi_Geri_Al"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Takip Kartı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Ahsap.Planlama.Isemri.Frm_Uretim_Takip_Karti"/>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Depo">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket Sorgu" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Ahsap.Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu_Ahsap"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Virman Kaydet" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Ahsap.Depo.Frm_Virman"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Alış İrsaliyesi Kaydet" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Ahsap.Irsaliye.Frm_Irsaliye_Kaydet"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Satış İrsaliyesi Kaydet" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Ahsap.Irsaliye.Frm_Satis_Irsaliyesi_Kaydet"/>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Arge">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="PO Etiket Bas" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Etiket.Frm_Etiket_Bas_PO"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacına Bağlı Olmayan Malzemeler" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Planlama_Moduler.Yardimci.Frm_Urun_Agacina_Bagli_Olmayan"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı Olmayan Siparişler" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Ahsap.Planlama.Frm_Urun_Agacina_Bagli_Olmayan_Siparisler"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Fiyatsız Siparişler" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Maliyet.Frm_Siparis_Fiyatsiz_Urun"/>
+                </MenuItem>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+            </Menu>
+            <!--satın alma menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                    Visibility="{Binding IsSatinAlmaMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Aç" Click="menu_item_clicked"  Tag="Planlama_Ortak.Talep_Siparis.Frm_Talep_Ac"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Guncelle"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Siparişleştirme"  Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Siparislestir"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Siparis_Guncelle"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Rapor" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Rapor"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Rapor"  Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Siparis_Rapor"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Fiyat İşlemleri" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Maliyet.Frm_Stok_Fiat"/>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+            </Menu>
+            <!--uretim paket menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                  Visibility="{Binding IsUretimPaketMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Bildirim">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Paket Bildirim" Tag="Uretim.Frm_Paket_Bildir"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Bildirimi Geri Al" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Kaydi_Geri_Al"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Durumu Raporu" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Durum"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Takip Kartı"  Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Takip_Karti"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan" Tag="Satis.frm_main_window"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Etiket">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Safat Etiket Bas" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Arge.Etiket.Frm_Etiket_Bas"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="PO Etiket Bas" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Arge.Etiket.Frm_Etiket_Bas_PO"/>
+                </MenuItem>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+
+            </Menu>
+            <!--optimizasyon menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                  Visibility="{Binding IsOptimizasyonMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Takip Kartı"  Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Takip_Karti">
+                </MenuItem>
+
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+            </Menu>
+            <!--finans-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                    Visibility="{Binding IsFinansMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="İrsaliye Aktarım" Click="menu_item_clicked" Tag="Finans.Frm_Irsaliye_Aktarim">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+
+                </MenuItem>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+            </Menu>
+            <!--insan-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                    Visibility="{Binding IsInsanKaynaklariMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Doğum Günü" Click="menu_item_clicked" Tag="InsanKaynaklari.Frm_Dogum_Gunu">
+                </MenuItem>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+            </Menu>
+            <!--Maliyet-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                    Visibility="{Binding IsFinansMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Varyant Fiyat Giriş" Click="menu_item_clicked" Tag="Maliyet.Frm_Varyant_Fiyat_Giris"/>
+                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Fiyat İşlemleri" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Maliyet.Frm_Stok_Fiat"/>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+            </Menu>
+            
+            <!--bilgi işlem menu-->
+            <Menu Margin="10 2" Background="{StaticResource b_r_four}"
+                  Visibility="{Binding IsBilgiIslemMenuVisible, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <!--bilgi işlem menu-->
+                <MenuItem Header="Ana Sayfa" Click="menu_item_clicked" Tag="Bilgi_Islem.Frm_Bilgi_Islem"
+                          Style="{StaticResource MenuItemStyleMain1}"/>
+                <!--satis menu-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Satış">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Giriş" Click="menu_item_clicked" Tag="Satis.Siparis.frm_musteri_secim"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Onay Bekleyenler" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Onay_Durum"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Rapor" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Rapor"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş PO-Dest-Tarih Güncelle" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Guncelle"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Cari Güncelle" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Cari_Guncelle"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Invoice" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Takip"/>
+                    </MenuItem>
+                    <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan" Tag="Satis.frm_main_window"/>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Evrak">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="İrsaliye" Click="menu_item_clicked" Tag="Satis.Evrak.frm_irsaliye"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" IsEnabled="False"  Header="Fatura TR" Click="menu_item_clicked" Tag="Satis.Evrak.frm_fatura"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" IsEnabled="False"  Header="Fatura en" Click="menu_item_clicked"  Tag="Satis.Evrak.frm_fatura_en"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" IsEnabled="False"  Header="Packing List" Click="menu_item_clicked" Tag="Satis.Evrak.frm_packing_list"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Sevk">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sevk Emri Giriş" Click="menu_item_clicked" Tag="Satis.Sevk.Frm_Sevk"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sevk Emri Güncelle" Click="menu_item_clicked" Tag="Satis.Sevk.Frm_Sevk_Guncelle"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sevk Emri Rapor" Click="menu_item_clicked"  Tag="Satis.Sevk.Frm_Sevk_Takip"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="SSH Sevk Et" Click="menu_item_clicked"  Tag="Satis.Sevk.Frm_SSH_MT_Sevk_Et"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Yükleme Kaydet" Click="menu_item_clicked"  Tag="Satis.Sevk.Frm_Yukleme_Kaydet"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Arge">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                    </MenuItem>
+                </MenuItem>
+                <!--planlama menu-->
+                <MenuItem Header="Planlama" 
+                          Style="{StaticResource MenuItemStyleMain1}">
+                    <!--planlama moduler menu-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Planlama Moduler">
+                        <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan No Ver" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Plan_No_Ver"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked_show_second_form" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Hesaplat" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Talep_Hesaplat"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plana Bağlı Talep Aç" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Plan_Ihtiyac"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Takip No Ver" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Takip_No_Ver"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Genel Plan" Tag="Satis.frm_main_window"/>
+                        </MenuItem>
+                        <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="İşemri">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Toplu İşemri Aç" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Toplu_Isemri_Ac"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="İşemri Kalan İhtiyaç" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_IeKalanIhtiyac"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Referans İşemri Sil Toplu" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Referans_Isemri_Sil_Toplu"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Referans İşemri Sil" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Isemri_Sil_Ref"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="İşemri Sil" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Isemri_Sil"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Tekil İşemri Aç" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Isemri_Ac_Tekil"/>
+                        </MenuItem>
+                        <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Durumu Raporu" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Durum"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Paket Bildir" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Paket_Bildir"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Bildir" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Isemri_Bildir"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Referans İşemri Üretim Bildirimi Geri Al" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Kaydi_Geri_Al_Referans"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Bildirimi Geri Al" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Kaydi_Geri_Al"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Takip Kartı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Takip_Karti"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Header="Kumaş Durum Toplu" Style="{StaticResource MenuItemStyleMain1}" Tag="Konfeksiyon.Frm_Kumas_Durum_Toplu"/>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Simülasyon">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Simülasyon" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Moduler.Simulasyon.Frm_Simulasyon_Moduler"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Simülasyon Sunta" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Moduler.Simulasyon.Frm_Simulasyon_Sunta"/>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Talep-Sipariş">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Aç" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Planlama_Ortak.Talep_Siparis.Frm_Talep_Ac"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Guncelle"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Siparişleştirme" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Siparislestir"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Siparis_Guncelle"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Rapor"  Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Rapor"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Rapor"  Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Siparis_Rapor"/>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Depo">
+
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="DAT Kaydet" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Depo.DAT.Frm_DAT_Kaydet"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="DAT Rapor" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Depo.DAT.Frm_DAT_Rapor"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+                                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Eksi Bakiye" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Eksi_Bakiye"/>
+                                <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Hareket Görmeyen Stoklar" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Hareket_Gormeyen_Stok"/>
+
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Arge">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="İşemri Reçetesi Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Recete_Guncelle"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="İşemri Reçetesi Güncelle Mail" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Recete_Guncelle_Mail"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Reçete Sadeleştirme" Click="menu_item_clicked" Tag="Arge.Recete.Frm_Recete_Sadelestirme"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Türemiş Kod Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Turemis_Kod_Guncelle"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacına Bağlı Olmayan Hammadde" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Moduler.Yardimci.Frm_Urun_Agacina_Bagli_Olmayan"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacına Bağlı Olmayan Sipariş" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Ahsap.Planlama.Frm_Urun_Agacina_Bagli_Olmayan_Siparisler"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Ürün HM İhtiyaç" Tag="Kalite_Doseme.Frm_Kod1_Kullanim"/>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Müşteri Sipariş">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Müşteri Sipariş Onayla" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Musteri_Siparis.Frm_Musteri_Siparis_Onayla"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Kapat-Aç" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Kapat"/>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Fiyat">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Fiyat İşlemleri" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Maliyet.Frm_Stok_Fiat"/>
+                        </MenuItem>
+
+                    </MenuItem>
+                    <!--planlama döşemeli menu-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Planlama Döşemeli">
+                        <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan No Ver" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Plan_No_Ver"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked_show_second_form" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Hesaplat" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Talep_Hesaplat"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plana Bağlı Talep Aç" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Plan_Ihtiyac"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Takip No Ver" Tag="Planlama_Ortak.Plan_Takip_No.Frm_Takip_No_Ver"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Genel Plan" Tag="Satis.frm_main_window"/>
+                        </MenuItem>
+                        <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="İşemri">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Toplu İşemri Aç" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Toplu_Isemri_Ac"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="İşemri Kalan İhtiyaç" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_IeKalanIhtiyac"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Referans İşemri Sil Toplu" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Referans_Isemri_Sil_Toplu"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Referans İşemri Sil Tekil" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Isemri_Sil_Ref"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="İşemri Sil" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Isemri_Sil"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Tekil İşemri Aç" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Planlama_Ortak.Frm_Isemri_Ac_Tekil"/>
+                        </MenuItem>
+                        <MenuItem Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Durumu Raporu" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Durum"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Paket Bildir" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Paket_Bildir"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Bildir" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Isemri_Bildir"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Referans İşemri Üretim Bildirimi Geri Al" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Kaydi_Geri_Al_Referans"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Bildirimi Geri Al" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Kaydi_Geri_Al"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Takip Kartı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Takip_Karti"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Header="Kumaş Durum Toplu" Style="{StaticResource MenuItemStyleMain1}" Tag="Konfeksiyon.Frm_Kumas_Durum_Toplu"/>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Simülasyon">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Simülasyon" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Dosemeli.Simulasyon.Frm_Simulasyon_Dosemeli"/>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Talep-Sipariş">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Aç" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Planlama_Ortak.Talep_Siparis.Frm_Talep_Ac"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Guncelle"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Siparişleştirme" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Siparislestir"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Siparis_Guncelle"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Rapor"  Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Rapor"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Rapor" Style="{StaticResource MenuItemStyleMain1}"  Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Siparis_Rapor"/>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Depo">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="DAT Kaydet" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Depo.DAT.Frm_DAT_Kaydet"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="DAT Rapor" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Depo.DAT.Frm_DAT_Rapor"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Eksi Bakiye" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Eksi_Bakiye"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Hareket Görmeyen Stoklar" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Tag="Depo.Stok_Hareket.Frm_Hareket_Gormeyen_Stok"/>
+
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Arge">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="İşemri Reçetesi Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Recete_Guncelle"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="İşemri Reçetesi Güncelle Mail" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Frm_Recete_Guncelle_Mail"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Reçete Sadeleştirme" Click="menu_item_clicked" Tag="Arge.Recete.Frm_Recete_Sadelestirme"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Türemiş Kod Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Turemis_Kod_Guncelle"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacına Bağlı Olmayan Hammadde" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Moduler.Yardimci.Frm_Urun_Agacina_Bagli_Olmayan"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacına Bağlı Olmayan Sipariş" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Ahsap.Planlama.Frm_Urun_Agacina_Bagli_Olmayan_Siparisler"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Ürün HM İhtiyaç" Tag="Kalite_Doseme.Frm_Kod1_Kullanim"/>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Müşteri Sipariş">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Müşteri Sipariş Onayla" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Planlama_Ortak.Musteri_Siparis.Frm_Musteri_Siparis_Onayla"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Kapat-Aç" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Kapat"/>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Fiyat">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Fiyat İşlemleri" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Maliyet.Frm_Stok_Fiat"/>
+                        </MenuItem>
+
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Üretim">
+                    <!--konfeksiyon menu-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Konfeksiyon">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan" Tag="Konfeksiyon.Frm_Siparis_Durumu"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Bildirim" Tag="Konfeksiyon.Frm_Kumas_Bildirim"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Güncelle" Tag="Konfeksiyon.Frm_Bildirim_Guncelle"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Durum" Tag="Konfeksiyon.Frm_Uretim_Durumu"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Hatalı Bildirim" Tag="Konfeksiyon.Frm_Hatali_Bildirim"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+
+                        <!--ayarlar-->
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                            <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                        </MenuItem>
+                    </MenuItem>
+                    <!--kalite döşeme menu-->
+                    <MenuItem Header="Döşeme Kalite" Style="{StaticResource MenuItemStyleMain1}" >
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan" Tag="Satis.frm_main_window"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Durum" Tag="Konfeksiyon.Frm_Uretim_Durumu"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Ahşaptan Gelen" Tag="Kalite_Doseme.Frm_Ahsaptan_Gelen"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Ürün HM İhtiyaç" Tag="Kalite_Doseme.Frm_Kod1_Kullanim"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                        <!--ayarlar-->
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                            <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                        </MenuItem>
+                    </MenuItem>
+                    <!--uretim paket menu-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Uretim Paket">
+
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Bildirim">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Paket Bildirim" Tag="Uretim.Frm_Paket_Bildir"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Bildirimi Geri Al" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Kaydi_Geri_Al"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Durumu Raporu" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Durum"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Takip Kartı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Takip_Karti"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan" Tag="Satis.frm_main_window"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Etiket">
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Safat Etiket Bas" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Arge.Etiket.Frm_Etiket_Bas"/>
+                            <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="PO Etiket Bas" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Arge.Etiket.Frm_Etiket_Bas_PO"/>
+                        </MenuItem>
+
+                        <!--ayarlar-->
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                            <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                        </MenuItem>
+                    </MenuItem>
+                    <!--optimizasyon-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Optimizasyon">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Takip Kartı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Takip_Karti"/>
+
+                        <!--ayarlar-->
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                            <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                        </MenuItem>
+                    </MenuItem>
+                </MenuItem>
+                <!--depo menu-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Depo">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Kayıt">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Virman Kaydet" Click="menu_item_clicked" Tag="Ahsap.Depo.Frm_Virman"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="İrsaliye Kaydet" Click="menu_item_clicked" Tag="Depo.Irsaliye.Frm_Irsaliye_Kaydet"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Rapor">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket Rapor" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Eksi Bakiye" Click="menu_item_clicked" Tag="Depo.Stok_Hareket.Frm_Eksi_Bakiye"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Durumu" Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Durum"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="DAT">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="DAT Kaydet" Click="menu_item_clicked" Tag="Depo.DAT.Frm_DAT_Kaydet"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Serbest DAT Kaydet" Click="menu_item_clicked" Tag="Depo.DAT.Frm_Serbest_DAT"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="DAT Rapor" Click="menu_item_clicked" Tag="Depo.DAT.Frm_DAT_Rapor"/>
+                    </MenuItem>
+
+                    <!--ayarlar-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                    </MenuItem>
+                </MenuItem>
+                <!--lojistik menu-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Lojistik">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Giriş" Click="menu_item_clicked" Tag="Satis.Siparis.frm_musteri_secim"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Onay Bekleyenler" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Onay_Durum"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Rapor" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Rapor"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş PO-Dest-Tarih Güncelle" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Guncelle"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Cari Güncelle" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Cari_Guncelle"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Kapat-Aç" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Kapat"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Invoice" Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Siparis_Takip"/>
+                    </MenuItem>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Click="menu_item_clicked" Style="{StaticResource MenuItemStyleMain1}" Header="Plan" Tag="Satis.frm_main_window"/>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Sevk">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sevk Emri Giriş" Click="menu_item_clicked" Tag="Satis.Sevk.Frm_Sevk"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sevk Emri Güncelle" Click="menu_item_clicked" Tag="Satis.Sevk.Frm_Sevk_Guncelle"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sevk Emri Rapor" Click="menu_item_clicked"  Tag="Satis.Sevk.Frm_Sevk_Takip"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="SSH Sevk Et" Click="menu_item_clicked"  Tag="Satis.Sevk.Frm_SSH_MT_Sevk_Et"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Yükleme Kaydet" Click="menu_item_clicked"  Tag="Satis.Sevk.Frm_Yukleme_Kaydet"/>
+                    </MenuItem>
+
+                    <!--ayarlar-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                    </MenuItem>
+                </MenuItem>
+                <!--arge menu-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Arge">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Reçete">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Toplu Reçete Kaydet" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.ReceteKaydet"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Reçete Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agaci_Guncelle"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Reçete Mail Gönder" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Recete_Degisiklik_Mail_Gonder"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Recete.Frm_Urun_Agac"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Mamul Türetme">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Çaprazla" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Caprazla"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Özellik Liste" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Ozellik_Ekle"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Varyant Oluştur" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Varyant_Olustur"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Reçete Sadeleştirme" Click="menu_item_clicked" Tag="Arge.Recete.Frm_Recete_Sadelestirme"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Özellik Başlık" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Ozellik_Baslik"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Özellik Başlık Detay" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Ozellik_Baslik_Detay"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Türemiş Kod Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Mamul_Turetme.Frm_Turemis_Kod_Guncelle"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Varyant İsmi Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Yardimci.Frm_Varyant_Ad_Guncelle"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Stok Kartı">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Ek Bilgi Ekle Excel" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.StokKarti.Frm_Stok_Ek_Bilgi_Ekle_Excel"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Koli Uyarla" Click="menu_item_clicked"  Tag="Arge.Yardimci.Frm_Koli_Uyarla"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Üretim Takip Kartı"  Click="menu_item_clicked" Tag="Uretim.Frm_Uretim_Takip_Karti"></MenuItem>
+
+                    <!--ayarlar-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                    </MenuItem>
+                </MenuItem>
+                <!--ahsap menu-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ahşap">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Kaydet" Click="menu_item_clicked"  Tag="Ahsap.Siparis.Frm_Siparis_Kaydet"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Sipariş Takip" Click="menu_item_clicked"  Tag="Ahsap.Siparis.Frm_Siparis_Takip"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Vita Sipariş Kaydet"  Click="menu_item_clicked"  Tag="Satis.Siparis.Frm_Musteri_Secim"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Planlama">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Plan">
+                            <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Genel Plan" Click="menu_item_clicked" Tag="Ahsap.Planlama.Frm_Genel_Plan"/>
+                            <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Plan Hazırla" Click="menu_item_clicked"  Tag="Ahsap.Planlama.Frm_Plan_Numarasi_Ver"/>
+                            <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Süre Ekle" Click="menu_item_clicked" Tag="Ahsap.Planlama.Yardimci.Frm_Mamul_Sure_Ekle"/>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="İşemri">
+                            <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Toplu İşemri Aç" Click="menu_item_clicked" Tag="Ahsap.Planlama.Isemri.Frm_Toplu_Isemri_Ac"/>
+                            <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Üretim Takip Kartı" Click="menu_item_clicked" Tag="Ahsap.Planlama.Isemri.Frm_Uretim_Takip_Karti"/>
+                            <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="İşemri Bildir" Click="menu_item_clicked" Tag="Ahsap.Planlama.Isemri.Frm_Isemri_Bildir"/>
+                        </MenuItem>
+
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Depo">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Stok Hareket Sorgu" Click="menu_item_clicked"  Tag="Ahsap.Depo.Stok_Hareket.Frm_Stok_Hareket_Sorgu_Ahsap"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Virman Kaydet" Click="menu_item_clicked"  Tag="Ahsap.Depo.Frm_Virman"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Alış İrsaliyesi Kaydet" Click="menu_item_clicked"  Tag="Ahsap.Irsaliye.Frm_Irsaliye_Kaydet"/>
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" ContextMenu="{StaticResource MenuItemContextMenu}" Header="Satış İrsaliyesi Kaydet" Click="menu_item_clicked"  Tag="Ahsap.Irsaliye.Frm_Satis_Irsaliyesi_Kaydet"/>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Arge">
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="PO Etiket Bas" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Arge.Etiket.Frm_Etiket_Bas_PO"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacına Bağlı Olmayan Malzemeler" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Planlama_Moduler.Yardimci.Frm_Urun_Agacina_Bagli_Olmayan"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Ürün Ağacı Olmayan Siparişler" Style="{StaticResource MenuItemStyleMain1}"  Click="menu_item_clicked"  Tag="Ahsap.Planlama.Frm_Urun_Agacina_Bagli_Olmayan_Siparisler"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Fiyatsız Siparişler" Style="{StaticResource MenuItemStyleMain1}"  Click="menu_item_clicked"  Tag="Maliyet.Frm_Siparis_Fiyatsiz_Urun"/>
+                    </MenuItem>
+
+                    <!--ayarlar-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                    </MenuItem>
+                </MenuItem>
+                <!--satın alma menu-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Satın Alma">
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Aç" Click="menu_item_clicked"  Tag="Planlama_Ortak.Talep_Siparis.Frm_Talep_Ac"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Talep Güncelle" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Guncelle"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Siparişleştirme"  Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Siparislestir"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Talep Rapor" Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Talep_Rapor"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Style="{StaticResource MenuItemStyleMain1}" Header="Sipariş Rapor"  Click="menu_item_clicked"  Tag="Satın_Alma.Frm_Siparis_Rapor"/>
+                    <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Fiyat İşlemleri" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Maliyet.Frm_Stok_Fiat"/>
+
+                    <!--ayarlar-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Finans">
+                    <!--finans-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="İrsaliye Aktarım" Click="menu_item_clicked" Tag="Finans.Frm_Irsaliye_Aktarim"/>
+                    <!--maliyet-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Maliyet">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Varyant Fiyat Giriş" Click="menu_item_clicked" Tag="Maliyet.Frm_Varyant_Fiyat_Giris"/>
+                        <MenuItem ContextMenu="{StaticResource MenuItemContextMenu}" Header="Fiyat İşlemleri" Style="{StaticResource MenuItemStyleMain1}" Click="menu_item_clicked" Tag="Maliyet.Frm_Stok_Fiat"/>
+                    </MenuItem>
+
+                    <!--ayarlar-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                    </MenuItem>
+                </MenuItem>
+                <!--insan-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="İnsan Kaynakları">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Doğum Günü" Click="menu_item_clicked" Tag="InsanKaynaklari.Frm_Dogum_Gunu"/>
+
+                    <!--ayarlar-->
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                        <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                    </MenuItem>
+                </MenuItem>
+                <!--ayarlar-->
+                <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Ayarlar">
+                    <MenuItem Style="{StaticResource MenuItemStyleMain1}" Header="Yıl Değiştir" Click="menu_item_clicked" Tag="Ayarlar.Frm_Yil_Degistir"/>
+                </MenuItem>
+
+            </Menu>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+
+            <!--<Button x:Name="btn_log_out"
+                                BorderThickness="0"
+                                FontFamily="Montserrat"
+                                FontWeight="Bold"
+                                Cursor="Hand"
+                                Content="x"
+                                Margin="0,0,5,0"
+                                Click="btn_log_out_clicked">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="{StaticResource b_r_four}"/>
+                        <Setter Property="Foreground" Value="{StaticResource b_r_red_darker}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource b_r_four_darker}"/>
+                                <Setter Property="Foreground" Value="{StaticResource b_r_red_darker}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="18" Height="18"
+                                            CornerRadius="9"
+                                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>-->
+            <Button x:Name="btn_minimize"
+                                BorderThickness="0"
+                                FontFamily="Montserrat"
+                                FontWeight="Bold"
+                                Cursor="Hand"
+                                Content="-"
+                                Margin="0,0,5,0"
+                                Click="btn_minimize_click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="{StaticResource b_r_four}"/>
+                        <Setter Property="Foreground" Value="{StaticResource b_r_three}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource b_r_four_darker}"/>
+                                <Setter Property="Foreground" Value="{StaticResource b_r_three_lighter}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="18" Height="18"
+                                            CornerRadius="9"
+                                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="btn_level_down"
+                                BorderThickness="6"
+                                FontFamily="Montserrat"
+                                FontWeight="Bold"
+                                Cursor="Hand"
+                                Content=""
+                                Margin="0,0,5,0"
+                                Click="btn_level_down_click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{StaticResource b_r_four}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource b_r_four_darker}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="18"
+                                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            <Button x:Name="btn_close"
+                                FontFamily="Montserrat"
+                                FontWeight="Bold"
+                                Cursor="Hand"
+                                Content="x"
+                                Click="btn_close_click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{StaticResource b_r_red}"/>
+                            <Setter Property="Foreground" Value="{StaticResource b_r_three}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource b_r_red_darker}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource b_r_three_lighter}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="18"
+                                            CornerRadius="9"
+                                            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

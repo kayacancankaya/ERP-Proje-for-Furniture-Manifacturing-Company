@@ -1,0 +1,593 @@
+﻿<Window x:Class="Layer_UI.Arge.Mamul_Turetme.Frm_Varyant_Olustur"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        xmlns:uc="clr-namespace:Layer_UI.UserControls"
+        xmlns:ui="clr-namespace:Layer_UI.Methods"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        WindowState="Normal" MinWidth="1000"   
+        WindowStartupLocation="CenterScreen"
+        MouseDown="mousedown_Window"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Window.Resources>
+        <vm:Cls_Urun x:Key="cls_urun"/>
+    </Window.Resources>
+
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+            BorderThickness="2"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="30,5" DataContext="vm">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition x:Name="rd_changable" Height="80"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1" 
+                                     x:Name="menu_top_bar"
+                                     Title="VARYANT OLUŞTUR" />
+                <!--güncelleme tipi -->
+                <StackPanel Grid.Row="1" Grid.Column="1"
+                            Orientation="Vertical" 
+                            VerticalAlignment="Center">
+                    <!--güncelleme tipi yazı-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Güncelleme Tipi" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="0 0 0 0"
+                                   Padding="0 0 0 0"
+                                   Width="240"/>
+
+                    </StackPanel>
+                    <!--güncelleme tipi combobox-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <!--güncelleme tipi combobox-->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                     Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                     Margin="0 0 0 0"
+                                     FontSize="16"
+                                     Height="26"
+                                     Width="210"
+                                     x:Name="cbx_guncelleme_tipi"
+                                     SelectionChanged="cbx_guncelleme_tipi_selection_changed">
+
+                                <ComboBoxItem Content="Varolan"/>
+                                <ComboBoxItem Content="Yeni"/>
+                            </ComboBox>
+
+                            <Button Click="btn_sifirla_clicked"
+                                        Margin="10 0 0 0"
+                                        Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <!--güncelle yeni ekle comboboxları-->
+                <!--ürün grup model satış şekil combo boxlar yeni ekle -->
+                <StackPanel Grid.Row="2" Grid.Column="1"
+                            Orientation="Vertical" Margin="0 0 0 0"
+                            VerticalAlignment="Center"
+                             x:Name="stc_comboboxes">
+                    <!--ürün grup model satış şekil yeni ekle yazıları-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                x:Name="stc_yeni_opsiyon_text"
+                                Visibility="Collapsed">
+                        <TextBlock Text="Yeni Ürün Grup" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="0 0 0 0"
+                                   Padding="0 0 0 0"
+                                   Width="240"/>
+                        <TextBlock Text="Yeni Ürün Model" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="0 0 0 0"
+                                   Width="240"/>
+                        <TextBlock Text="Yeni Satış Şekil" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="0 0 0 0"
+                                   Width="240"/>
+
+                    </StackPanel>
+                    <!--ürün grup model satış şekil combobox-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                x:Name="stc_yeni_opsiyon_combo"
+                                Visibility="Collapsed"
+                                Margin="0 0 0 10">
+                        <!--ürün grup combobox-->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                     Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                     Margin="0 0 0 0"
+                                     FontSize="16"
+                                     Height="26"
+                                     Width="210"
+                                     x:Name="cbx_yeni_urun_grup"
+                                     SelectionChanged="cbx_yeni_urun_grup_selection_changed">
+                            </ComboBox>
+
+                            <Button Click="btn_sifirla_clicked"
+                                        Margin="10 0 0 0"
+                                        Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                        </StackPanel>
+                        <!--model combobox-->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                    Margin="30 0 0 0">
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                     Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                     Margin="0 0 0 0"
+                                     FontSize="16"
+                                     Height="26"
+                                     Width="210"
+                                     x:Name="cbx_yeni_model"
+                                     SelectionChanged="cbx_yeni_model_selection_changed">
+                            </ComboBox>
+
+                            <Button Click="btn_sifirla_clicked"
+                                        Margin="10 0 0 0"
+                                        Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                        </StackPanel>
+                        <!--satış şekil combobox-->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                    Margin="30 0 0 0">
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                      
+                                     Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                     Margin="0 0 0 0"
+                                     FontSize="16"
+                                     Height="26"
+                                     Width="210"
+                                     x:Name="cbx_yeni_satis_sekil"
+                                     SelectionChanged="cbx_yeni_satis_sekil_selection_changed">
+                            </ComboBox>
+
+                            <Button Click="btn_sifirla_clicked"
+                                        Margin="10 0 0 0"
+                                        Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <!--ürün grup model satış şekil güncelle yazıları-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock x:Name="txt_varolan_urun_grup" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="0 0 0 0"
+                                   Padding="0 0 0 0"
+                                   Width="240"/>
+                        <TextBlock x:Name="txt_varolan_model" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="0 0 0 0"
+                                   Width="240"/>
+                        <TextBlock x:Name="txt_varolan_satis_sekil" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="0 0 0 0"
+                                   Width="240"/>
+
+                    </StackPanel>
+                    <!--ürün grup model satış şekil combobox-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <!--ürün grup combobox-->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                     Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                     Margin="0 0 0 0"
+                                     FontSize="16"
+                                     Height="26"
+                                     Width="210"
+                                     x:Name="cbx_urun_grup"
+                                     SelectionChanged="cbx_urun_grup_selection_changed">
+                            </ComboBox>
+
+                            <Button Click="btn_sifirla_clicked"
+                                        Margin="10 0 0 0"
+                                        Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                        </StackPanel>
+                        <!--model combobox-->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                    Margin="30 0 0 0">
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                     Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                     Margin="0 0 0 0"
+                                     FontSize="16"
+                                     Height="26"
+                                     Width="210"
+                                     x:Name="cbx_model"
+                                     SelectionChanged="cbx_model_selection_changed">
+                            </ComboBox>
+
+                            <Button Click="btn_sifirla_clicked"
+                                        Margin="10 0 0 0"
+                                        Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                        </StackPanel>
+                        <!--satış şekil combobox-->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                    Margin="30 0 0 0">
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                      
+                                     Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                     Margin="0 0 0 0"
+                                     FontSize="16"
+                                     Height="26"
+                                     Width="210"
+                                     x:Name="cbx_satis_sekil"
+                                     SelectionChanged="cbx_satis_sekil_selection_changed">
+                            </ComboBox>
+
+                            <Button Click="btn_sifirla_clicked"
+                                        Margin="10 0 0 0"
+                                        Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <!--yeni ürün grup model satış şekil kodları hidden-->
+                <StackPanel 
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0 0 0 0"
+                            Visibility="Collapsed">
+                    <!--ürün grup-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Yeni Ürün Grubu"
+                                   Style="{StaticResource TextBlockStyle1}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="txt_yeni_urun_grup"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Width="80"
+                                 Height="30"
+                                 Margin="10 0 0 0"></TextBox>
+                    </StackPanel>
+                    <!--model-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                Margin="30 0 0 0">
+                        <TextBlock Text="Yeni Model"
+                                   Style="{StaticResource TextBlockStyle1}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="txt_yeni_model"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Width="80"
+                                 Height="30"
+                                 Margin="10 0 0 0"></TextBox>
+                    </StackPanel>
+                    <!--satış şekil-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                Margin="30 0 0 0">
+                        <TextBlock Text="Yeni Satış Şekil"
+                                   Style="{StaticResource TextBlockStyle1}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="txt_yeni_satis_sekil"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Width="80"
+                                 Height="30"
+                                 Margin="10 0 0 0"></TextBox>
+                    </StackPanel>
+
+
+                </StackPanel>
+                <!--güncellenecek ürün grup model satış şekil kodları hidden-->
+                <StackPanel 
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0 0 0 0"
+                            Visibility="Collapsed">
+                    <!--ürün grup-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Ürün Grubu"
+                                   Style="{StaticResource TextBlockStyle1}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="txt_urun_grup"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Width="80"
+                                 Height="30"
+                                 Margin="10 0 0 0"></TextBox>
+                        <Button Click="btn_urun_grup_rehberi" Width="30" Height="20"
+                                Content="..." Style="{StaticResource ButtonItemPopUpStyle}"
+                                Margin="10 0 0 0" 
+                                HorizontalContentAlignment="Center"
+                                Padding="0"
+                                FontSize="9"/>
+                    </StackPanel>
+                    <!--model-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                Margin="30 0 0 0">
+                        <TextBlock Text="Model"
+                                   Style="{StaticResource TextBlockStyle1}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="txt_model"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Width="80"
+                                 Height="30"
+                                 Margin="10 0 0 0"></TextBox>
+                        <Button Click="btn_model_rehberi" Width="30" Height="20"
+                                Content="..." Style="{StaticResource ButtonItemPopUpStyle}"
+                                Margin="10 0 0 0" 
+                                HorizontalContentAlignment="Center"
+                                Padding="0"
+                                FontSize="9"/>
+                    </StackPanel>
+                    <!--satış şekil-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                Margin="30 0 0 0">
+                        <TextBlock Text="Satış Şekil"
+                                   Style="{StaticResource TextBlockStyle1}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="txt_satis_sekil"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Width="80"
+                                 Height="30"
+                                 Margin="10 0 0 0"></TextBox>
+                        <Button Click="btn_satis_sekil_rehberi" Width="30" Height="20"
+                                Content="..." Style="{StaticResource ButtonItemPopUpStyle}"
+                                Margin="10 0 0 0" 
+                                HorizontalContentAlignment="Center"
+                                Padding="0"
+                                FontSize="9"/>
+                    </StackPanel>
+
+
+                </StackPanel>
+                <!--seçim data grid-->
+                <DataGrid x:Name="dg_model_secim" DataContext="{StaticResource cls_urun}"
+                          Style="{StaticResource DataGridStyle1}"
+                          CellStyle="{StaticResource DataGridCellStyle1}"
+                          RowStyle="{StaticResource DataGridRowStyle1}"
+                          ItemsSource="{Binding SipariseCariBaglaCollection}"
+                          Grid.Column="1" Grid.Row="3"
+                          MouseEnter="DataGrid_MouseEnter"
+                          Visibility="Visible">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True" Width="210" Header="Ürün Grubu" Binding="{Binding UrunGrubuIsim, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="210" Header="Model" Binding="{Binding ModelIsim, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="210" Header="Satış Şekil" Binding="{Binding SatisSekilIsim, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="210" Header="Kodlar" Binding="{Binding UrunGrupModelSatisSekil, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="0" Visibility="Collapsed" Header="Ürün Grubu Kodu" Binding="{Binding UrunGrubuKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="0" Visibility="Collapsed" Header="Model Kodu" Binding="{Binding ModelKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTextColumn IsReadOnly="True" Width="0" Visibility="Collapsed" Header="Satış Şekil Kodu" Binding="{Binding SatisSekilKodu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <DataGridTemplateColumn Width="60" Header="Seç">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="+" Click="btn_ozellik_ekle"
+                                        Style="{StaticResource ButtonStyleDataGridAdd}">
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#25274d"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Margin" Value="0 5 0 5"/>
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding}" Margin="5"
+                                                   />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+                <!--opsiyon oluştur-->
+                <WrapPanel Grid.Row="4" Grid.Column="1"
+                           Orientation="Horizontal"
+                           HorizontalAlignment="Center"
+                           Margin="0 30 0 0"
+                           Visibility="Collapsed"
+                           x:Name="stc_opsiyon_olustur">
+                    <!--opsiyon adedi-->
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <TextBlock Text="Opsiyon Adedi:"
+                               Style="{StaticResource TextBlockStyle1}"
+                               VerticalAlignment="Center"
+                               ></TextBlock>
+                        <TextBox x:Name="txt_opsiyon_adedi"
+                             Style="{StaticResource TextBoxStyle1}"
+                             Width="30"
+                             Height="30"
+                             Margin="10 0 0 0"
+                             TextAlignment="Center"
+                                 ui:UIinteractions.AllowNumberInput="True"
+                                 TextChanged="text_changed"></TextBox>
+                    </StackPanel>
+                    <!--şablon kodu-->
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <TextBlock Text="Şablon Kodu:"
+                                   Style="{StaticResource TextBlockStyle1}"
+                                   VerticalAlignment="Center"
+                                   Margin="30 0 0 0"></TextBlock>
+                        <TextBox x:Name="txt_sablon_kodu"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Width="80"
+                                 Height="30"
+                                 Margin="10 0 0 0"
+                                 TextChanged="text_changed"
+                                 >
+
+                        </TextBox>
+
+                        <Button  Click="btn_sablon_kod_rehberi_clicked" Width="30" Height="20"
+                                    Content="..." Style="{StaticResource ButtonItemPopUpStyle}"
+                                    Margin="10 0 0 0" 
+                                    HorizontalContentAlignment="Center"
+                                    Padding="0"
+                                    FontSize="9"/>
+                    </StackPanel>
+                    <!--isim anahtar-->
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <TextBlock Text="İsim Anah:"
+                                     Style="{StaticResource TextBlockStyle1}"
+                                     VerticalAlignment="Center"
+                                     Margin="30 0 0 0"></TextBlock>
+                        <TextBox x:Name="txt_isim_anahtar"
+                                   Style="{StaticResource TextBoxStyle1}"
+                                   Width="350"
+                                   Height="30"
+                                   Margin="10 0 0 0"
+                                 TextChanged="text_changed">
+
+                        </TextBox>
+
+                    </StackPanel>
+                    <!--ingilizce isim anahtar-->
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <TextBlock Text="İng İsim Anah:"
+                                     Style="{StaticResource TextBlockStyle1}"
+                                     VerticalAlignment="Center"
+                                     Margin="30 0 0 0"></TextBlock>
+                        <TextBox x:Name="txt_ingilizce_isim_anahtar"
+                                   Style="{StaticResource TextBoxStyle1}"
+                                   Width="350"
+                                   Height="30"
+                                   Margin="10 0 0 0"
+                                 TextChanged="text_changed">
+
+                        </TextBox>
+
+                    </StackPanel>
+                    <!--kod 1-->
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <TextBlock Text="Kod 1:"
+                                   Style="{StaticResource TextBlockStyle1}"
+                                   VerticalAlignment="Center"
+                                   Margin="30 0 0 0"></TextBlock>
+                        <TextBox x:Name="txt_kod1"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Width="120"
+                                 Height="30"
+                                 Margin="10 0 0 0"
+                                 TextChanged="text_changed">
+
+                        </TextBox>
+                    </StackPanel>
+                    <!--kod 2-->
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <TextBlock Text="Kod 2:"
+                                   Style="{StaticResource TextBlockStyle1}"
+                                   VerticalAlignment="Center"
+                                   Margin="30 0 0 0"></TextBlock>
+                        <TextBox x:Name="txt_kod2"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Width="120"
+                                 Height="30"
+                                 Margin="10 0 0 0"
+                                 TextChanged="text_changed">
+
+                        </TextBox>
+
+                    </StackPanel>
+                    <!--kod 3-->
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <TextBlock Text="Kod 3:"
+                                   Style="{StaticResource TextBlockStyle1}"
+                                   VerticalAlignment="Center"
+                                   Margin="30 0 0 0"></TextBlock>
+                        <TextBox x:Name="txt_kod3"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Width="120"
+                                 Height="30"
+                                 Margin="10 0 0 0"
+                                 TextChanged="text_changed">
+
+                        </TextBox>
+
+                    </StackPanel>
+                    <!--kod 4-->
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <TextBlock Text="Kod 4:"
+                                     Style="{StaticResource TextBlockStyle1}"
+                                     VerticalAlignment="Center"
+                                     Margin="30 0 0 0"></TextBlock>
+                        <TextBox x:Name="txt_kod4"
+                                   Style="{StaticResource TextBoxStyle1}"
+                                   Width="120"
+                                   Height="30"
+                                   Margin="10 0 0 0"
+                                 TextChanged="text_changed">
+
+                        </TextBox>
+                    </StackPanel>
+                    <!--ürün grubu kodu-->
+                    <TextBlock x:Name="txt_urun_grubu_kodu"
+                               Visibility="Collapsed"></TextBlock>
+                    <!--model kodu-->
+                    <TextBlock x:Name="txt_model_kodu"
+                               Visibility="Collapsed"></TextBlock>
+                    <!--satış şekil kodu-->
+                    <TextBlock x:Name="txt_satis_sekil_kodu"
+                               Visibility="Collapsed"></TextBlock>
+                    <!--ürün grubu ismi-->
+                    <TextBlock x:Name="txt_urun_grubu_ismi"
+                               Visibility="Collapsed"></TextBlock>
+                    <!--model ismi-->
+                    <TextBlock x:Name="txt_model_ismi"
+                               Visibility="Collapsed"></TextBlock>
+                    <!--satış şekil ismi-->
+                    <TextBlock x:Name="txt_satis_sekil_ismi"
+                               Visibility="Collapsed"></TextBlock>
+                    <!--yeni ürün grubu ismi-->
+                    <TextBlock x:Name="txt_yeni_urun_grubu_ismi"
+                               Visibility="Collapsed"></TextBlock>
+                    <!--yeni model ismi-->
+                    <TextBlock x:Name="txt_yeni_model_ismi"
+                               Visibility="Collapsed"></TextBlock>
+                    <!--satış şekil ismi-->
+                    <TextBlock x:Name="txt_yeni_satis_sekil_ismi"
+                               Visibility="Collapsed"></TextBlock>
+                    
+                    <Button Click="btn_ilerle_clicked"
+                                Width="160"
+                                Content=""
+                            x:Name="btn_ilerle"
+                            Margin="50 10 0 0"
+                            
+                                Style="{StaticResource ButtonSyle43l1_12_Montserrat}"
+                                />
+                </WrapPanel>
+            </Grid>
+        </Border>
+    </Border>
+
+</Window>

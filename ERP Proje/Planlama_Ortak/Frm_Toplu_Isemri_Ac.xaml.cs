@@ -1,0 +1,401 @@
+﻿using Layer_2_Common.Type;
+using Layer_Business;
+using Layer_UI.Satis.Evrak;
+using Layer_UI.UserControls;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using System.Windows.Media;
+
+namespace Layer_UI.Planlama_Ortak
+{
+    /// <summary>
+    /// Interaction logic for Frm_Toplu_Isemri_Ac.xaml
+    /// </summary>
+    public partial class Frm_Toplu_Isemri_Ac : Window
+    {
+        public ObservableCollection<Cls_Depo> takipNoColl = new(); 
+        public Frm_Toplu_Isemri_Ac()
+        {
+            InitializeComponent(); Window_Loaded();
+        }
+        private void Window_Loaded()
+        {
+            var workArea = SystemParameters.WorkArea;
+            this.Left = workArea.Left;
+            this.Top = workArea.Top;
+            this.Width = workArea.Width;
+            this.Height = workArea.Height;
+            this.Topmost = true;
+            this.Topmost = false;
+        }
+        public ObservableCollection<Cls_Planlama> SiparisCollection = new();
+        public ObservableCollection<Cls_Planlama> IsemriCollection { get; set; }
+        Dictionary<string, string> kisitPairs = new Dictionary<string, string>();
+        int totalResult = 0;
+        double lastOffset = 0;
+
+        int pageNumber = 1;
+        Variables variables = new();
+        Cls_Planlama plan = new();
+        private void btn_listele_clicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+
+                variables.ErrorMessage = string.Empty;
+
+                kisitPairs.Clear();
+                kisitPairs.Add("siparisNo", txt_siparis_no.Text);
+                kisitPairs.Add("stokKodu", txt_stok_kodu.Text);
+                kisitPairs.Add("stokAdi", txt_stok_adi.Text);
+                kisitPairs.Add("cariAdi", txt_cari_adi.Text);
+
+                
+                SiparisCollection = plan.PopulateTopluIsemriAcList(kisitPairs, 1);
+
+                if (!SiparisCollection.Any())
+                { CRUDmessages.QueryIsEmpty("Sipariş"); Mouse.OverrideCursor = null; return; }
+                totalResult = plan.CountTopluIsemriAcList(kisitPairs, 1);
+                if (totalResult > 30)
+                    txt_result.Text = "Toplam " + totalResult.ToString() + " Adet Sonuçtan 30 adet Listeleniyor.";
+                else
+                    txt_result.Text = "Toplam " + totalResult.ToString() + " Adet Sonuçtan " + totalResult.ToString() + " adet Listeleniyor.";
+
+                dg_SiparisSecim.ItemsSource = SiparisCollection;
+                txt_result.Visibility = Visibility.Visible;
+                dg_SiparisSecim.Visibility = Visibility.Visible;
+                stack_panel_isemri_kaydet.Visibility = Visibility.Visible;
+
+              
+                pageNumber = 1;
+                Mouse.OverrideCursor = null;
+            }
+            catch
+            {
+                CRUDmessages.GeneralFailureMessage("Listeleme İşlemi Yapılırken");
+                Mouse.OverrideCursor = null;
+            }
+        }
+        bool isPageUp = false;
+        private void dg_scroll_down(object sender, ScrollEventArgs e)
+        {
+            try
+            {
+
+                isPageUp = false;
+                var border = VisualTreeHelper.GetChild(dg_SiparisSecim, 0) as Decorator;
+                if (border == null)
+                    return;
+                var scrollViewer = border.Child as ScrollViewer;
+                if (scrollViewer == null)
+                    return;
+                lastOffset = scrollViewer.VerticalOffset;
+                if (lastOffset > scrollViewer.ScrollableHeight - (scrollViewer.ScrollableHeight/10) && totalResult > SiparisCollection.Count())
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    pageNumber++;
+                    ObservableCollection<Cls_Planlama> moreSiparisCollection = new();
+                    moreSiparisCollection = plan.PopulateTopluIsemriAcList(kisitPairs, pageNumber);
+                    if (moreSiparisCollection == null)
+                    {
+                        CRUDmessages.GeneralFailureMessage("İlave İşemirleri Eklenirken");
+                        Mouse.OverrideCursor = null;
+                        pageNumber--;
+                        return;
+                    }
+                    if (moreSiparisCollection.Count > 0)
+                    {
+                        ObservableCollection<Cls_Planlama> lastTalepCollection = new ObservableCollection<Cls_Planlama>
+                                        (SiparisCollection.Union(moreSiparisCollection).ToList());
+                        dg_SiparisSecim.ItemsSource = lastTalepCollection;
+                        dg_SiparisSecim.Items.Refresh();
+                        SiparisCollection = lastTalepCollection;
+
+                        txt_result.Text = "Toplam " + totalResult.ToString() + " Adet Sonuçtan " + lastTalepCollection.Count() + " adet Listeleniyor.";
+                        double center = 0;
+                            if (scrollViewer != null)
+                            {
+                                center = scrollViewer.ScrollableHeight / 2.0;
+                                scrollViewer.ScrollToVerticalOffset(center);
+                            }
+                            lastOffset = center;
+                        
+
+                    }
+                    Mouse.OverrideCursor = null;
+                }
+
+            }
+            catch (Exception)
+            {
+                CRUDmessages.GeneralFailureMessage("Scroll Bar Yüksekliği Hesaplanırken");
+                if(isPageUp)
+                    pageNumber--;
+
+            }
+
+        }
+        private void mouse_wheel_pushed(object sender, MouseWheelEventArgs e)
+        {
+            try
+            {
+                isPageUp = false;
+                var border = VisualTreeHelper.GetChild(dg_SiparisSecim, 0) as Decorator;
+                if (border == null)
+                    return;
+                var scrollViewer = border.Child as ScrollViewer;
+                if (scrollViewer == null)
+                    return;
+                lastOffset = scrollViewer.VerticalOffset;
+
+                if (lastOffset > scrollViewer.ScrollableHeight - (scrollViewer.ScrollableHeight / 10) && totalResult > SiparisCollection.Count())
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    pageNumber++;
+                    isPageUp = true;
+                    ObservableCollection<Cls_Planlama> moreTalepCollection = new();
+                    moreTalepCollection = plan.PopulateTopluIsemriAcList(kisitPairs, pageNumber);
+                    if (moreTalepCollection == null)
+                    {
+                        CRUDmessages.GeneralFailureMessage("İlave Stoklar Eklenirken");
+                        Mouse.OverrideCursor = null;
+                        pageNumber--;
+                        return;
+                    }
+                    if (moreTalepCollection.Count > 0)
+                    {
+                        ObservableCollection<Cls_Planlama> lastTalepCollection = new ObservableCollection<Cls_Planlama>
+                                        (SiparisCollection.Union(moreTalepCollection).ToList());
+                        dg_SiparisSecim.ItemsSource = lastTalepCollection;
+                        dg_SiparisSecim.Items.Refresh();
+                        SiparisCollection = lastTalepCollection;
+                        
+                        txt_result.Text = "Toplam " + totalResult.ToString() + " Adet Sonuçtan " + lastTalepCollection.Count() + " adet Listeleniyor.";
+
+                        
+                            double center = 0;
+                           
+                            if (scrollViewer != null)
+                            {
+                                center = scrollViewer.ScrollableHeight / 2.0;
+                                scrollViewer.ScrollToVerticalOffset(center);
+                            }
+                            lastOffset = center;
+                        
+                    }
+
+                    Mouse.OverrideCursor = null;
+                }
+
+            }
+            catch (Exception)
+            {
+                CRUDmessages.GeneralFailureMessage("Scroll Bar Yüksekliği Hesaplanırken");
+                if (isPageUp) pageNumber--;
+                Mouse.OverrideCursor = null;
+            }
+
+        }
+        private async void btn_isemri_kaydet_clicked(object sender, RoutedEventArgs e)
+        {
+            variables.WarningMessage = "İşemirleri Açılıyor.\n Lütfen Bekleyiniz.";
+            Frm_Wait waitForm = new(variables.WarningMessage);
+            try
+            {
+
+                IsemriCollection = new();
+
+                waitForm.Show();
+
+                foreach (Cls_Planlama item in dg_SiparisSecim.Items)
+                {
+                    if (item.IsChecked)
+                    {
+                        if (item.GonderilecekIsemriMiktar > item.KalanIsemriMiktar)
+                        { CRUDmessages.GeneralFailureMessageCustomMessage("Bildirilecek İşemri Miktarı Kalan İşemri Miktarından Büyük Olamaz.");
+                            waitForm.Close(); return; }
+
+                        if (item.GonderilecekIsemriMiktar == 0)
+                        { CRUDmessages.GeneralFailureMessageCustomMessage("Gönderilecek Miktar 0 Olamaz."); waitForm.Close(); return; }
+
+                        Cls_Arge arge = new();
+                        Variables.Result_ = await arge.IfUrunAgaciExistsAsync(item.UrunKodu);
+                        if(!Variables.Result_)
+                        {
+                            waitForm.Close();
+                            CRUDmessages.GeneralFailureMessageCustomMessage(string.Format("{0} Ürün Ağacı Yok.", item.UrunKodu));
+                            return;
+                        }
+
+                        if (item.IsemriAciklama == "Lütfen Açıklama Giriniz...")
+                            item.IsemriAciklama = string.Empty;
+
+                        IsemriCollection.Add(item);
+                    }
+
+                }
+                if(IsemriCollection.Count == 0)
+                {
+                    CRUDmessages.NoInput();
+                    Mouse.OverrideCursor = null;
+                    return;
+                }
+
+                btn_isemri.IsEnabled = false;
+
+
+                variables.ResultInt = await plan.InsertTopluIsemri(IsemriCollection);
+
+                switch (variables.ResultInt)
+                {
+                    case 1:
+                        CRUDmessages.InsertSuccessMessage("İşemri", IsemriCollection.Count);
+                        variables.Result = true;
+                        break;
+                    case 2:
+                        CRUDmessages.GeneralFailureMessage("İş Emirleri Bildirilirken");
+                        variables.Result = plan.DeleteIsemri(IsemriCollection, "Ahşap");
+                        break;
+                    case -1:
+                        CRUDmessages.GeneralFailureMessageCustomMessage("Veri Tabanına Kayıt Yapılırken");
+                        variables.Result = plan.DeleteIsemri(IsemriCollection, "Vita");
+                        break;
+                }
+
+                if (!variables.Result)
+                    CRUDmessages.GeneralFailureMessageCustomMessage("Kayıt Geri Alma İşlemi Esnasında Hata ile Karşılaşıldı.\n" +
+                                                                       "Veri Bütünlüğü Bozulmuş Olabilir.\n Bilgi İşlem Personeline Haber Veriniz.");
+
+                waitForm.Close();
+                Frm_Toplu_Isemri_Ac _frm = new();
+                _frm.Show();
+                this.Close();
+            }
+            catch
+            {
+                CRUDmessages.GeneralFailureMessage("İşemirleri Kaydedilirken");
+                waitForm.Close();
+            }
+        }
+        private void ToggleHeaderCheckBox(object sender, RoutedEventArgs e)
+        {
+            bool headerIsChecked = ((CheckBox)sender).IsChecked ?? false;
+            foreach (Cls_Planlama item in dg_SiparisSecim.Items)
+            {
+                item.IsChecked = headerIsChecked;
+            }
+        }
+        private bool selectMiktarColumn = false;
+        private void DataGrid_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (selectMiktarColumn)
+            {
+                if (sender is DataGrid dataGrid)
+                {
+                    DataGridRow? row = ItemsControl.ContainerFromElement(dataGrid, e.OriginalSource as DependencyObject) as DataGridRow;
+                    if (row != null)
+                    {
+                        // Find the index of the "Miktar" column
+                        int miktarColumnIndex = -1;
+                        for (int i = 0; i < dataGrid.Columns.Count; i++)
+                        {
+                            if (dataGrid.Columns[i].Header.ToString() == "Gönderilecek İşemri Miktar" ||
+                                dataGrid.Columns[i].Header.ToString() == "İşemri Açıklama")
+                            {
+                                miktarColumnIndex = i;
+                                break;
+                            }
+                        }
+
+                        if (miktarColumnIndex >= 0)
+                        {
+                            dataGrid.SelectedCells.Clear();
+                            DataGridCellInfo cellInfo = new DataGridCellInfo(row.Item, dataGrid.Columns[miktarColumnIndex]);
+                            dataGrid.SelectedCells.Add(cellInfo);
+                        }
+                    }
+                }
+                selectMiktarColumn = false; // Reset the flag
+            }
+        }
+        private void DataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.OriginalSource is Border checkBox)
+            {
+                if (checkBox.Name == "DGR_Border") return;
+                if (checkBox.Child is SelectiveScrollingGrid) return;
+
+                // Get the DataContex associated with the clicked checkbox
+                if (checkBox.DataContext is Cls_Isemri item && checkBox.Child is ContentPresenter && checkBox.ActualHeight == 15.098340034484863 && checkBox.ActualWidth == 15.974980354309082)
+                {
+                    item.IsChecked = !item.IsChecked; // Toggle the IsChecked property
+                    e.Handled = true; // Prevent the checkbox click event from bubbling up
+                }
+            }
+
+        }
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+
+                DataGridCellInfo cellInfo = dg_SiparisSecim.CurrentCell;
+                if(cellInfo !=null)
+                {
+
+                    if (cellInfo.Column.DisplayIndex != null)
+                    {
+                        if (cellInfo.Column.DisplayIndex == 6)
+                        {
+
+                            var cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
+
+
+                            if (cellContent is TextBox textBox)
+                            {
+                                // Clear the text inside the cell
+                                textBox.Text = string.Empty;
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+        private void mousedown_Window(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+        private void dg_SiparisSecim_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+
+            var item = e.Row.Item as Cls_Planlama; 
+
+            if (item != null)
+            {
+                if (!item.DoesUrunAgaciExists)
+                {
+                    e.Row.Background = new SolidColorBrush(Colors.Red);
+                    e.Row.Foreground = new SolidColorBrush(Colors.White);
+                    e.Row.FontWeight = FontWeights.Bold;
+                }
+            }
+
+        }
+    }
+}

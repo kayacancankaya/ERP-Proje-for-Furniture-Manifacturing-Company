@@ -1,0 +1,93 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <RootNamespace>ERP_Proje</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>vb.ico</ApplicationIcon>
+</PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Images\aero_busy.ani" />
+    <None Remove="Resources\Images\aero_busyw.ani" />
+    <None Remove="Resources\Images\department.png" />
+    <None Remove="Resources\Images\email.png" />
+    <None Remove="Resources\Images\logout.png" />
+    <None Remove="Resources\Images\password.png" />
+    <None Remove="Resources\Images\SearchIcon.png" />
+    <None Remove="Resources\Images\User_Icon.png" />
+    <None Remove="Resources\Images\vb.ico" />
+    <None Remove="Resources\Images\vb.png" />
+    <None Remove="Resources\Images\vbBg.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="vb.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ExcelDataReader" Version="3.7.0" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.7.0" />
+    <PackageReference Include="PdfSharp" Version="6.1.1" />
+    <PackageReference Include="ZXing.Net" Version="0.16.9" />
+    <PackageReference Include="ZXing.Net.Bindings.Windows.Compatibility" Version="0.16.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Layer_Business\Layer_Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\aero_busy.ani" />
+    <Resource Include="Resources\Images\aero_busyw.ani" />
+    <Resource Include="Resources\Images\department.png" />
+    <Resource Include="Resources\Images\email.png" />
+    <Resource Include="Resources\Images\logout.png" />
+    <Resource Include="Resources\Images\password.png" />
+    <Resource Include="Resources\Images\SearchIcon.png" />
+    <Resource Include="Resources\Images\User_Icon.png" />
+    <Resource Include="Resources\Images\vb.ico" />
+    <Resource Include="Resources\Images\vb.png" />
+    <Resource Include="Resources\Images\vbBg.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Ahsap\Irsaliye\Frm_Satis_Irsaliyesi_Kaydet.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Ahsap\Irsaliye\Frm_Irsaliye_Kaydet.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Ahsap\Irsaliye\Popup_Irsaliye_Cari_Secim.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Ahsap\Siparis\Frm_Siparis_Takip.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Ahsap\Siparis\Popups\Popup_Siparis_Takip_Detay.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Ahsap\Siparis\Popups\Popup_Siparis_Takip_Siparis.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Planlama_Dosemeli\Simulasyon\Frm_Simulasyon_Dosemeli.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Planlama_Ortak\Frm_Isemri_Sil_Ref.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Planlama_Ortak\Frm_Isemri_Sil.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Satis\Sevk\Frm_Yukleme_Kaydet.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Uretim\Frm_Uretim_Kaydi_Geri_Al_Referans.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

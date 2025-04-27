@@ -1,0 +1,515 @@
+﻿<Window x:Class="Layer_UI.Finans.Frm_Irsaliye_Aktarim"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        mc:Ignorable="d"
+                        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+                        xmlns:uc="clr-namespace:Layer_UI.UserControls"
+                        WindowStyle="None"
+                        ResizeMode="CanResize"
+                        WindowState="Normal" MinWidth="1000" MinHeight="500"   
+                        WindowStartupLocation="CenterScreen"
+                        MouseDown="mousedown_Window"
+                        Background="Transparent"
+                        AllowsTransparency="True"
+                        x:Name="window_siparis">
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+        BorderThickness="2"
+        Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="30,5" DataContext="vm">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1" 
+                           x:Name="menu_top_bar"
+                           Title="İRSALİYE AKTARIM" />
+                <!--Result Clear Filter-->
+                <Grid Grid.Row="1" Grid.Column="1"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="700"/>
+                        <ColumnDefinition Width="240"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Style="{StaticResource TextBlockStyleMid}"
+                               x:Name="txt_result"/>
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Column="1" HorizontalAlignment="Right">
+                        <TextBlock  Text="Filtreleri Temizle" 
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource TextBlockStyleMid}"
+                                    Margin="0 0 0 0"/>
+                        <Button Grid.Column="1" Click="btn_clear_filter_clicked"
+                                  Margin="5 0 0 0"
+                                  Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                    </StackPanel>
+                </Grid>
+                <!--Headers-->
+                <Grid Grid.Row="2" Grid.Column="1" Margin="1,6,4,4" Grid.ColumnSpan="2"
+                      HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="169"/>
+                        <ColumnDefinition Width="130"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="69"/>
+                    </Grid.ColumnDefinitions>
+                    <!--fişno header-->
+                    <Border BorderBrush="Black"
+                            BorderThickness="1"
+                            Grid.Row="0" Grid.Column="0" 
+                                Background="AliceBlue">
+                        <Grid  VerticalAlignment="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  Text="Fişno"
+                                        Padding="5 0 0 0"
+                                        Style="{StaticResource TextBlockStyle_18_Bold4}"/>
+                            <Button Grid.Column="1" Tag="Fisno"  
+                                        HorizontalAlignment="Right"
+                                        Content="🔍" Background="Transparent" 
+                                    BorderBrush="Transparent" 
+                                    VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                        </Grid>
+                    </Border>
+                    <!--Tarih header-->
+                    <Border BorderBrush="Black"
+                            BorderThickness="1"
+                                 Background="AliceBlue" 
+                            Grid.Row="0" Grid.Column="1">
+                        <Grid VerticalAlignment="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  Text="Tarih"
+                                        Padding="5 0 0 0"
+                                        Style="{StaticResource TextBlockStyle_18_Bold4}"/>
+                            <Button Grid.Column="1" Tag="Tarih"  
+                                        HorizontalAlignment="Right"
+                                        Content="🔍" Background="Transparent" 
+                                    BorderBrush="Transparent" 
+                                    VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                        </Grid>
+                    </Border>
+                    <!--Cari Kodu header-->
+                    <Border BorderBrush="Black"
+                            BorderThickness="1"
+                            Grid.Row="0" Grid.Column="2" 
+                                 Background="AliceBlue" >
+                        <Grid VerticalAlignment="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  Text="Cari Kodu"
+                                        Padding="5 0 0 0"
+                                        Style="{StaticResource TextBlockStyle_18_Bold4}"/>
+                            <Button Grid.Column="1" Tag="Cari Kodu"  
+                                        HorizontalAlignment="Right"
+                                        Content="🔍" Background="Transparent" 
+                                    BorderBrush="Transparent" 
+                                    VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                        </Grid>
+                    </Border>
+                    <!--Cari Adı header-->
+                    <Border BorderBrush="Black"
+                            BorderThickness="1"
+                            Grid.Row="0" Grid.Column="3"
+                                 Background="AliceBlue" >
+                        <Grid Background="AliceBlue" VerticalAlignment="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  Text="Cari Adı"
+                                        Padding="5 0 0 0"
+                                        Style="{StaticResource TextBlockStyle_18_Bold4}"/>
+                            <Button Grid.Column="1" Tag="Cari Adı"  
+                                        HorizontalAlignment="Right"
+                                        Content="🔍" Background="Transparent" 
+                                    BorderBrush="Transparent" 
+                                    VerticalAlignment="Top" Foreground="BlueViolet" Click="Filter_Click" />
+                        </Grid>
+                    </Border>
+                    <!--Toplam Döviz Tutar header-->
+                    <Border BorderBrush="Black"
+                            BorderThickness="1"
+                            Grid.Row="0" Grid.Column="4"
+                                 Background="AliceBlue" >
+                           
+                            <TextBlock  Text="TopDöv Tut"
+                                        Padding="5 0 0 0"
+                                        VerticalAlignment="Bottom"
+                                        TextWrapping="WrapWithOverflow"
+                                        Style="{StaticResource TextBlockStyle_18_Bold4}"/>
+                        
+                    </Border>
+                    <!--Döviz Tipi header-->
+                    <Border BorderBrush="Black"
+                            BorderThickness="1"
+                            Grid.Row="0" Grid.Column="5"
+                                 Background="AliceBlue" 
+                            VerticalAlignment="Bottom">
+                        <TextBlock  Text="Döv Tipi"
+                                        Padding="5 0 0 0"    
+                                        TextWrapping="WrapWithOverflow"
+                                        Style="{StaticResource TextBlockStyle_18_Bold4}"/>
+                            
+                    </Border>
+                    <!--Toplam TL header-->
+                    <Border BorderBrush="Black"
+                            BorderThickness="1"
+                            Grid.Row="0" Grid.Column="6"
+                                 Background="AliceBlue" >
+                            <TextBlock  Text="Top Tut Tl"
+                                        Padding="5 0 0 0"
+                                        FontSize="18"
+                                            TextWrapping="Wrap"
+                                        VerticalAlignment="Bottom"
+                                        Style="{StaticResource TextBlockStyle_18_Bold4}"/>
+                     
+                    </Border>
+                    <!--Aktar header-->
+                    <Border BorderBrush="Black"
+                            BorderThickness="1"
+                            Grid.Row="0" Grid.Column="7"
+                                 Background="AliceBlue" >
+                            <TextBlock  Text="Aktar"
+                                        Padding="5 0 0 0"
+                                        VerticalAlignment="Bottom"
+                                        TextWrapping="Wrap"
+                                        FontSize="18"
+                                        Style="{StaticResource TextBlockStyle_18_Bold4}"/>
+                     
+                    </Border>
+
+                    <TreeView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="8" 
+                              BorderBrush="Black"
+                                  ScrollBar.Scroll="dg_scroll_down"
+                              
+                              x:Name="tr_irsaliye"
+                                PreviewMouseWheel="mouse_wheel_pushed">
+
+                        x:Name="tr_irsaliye">
+                        <!-- Mas Level -->
+                        <TreeView.ItemTemplate >
+                            <HierarchicalDataTemplate ItemsSource="{Binding IrsaliyeAktarimSatirlari}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150"/>
+                                            <ColumnDefinition Width="130"/>
+                                            <ColumnDefinition Width="120"/>
+                                            <ColumnDefinition Width="300"/>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="60"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Fisno}" 
+                                                       Width="140"
+                                                       Foreground="Black"
+                                                   Margin="0"
+                                                       Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                       />
+                                        <TextBlock Text="{Binding Tarih, StringFormat={}{0:dd.MM.yyyy}}"
+                                                           Width="120"
+                                                   Margin="0"
+                                                   Padding="0"
+                                                       Grid.Column="1"
+                                                       Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                       Foreground="Black"
+                                                           />
+                                        <TextBlock Text="{Binding CariKodu}" 
+                                                           Width="110"
+                                                       Grid.Column="2"
+                                                       Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                       Foreground="Black"
+                                                           />
+                                        <TextBlock Text="{Binding CariAdi}"
+                                                       Grid.Column="3"
+                                                       TextWrapping="Wrap"
+                                                       Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                       Foreground="Black"
+                                                           />
+                                        <TextBlock Text="{Binding ToplamDovizFiyat}" 
+                                                           Width="80"
+                                                       Grid.Column="4"
+                                                       Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                       Foreground="Black"
+                                                        TextAlignment="Center"
+                                                           />
+                                        <TextBlock Text="{Binding DovizTipi}" 
+                                                           Width="60"
+                                                       Grid.Column="5"
+                                                       Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                       Foreground="Black"
+                                                        TextAlignment="Center"
+                                                           />
+                                        <TextBlock Text="{Binding ToplamTutarTL}" 
+                                                           Width="100"
+                                                       Grid.Column="6"
+                                                        TextAlignment="Center"
+                                                       Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                       Foreground="Black"
+                                                           />
+                                        <Button x:Name="btn_popup_aktar"
+                                                Grid.Column="7"
+                                                Background="DarkGreen"
+                                                    Content="=>"
+                                                Click="btn_popup_aktar_clicked"
+                                                HorizontalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
+                                                    Style="{StaticResource ButtonStyleDataGridAdd}"/>
+                                    </Grid>
+
+                                </StackPanel>
+                                <!-- Satir Level -->
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <HierarchicalDataTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="30"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel 
+                                                Orientation="Horizontal"
+                                                VerticalAlignment="Bottom">
+                                                <TextBlock Text="Stok Kodu" 
+                                                            Width="120"
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                                           
+                                                            />
+                                                <TextBlock Text="Stok Adi" 
+                                                            Width="210"
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                                            />
+                                                <TextBlock Text="Miktar" 
+                                                            Width="80"
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                                            />
+                                                <TextBlock Text="Dov Fiy" 
+                                                            Width="80"
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_4}"/>
+                                                <TextBlock Text="Dov Tip" 
+                                                            Width="60"
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_4}"/>
+                                                <TextBlock Text="Net Fiy" 
+                                                            Width="80"
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_4}"/>
+                                                <TextBlock Text="Brut Fiy" 
+                                                            Width="80"
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_4}"/>
+                                            </StackPanel>
+                                            <StackPanel Grid.Row="1" 
+                                                Orientation="Horizontal">
+                                                <TextBlock Text="{Binding StokKodu}" 
+                                                            Width="120"
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                           Foreground="Black"
+                                                           TextWrapping="Wrap"
+                                                            />
+                                                <TextBlock Text="{Binding StokAdi}" 
+                                                            Width="210"
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                           Foreground="Black"
+                                                           TextWrapping="Wrap"
+                                                            />
+                                                <TextBlock Text="{Binding Miktar}" 
+                                                            Width="80"
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                           Foreground="Black"
+                                                           TextAlignment="Center"
+                                                            />
+                                                <TextBlock Text="{Binding DovizFiyat}" 
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                           Foreground="Black"
+                                                            Width="80"/>
+                                                <TextBlock Text="{Binding DovizTipi}"
+                                                           TextAlignment="Center"
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                           Foreground="Black"
+                                                            Width="60"/>
+                                                <TextBlock Text="{Binding NetFiyat}" 
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                           Foreground="Black"
+                                                           TextAlignment="Center"
+                                                            Width="80"/>
+                                                <TextBlock Text="{Binding BrutFiyat}" 
+                                                           Style="{StaticResource TextBlockStyle_16_Bold_3}"
+                                                           Foreground="Black"
+                                                           TextAlignment="Center"
+                                                            Width="80"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </HierarchicalDataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                    <!--fisno-->
+                    <Popup x:Name="FilterPopupFisno" Placement="Mouse" StaysOpen="False">
+                        <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                            <StackPanel>
+                                <TextBox Visibility="Collapsed" x:Name="txt_header_fis_no"></TextBox>
+                                <TextBox x:Name="FilterTextBox_fis_no" Width="100" KeyDown="FilterTextBox_KeyDown"/>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                    <!--tarih-->
+                    <Popup x:Name="FilterPopupTarih" Placement="Mouse" StaysOpen="False">
+                        <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                            <StackPanel>
+                                <TextBox Visibility="Collapsed" x:Name="txt_header_tarih"></TextBox>
+                                <TextBox x:Name="FilterTextBox_tarih" Width="100" KeyDown="FilterTextBox_KeyDown"/>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                    <!--cari kodu-->
+                    <Popup x:Name="FilterPopupCariKodu" Placement="Mouse" StaysOpen="False">
+                        <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                            <StackPanel>
+                                <TextBox Visibility="Collapsed" x:Name="txt_header_cari_kodu"></TextBox>
+                                <TextBox x:Name="FilterTextBox_cari_kodu" Width="100" KeyDown="FilterTextBox_KeyDown"/>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                    <!--cari adı-->
+                    <Popup x:Name="FilterPopupCariAdi" Placement="Mouse" StaysOpen="False">
+                        <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                            <StackPanel>
+                                <TextBox Visibility="Collapsed" x:Name="txt_header_cari_adi"></TextBox>
+                                <TextBox x:Name="FilterTextBox_cari_adi" Width="100" KeyDown="FilterTextBox_KeyDown"/>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                    <!--dov tipi-->
+                    <Popup x:Name="FilterPopupDovTipi" Placement="Mouse" StaysOpen="False">
+                        <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                            <StackPanel>
+                                <TextBox Visibility="Collapsed" x:Name="txt_header_dov_tipi"></TextBox>
+                                <TextBox x:Name="FilterTextBox_dov_tipi" Width="100" KeyDown="FilterTextBox_KeyDown"/>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                    <!--irsaliye aktarım-->
+                    <Popup x:Name="IrsaliyeAktarimPopup" Placement="Mouse" StaysOpen="False">
+                        <Popup.HorizontalOffset>-300</Popup.HorizontalOffset>
+                        <Popup.VerticalOffset>10</Popup.VerticalOffset>
+                        <Border Background="White" BorderBrush="Black" BorderThickness="1"
+                                Width="300">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="60"/>
+                                    <RowDefinition Height="60"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="20"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                                            Grid.Row="1">
+                                        <TextBlock Padding="10 0 0 0" FontWeight="Bold" 
+                                                   FontSize="16"
+                                                   Text="Yeni Fiş No:"></TextBlock>
+                                        <TextBox x:Name="txt_yeni_fis_no" Width="145"
+                                                 Foreground="Red" 
+                                                 FontWeight="Bold"
+                                                 Height="24"
+                                                 Margin="10 0 0 0"
+                                                 FontSize="16"
+                                                 TextChanged="txt_yeni_fisno_text_changed"/>
+                                        <TextBox x:Name="txt_eski_fisno"  
+                                                 Visibility="Collapsed"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+                                    <ComboBox x:Name="cbx_cari_secim"
+                                              Height="30"
+                                              Width="250"
+                                                SelectionChanged="cbx_cari_secim_SelectionChanged"/>
+                                    <ComboBox x:Name="cbx_cari_secim_kod" Visibility="Collapsed"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
+                                    <ComboBox x:Name="cbx_export_type"
+                                              Height="30"
+                                                Width="250">
+                                        <ComboBoxItem Tag="7" Content="EXW"/>
+                                        <ComboBoxItem Tag="1" Content="FOB"/>
+                                        <ComboBoxItem Tag="19" Content="CFR"/>
+                                        <ComboBoxItem Tag="5" Content="IHR KAYIT"/>
+                                        <ComboBoxItem Tag="8" Content="IHR KUR FARKI"/>
+                                        <ComboBoxItem Tag="6" Content="DAF"/>
+                                        <ComboBoxItem Tag="4" Content="FOT"/>
+                                        <ComboBoxItem Tag="3" Content="CF"/>
+                                        <ComboBoxItem Tag="2" Content="CIF"/>
+                                        <ComboBoxItem Tag="9" Content="CIP"/>
+                                        <ComboBoxItem Tag="10" Content="CPT"/>
+                                        <ComboBoxItem Tag="11" Content="DAT"/>
+                                        <ComboBoxItem Tag="12" Content="DAP"/>
+                                        <ComboBoxItem Tag="13" Content="DDP"/>
+                                        <ComboBoxItem Tag="14" Content="DES"/>
+                                        <ComboBoxItem Tag="15" Content="DEO"/>
+                                        <ComboBoxItem Tag="16" Content="DDU"/>
+                                        <ComboBoxItem Tag="17" Content="FCA"/>
+                                        <ComboBoxItem Tag="18" Content="FAS"/>
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Right" Grid.Row="4">
+                                    <Button Content="İrsaliye Aktar"
+                                                Background="DarkGreen"
+                                                Foreground="White"
+                                                FontWeight="Bold"
+                                                Margin="0 0 20 0"
+                                                Width="110"
+                                                Height="30"
+                                                Click="btn_aktar_clicked"/>
+                                </StackPanel>
+
+                            </Grid>
+                        </Border>
+                    </Popup>
+                </Grid>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

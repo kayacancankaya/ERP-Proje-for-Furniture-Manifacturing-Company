@@ -1,0 +1,207 @@
+﻿<Window x:Class="Layer_UI.Arge.Recete.Frm_Recete_Sadelestirme"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Layer_Business;assembly=Layer_Business"
+        xmlns:uc="clr-namespace:Layer_UI.UserControls"
+        xmlns:ui="clr-namespace:Layer_UI.Methods"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        WindowState="Normal" MinWidth="530"   
+        WindowStartupLocation="CenterScreen"
+        
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Window.Resources>
+        <vm:Cls_Urun x:Key="cls_urun"/>
+    </Window.Resources>
+
+    <Border CornerRadius="50">
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource b_r_one_color}"></SolidColorBrush>
+        </Border.Background>
+        <Border CornerRadius="50"
+            BorderThickness="2"
+            Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_four_contrast}" Offset="0.5"/>
+                    <GradientStop Color="{StaticResource b_r_four_color}" Offset="1"/>
+
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource b_r_one_color}" Offset="0"/>
+                    <GradientStop Color="{StaticResource b_r_one_color_lighter}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="30,5" DataContext="vm">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:UserControl_Menu Grid.Row="0" Grid.Column="1" 
+                                     x:Name="menu_top_bar"
+                                     Title="REÇETE SADELEŞTİRME" />
+                <TextBlock IsEnabled="False" Visibility="Collapsed" Text="İşlem Devam Ediyor..." x:Name="txt_please_wait"
+                         
+                         Grid.Row="4" Grid.Column="1"
+                         Margin="20 0 0 0"
+                         Style="{StaticResource TextBlockStyleMid}"/>
+                <!--Güncelleme Tipi-->
+                <StackPanel Grid.Row="1" Grid.Column="1"
+                            Orientation="Vertical" Margin="0 10 0 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                        <TextBlock Text="Güncelleme Tipi" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   Margin="30 0 0 0"
+                                   Padding="0 0 0 0"
+                                   Width="160"
+                                   />
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                     Style="{StaticResource ComboboxStyle535_14_montserrat_semibold}"
+                                     Margin="30 0 0 0"
+                                     FontSize="16"
+                                     Height="32"
+                                     Width="180"
+                                     x:Name="cbx_guncelleme_tipi"
+                                      SelectionChanged="cbx_guncelleme_tipi_SelectionChanged">
+                                <ComboBoxItem Content="Tümünü Sadeleştir"/>
+                                <ComboBoxItem Content="Şablon Sadeleştir"/>
+                                <ComboBoxItem Content="Mamul Sadeleştir"/>
+                            </ComboBox>
+
+                            <Button Click="btn_sifirla_clicked"
+                                        Margin="10 0 0 0"
+                                        Style="{StaticResource ButtonStyleDataGridUpdateImage24_24}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel>
+                <!--Mamul Sadeleştirme Seçim-->
+                <StackPanel Grid.Row="2" Grid.Column="1"
+                            Orientation="Vertical"
+                            x:Name="stc_mamul_sadelestir"
+                            Margin="0 10 0 0"
+                            Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                        <TextBlock Text="Mamul Kodu" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   
+                                   Padding="0 0 0 0"
+                                   Width="160"
+                                   />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                        <TextBox Style="{StaticResource TextBoxStyle431_12}"
+                                    Width="160"
+                                    Height="32"
+                                     FontSize="16"
+                                 
+                                    x:Name="txt_mamul_kodu"
+                                     IsEnabled="False"/>
+                        <Button Click="btn_mamul_kodu_getir_clicked"
+                                    Margin="10 0 10 0"
+                                    Style="{StaticResource ButtonStyleDataGridListImage24_24}"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <!--Şablon Sadeleştirme Seçim-->
+                <StackPanel Grid.Row="2" Grid.Column="1"
+                            Orientation="Vertical"
+                            x:Name="stc_sablon_sadelestir"
+                            Margin="0 10 0 0"
+                            Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                        <TextBlock Text="Şablon Kodu" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                   Style="{StaticResource TextBlockStyle_16_Bold_4}"
+                                   
+                                   Padding="0 0 0 0"
+                                   Width="160"
+                                   />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox Style="{StaticResource TextBoxStyle431_12}"
+                                    Width="160"
+                                    Height="32"
+                                     FontSize="16"
+                                    x:Name="txt_sablon_kod"
+                                     IsEnabled="False"/>
+                        <Button Click="btn_sablon_kod_getir_clicked"
+                                    Margin="10 0 10 0"
+                                    Style="{StaticResource ButtonStyleDataGridListImage24_24}"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <!--Tümünü Sadeleştir Button-->
+                <StackPanel Grid.Row="2" Grid.Column="1"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0 0 0 0"
+                            x:Name="stc_tumunu_sadelestir"
+                            Visibility="Collapsed">
+                    <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}"
+                            Content="Tümünü Sadelestir"
+                            Click="btn_tumunu_sadelestir_Clicked"
+                            Margin="0 20 0 0"
+                            Width="150"
+                            Background="LimeGreen"
+                            x:Name="btn_tumunu_sadelestir"/>
+                </StackPanel>
+                <!--Şablon Sadeleştir Button-->
+                <StackPanel Grid.Row="3" Grid.Column="1"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0 0 0 0"
+                            x:Name="stc_sablon_sadelestir_button"
+                            Visibility="Collapsed">
+                    <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}"
+                            Content="Şablon Sadeleştir"
+                            Click="btn_sablon_sadelestir_Clicked"
+                            Margin="0 20 0 0"
+                            Width="150"
+                            Background="LimeGreen"
+                            x:Name="btn_sablon_sadelestir"/>
+                </StackPanel>
+                <!--Mamul Sadeleştir Button-->
+                <StackPanel Grid.Row="3" Grid.Column="1"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0 0 0 0"
+                            x:Name="stc_mamul_sadelestir_button"
+                            Visibility="Collapsed">
+                    <Button Style="{StaticResource ButtonSyle43l1_12_Montserrat}"
+                            Content="Mamul Sadelestir"
+                            Click="btn_mamul_sadelestir_Clicked"
+                            Margin="0 20 0 0"
+                            Width="150"
+                            Background="LimeGreen"
+                            x:Name="btn_mamul_sadelestir"/>
+                </StackPanel>
+                
+            </Grid>
+        </Border>
+    </Border>
+
+</Window>
